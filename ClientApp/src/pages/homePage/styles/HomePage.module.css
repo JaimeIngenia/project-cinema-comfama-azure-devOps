@@ -1,9 +1,58 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
 
-.container__homePage{
-    color: yellow;
+:root {
+    --color-letras: rgb(189, 189, 189);
+    --color-btn-active: #2A7AE4;
+    --color-btn: #9E9E9E;
+    --color-letras-negras: rgb(16, 16, 16);
+  }
+ 
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+    /* color: red; */
 }
+.container{
+    width: 100%;
+    /* height: 10vh; */
+    /* border: dotted rgb(10, 10, 100) 5px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #050E12;
+    font-family: 'Roboto', sans-serif;
+    /* padding-left: 50px; */
+}
+    .container__cards{
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background: rgb(16, 16, 16);
+        font-family: 'Roboto', sans-serif;
+        flex-wrap: wrap;
+    }
+    .principalPhoto{
+        width: 100%;
+    }
+
+    .principalPhoto2{
+        width: 100%;
+        height: 60vh;
+        /* border: dotted 5px blue; */
+        background-image: url('../../../assets/cover.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        color: aliceblue;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+    }

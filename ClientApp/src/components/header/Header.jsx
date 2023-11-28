@@ -22,10 +22,13 @@ const Header = () => {
                 <img src={search} className={styles.search__image} alt="" />
               </div>
               <div  className= {`   ${styles.sud_sud_header} ` } >
+
+              <a className={styles.container__izq} href="/agregarPeliculas">
+                  <span>Agregar Peliculas</span>
+                </a>
   
-  
-                <a className={styles.container__izq} href="/reserva">
-                  <span>Reservas</span>
+                <a className={styles.container__izq} href="/registroE">
+                  <span>Registro PeliE</span>
                 </a>
   
                 <a className={styles.container__izq}  href="/tareas">
@@ -36,7 +39,7 @@ const Header = () => {
                     <span>Home Page</span>
                 </a>
 
-                <a className={styles.container__izq} href="/">
+                <a className={styles.container__izq} href="/iniciarSesion">
                     <span>Iniciar Sesion</span>
                 </a>
                   

@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
+
+:root {
+    --color-letras: rgb(189, 189, 189);
+    --color-btn-active: #2A7AE4;
+    --color-btn: #9E9E9E;
+    --color-letras-negras: rgb(16, 16, 16);
+  }
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+    /* color: red; */
+}
+.containers{
+    width: 90%;
+    /* height: 10vh; */
+    /* border: dotted rgb(10, 10, 100) 5px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background: #FFF; */
+    font-family: 'Roboto', sans-serif;
+    /* padding-left: 50px; */
+    /* color: red; */
+}
+.containers__img{
+    /* border: dotted rgb(10, 10, 100) 5px; */
+    width: 90%;
+}
+
+.containers__img img{
+    width: 100%;
+}
+
+    .form__cart{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+    }
+
+
+    .divide__inputs{
+        /* border: solid rgb(62, 198, 21) 3px; */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .part{
+        width: 40%;
+    }
+
+    .container__btn{
+        width: 100%;
+        display: flex;
+    }
+
+
+    .button{
+        all: unset;
+        width: 60%;
+        margin: auto;
+        
+    }
+
+    .checkout{
+        margin: auto;
+        /* border: red 3px solid; */
+        width: 100%;
+        height: 60px;
+        flex-shrink: 0;
+        border-radius: 12px;
+        background: #0156FF;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        color: white;
+
+    }
+    .container__p{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .container__p p{
+        /* border: solid red 2px; */
+        margin: auto;
+    }
+    
+    .box__right{
+    /* border: solid red 2px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.box__right p{
+    margin: auto;
+}
+
+
+
+/*  RESPONSIVE***************************************************************************** */
+
+@media only screen and (max-width:736px) {
+
+    .checkout{
+        flex-wrap: wrap;
+    }
+
+    .container__p p{
+        font-size: 10px;
+    }
+    .box__right p{
+        font-size: 10px;
+    }
+    .box__right img{
+        width: 20px;
+    }
+}

@@ -1,0 +1,29 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.containner__crearPeliculas{
+    /* border: solid red 3px; */
+    display: flex;
+    flex-direction: row;
+}
+
+.sub_container__form{
+    
+    width: 50%;
+}
+
+.sub_container__imagen{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: solid red 3px; */
+}
+
+.sub_container__imagen img{
+    width: 30%;
+    margin: auto;
+    /* border: solid red 3px; */
+}

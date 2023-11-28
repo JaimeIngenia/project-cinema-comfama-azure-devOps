@@ -1,44 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState,createRef } from 'react';
 import style from './Tareas.module.css'
 import { Select, Space } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Divider, Input, Button } from 'antd';
-import {  Form, Radio } from 'antd';
+import {  Form, Radio, ConfigProvider } from 'antd';
   //INPUT NORMAL *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 const { TextArea } = Input;
   //INPUT NORMAL *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 let index = 0;
 
-// IMPUT VSELECT VARIADO*********************************************
-const handleChange = (value) => {
-  console.log(`selected ${value}`);
-};
-const options = [
-  {
-    label: 'China',
-    value: 'china',
-    emoji: '🇨🇳',
-    desc: 'China (中国)',
-  },
-  {
-    label: 'USA',
-    value: 'usa',
-    emoji: '🇺🇸',
-    desc: 'USA (美国)',
-  },
-  {
-    label: 'Japan',
-    value: 'japan',
-    emoji: '🇯🇵',
-    desc: 'Japan (日本)',
-  },
-  {
-    label: 'Korea',
-    value: 'korea',
-    emoji: '🇰🇷',
-    desc: 'Korea (韩国)',
-  },
-];
 // IMPUT SELECT VARIADO*********************************************
 const Tareas = () => {
 
@@ -163,7 +133,7 @@ const Tareas = () => {
     };
 
   //FORMULARIO ANT/VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-
+  const {Item} = Form;
     const [form] = Form.useForm();
     const [formLayout, setFormLayout] = useState('horizontal');
     const onFormLayoutChange = ({ layout }) => {
@@ -226,6 +196,58 @@ const Tareas = () => {
             alert(response.statusText)
         }
     }
+
+    // validaciones formulario:
+    
+    const formRef = createRef();
+
+
+    const formSuccess = (datos) => {
+        console.log("Formulario enviado exitosamente: ", datos);
+    }
+    const formFailed = (error) => {
+        console.log("Error: ", error);
+    }
+    // const borrarCampos =()=>{
+    //     formRef.current.resetFields();
+    // }
+
+    const formItemLayout2 = {
+        labelCol:{
+            xs:{
+                span: 12,
+            },
+            sm:{
+                span:8,
+            }
+        },
+        wrappercol:{
+            xs:{
+                span:4,
+            },
+            sm:{
+                span:20,
+            }
+        }
+    }
+
+
+const [currentTheme, setCurrentTheme] = useState('light');
+
+const lightTheme = {
+    colorPrimary: 'rgb(58,15,18)',//'#B339ED',//green
+    colorTextBase: 'rgb(58,15,18)',//'#B339ED',//green
+    colorTextLightSolid: 'white',
+    }
+const darkTheme = {
+    colorPrimary: '#353434',//black
+    colorTextBase: '#353434',//blak
+    colorTextLightSolid: 'white',
+    }
+        /********************************* */
+        /***********     DarkMode    ****** */
+        /********************************* */
+
 
     return (
         <>
@@ -341,74 +363,155 @@ const Tareas = () => {
             </div>   
 
             <div>
-            <Form.Item label="Genero">
-              <Select
-                  
-                  style={{
-                      width: 300,
-                  }}
-                  //placeholder={generos[0]}
-                  onChange={onNameChange}
-                  options={generos.map((item) => ({
-                      label: item.nombreGenero,
-                      value: item.idGenero,
-                  }))}
-                  //value={selectedValue}
-                  defaultValue={generos[0]}
-              />
-            </Form.Item>
 
-            <Form.Item label="Formato">
-              <Select
-                  style={{
-                      width: 300,
-                  }}
-                  placeholder="Escoge tu formato"
-                  onChange={onNameChange2}
-                  options={formatos.map((item) => ({
-                      label: item.nombreFormato,
-                      value: item.idFormato,
-                  }))}
-                  value={selectedValue2}
-              />
-            </Form.Item>
-            <br /><br />
+            <ConfigProvider 
 
-<Form
-      layout="horizontal"
-      form={form}
-      // initialValues={{
-      //   layout: formLayout,
-      // }}
-      onValuesChange={onFormLayoutChange}
-      style={{
-        maxWidth: formLayout === 'inline' ? 'none' : 600,
-      }}
-    >
+                className={style.container}
 
-      <Form.Item label="Titulo">
-        <Input placeholder="input Titulo" name="titulo" value={formData.titulo}  onChange={handleChange} />
-      </Form.Item>
-      <Form.Item label="Imagen" >
-        <Input placeholder="input Imagen"  name="imagen" value={formData.imagen} onChange={handleChange}/>
-      </Form.Item>
-      <Form.Item label="Duracion">
-        <Input placeholder="input Duracion" name="duracion" value={formData.duracion} onChange={handleChange}  />
-      </Form.Item>
-      <Form.Item label="Valor">
-        <Input placeholder="input Valor" name="valor" value={formData.valor} onChange={handleChange} />
-      </Form.Item>
-      <Form.Item label="Sinopsis">
-        <TextArea placeholder="Sinopsis"  name="sinopsis" value={formData.sinopsis} onChange={handleChange}  autoSize={{ minRows: 3, maxRows: 5 }} />
-      </Form.Item>
-      <Form.Item >
-                        <Button type="primary" onClick={guardarPelicula}  >Submit</Button>
-      </Form.Item>
-    </Form>
+                theme={{
+                token: currentTheme==='light' ? lightTheme : darkTheme ,
+                // components: {
+                //     Checkbox:{
+                //         colorPrimary: 'blue',
+                //     }
+                // }
+            }} >
+
+                <Radio.Group
+                    value={currentTheme}
+                    onChange={(e)=>{
+                        setCurrentTheme(e.target.value)
+                    }}
+                >
+
+                    <Radio value={"light"} >Light</Radio>
+                    <Radio value={"dark"} >Dark</Radio>
+
+                </Radio.Group>
+
+                <Form.Item 
+                    label="Genero"
+                    rules={[{
+                        required:true,
+                        message: "Por favor ingresa el genero "
+                    }]}
+                >
+                <Select
+                    
+                    style={{
+                        width: 300,
+                    }}
+                    //placeholder={generos[0]}
+                    onChange={onNameChange}
+                    options={generos.map((item) => ({
+                        label: item.nombreGenero,
+                        value: item.idGenero,
+                    }))}
+                    //value={selectedValue}
+                    defaultValue={generos[0]}
+                    name="genero"
+                />
+                </Form.Item>
+
+                <Form.Item label="Formato">
+                <Select
+                    style={{
+                        width: 300,
+                    }}
+                    placeholder="Escoge tu formato"
+                    onChange={onNameChange2}
+                    options={formatos.map((item) => ({
+                        label: item.nombreFormato,
+                        value: item.idFormato,
+                    }))}
+                    value={selectedValue2}
+                    name = "formato"
+                />
+                </Form.Item>
+                <br /><br />
+
+                <Form
+                    className={style.prueba__columnas}{...formItemLayout2}
+                    ref={formRef}
+                    name="Formulario"
+                    onFinish={formSuccess}
+                    inFinishFailed={formFailed}
+                    layout="horizontal"
+                    form={form}
+                    // initialValues={{
+                    //   layout: formLayout,
+                    // }}
+                    onValuesChange={onFormLayoutChange}
+                    style={{
+                        maxWidth: formLayout === 'inline' ? 'none' : 600,
+                    }}
+                >
+
+                    <Item 
+                        label="Titulo"
+                        rules={[{
+                            required:true,
+                            message: "Por favor ingresa el titulo "
+                        }]}
+                        name="titulo"
+                        >
+                        <Input placeholder="input Titulo" name="titulo" value={formData.titulo}  onChange={handleChange} />
+                    </Item>
+
+                    <Item 
+                        label="Imagen" 
+                        rules={[{
+                            required:true,
+                            message: "Por favor ingresa la imagen "
+                        }]}
+                        name = "imagen"
+                        >
+                        <Input placeholder="input Imagen"  name="imagen" value={formData.imagen} onChange={handleChange}/>
+                    </Item>
+
+                    <Item 
+                        label="Duracion"
+                        rules={[{
+                            required:true,
+                            message: "Por favor ingresa la duracion "
+                        }]}
+                        name="duracion"
+                        >
+                        <Input placeholder="input Duracion" name="duracion" value={formData.duracion} onChange={handleChange}  />
+                    </Item>
+
+                    <Item 
+                        label="Valor"
+                        rules={[{
+                            required:true,
+                            message: "Por favor ingresa el valor "
+                        }]}
+                        name="valor"
+                        >
+                        <Input placeholder="input Valor" name="valor" value={formData.valor} onChange={handleChange} />
+                    </Item>
 
 
+                    <Item 
+                        label="Sinopsis"
+                        name="sinopsis"
+                        rules={[{
+                            required:true,
+                            message: "Por favor ingresa la sinopsis "
+                        }]}
+                        
+                        >
+                        <TextArea placeholder="Sinopsis" name="sinopsis" value={formData.sinopsis} onChange={handleChange}  autoSize={{ minRows: 3, maxRows: 5 }} />
+                    </Item>
 
-    </div>
+                    <Item >
+                        <Button  type="primary" htmlType='submit' onClick={guardarPelicula}  >Submit</Button>
+                    </Item>
+                </Form>
+
+
+            </ConfigProvider>
+            </div>
 
             <Button 
                 type="primary"

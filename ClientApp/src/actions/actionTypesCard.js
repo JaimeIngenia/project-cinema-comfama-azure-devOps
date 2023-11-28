@@ -1,0 +1,7 @@
+export default {
+    CREATE_CARD: "CREATE_CARD",
+    UPDATE_CARD: "UPDATE_CARD",
+    DELETE_CARD: "DELETE_CARD",
+    LOAD_CARD: "LOAD_CARD"
+
+}

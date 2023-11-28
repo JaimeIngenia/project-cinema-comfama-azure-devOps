@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
+
+:root {
+    --color-letras: rgb(189, 189, 189);
+    --color-btn-active: #2A7AE4;
+    --color-btn: #9E9E9E;
+    --color-letras-negras: rgb(16, 16, 16);
+  }
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+    /* color: red; */
+}
+
+.container__input{
+        width: 100%;
+        height: 100px;
+        position: relative;
+        /* border: solid red 2px; */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        /* overflow: hidden; Si un elemento está por fuera del contenerdor no se va a ver */
+}
+
+.container__input input{
+    /* all: unset; */
+    width: 100%;
+    height: 70%;
+    /* border: solid rgba(10, 20, 105, 0.421) 2px; */
+    background: none;
+    border: none;
+    outline: 0px;
+    color: #1AACFF;
+    font-family: Poppins;
+    font-size: 24.017px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+.lbl__nombre{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-bottom: 1px solid gray;
+}
+
+
+.txt__nombre{
+        color: #101010;
+        font-family: Poppins;
+        font-size: 18.68px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+
+    .container__input input::placeholder{
+        color: #1AACFF;
+        font-family: Poppins;
+        font-size: 24.017px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        /* position: absolute; */
+        /* bottom: 8px; */
+    }
+
+/*  RESPONSIVE***************************************************************************** */
+
+@media only screen and (max-width:1400px) {
+
+    .container__input{
+        height: 90px;
+    }
+
+    .container__input input{
+        font-size: 22px;
+    }
+    .txt__nombre{
+        font-size: 16px;
+        line-height: normal;
+    }
+    .container__input input::placeholder{
+        font-size: 22px;
+    }
+    
+}
+
+
+/*  RESPONSIVE***************************************************************************** */
+
+@media only screen and (max-width:1000px) {
+
+    
+    .container__input{
+        height: 80px;
+    }
+    .container__input input{
+        font-size: 20px;
+    }
+    .txt__nombre{
+        font-size: 14px;
+        line-height: normal;
+    }
+    .container__input input::placeholder{
+        font-size: 20px;
+    }
+    
+}
+
+/*  RESPONSIVE***************************************************************************** */
+
+@media only screen and (max-width:800px) {
+
+    
+    .container__input{
+        height: 70px;
+    }
+    .container__input input{
+        font-size: 18px;
+    }
+    .txt__nombre{
+        font-size: 12px;
+        line-height: normal;
+    }
+    .container__input input::placeholder{
+        font-size: 18px;
+    }
+    
+}

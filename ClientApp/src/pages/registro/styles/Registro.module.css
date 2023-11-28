@@ -1,0 +1,89 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+.container{
+    /* height: 75vh;
+    width: 100%; */
+    /* color: violet; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* border: dotted 3px blue; */
+}
+
+.container__login{
+    height: 75vh;
+    width: 100%;
+    color: violet;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: dotted 3px blue; */
+}
+
+    .sub__container{
+        height: 50vh;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        /* border: dotted blue 4px; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        /* border: solid red 4px; */
+    }
+
+        .iniciar__sesion{
+            color: #B339ED;
+            font-family: Roboto;
+            font-size: 35.547px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            display: flex;
+            justify-content: flex-start;
+            text-align: left;
+            /* border: dotted red 4px; */
+            width: 90%;
+        }
+        .iniciar__sesion__dark{
+            color: #353434;
+            font-family: Roboto;
+            font-size: 35.547px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            display: flex;
+            justify-content: flex-start;
+            text-align: left;
+            /* border: dotted red 4px; */
+            width: 90%;
+        }
+
+.sub_container{
+    width: 90%;
+    /* border: dotted red 4px; */
+}
+
+.container__padre{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: dotted rgba(5, 5, 104, 0.364) 4px; */
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    /* width: 50%; */
+}
+

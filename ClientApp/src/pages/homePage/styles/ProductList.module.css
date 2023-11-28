@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Roboto:wght@100&display=swap');
+
+:root {
+    --color-letras: rgb(189, 189, 189);
+    --color-btn-active: #2A7AE4;
+    --color-btn: #9E9E9E;
+    --color-letras-negras: rgb(16, 16, 16);
+  }
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+.container{
+    width: 300px;
+    height: 280px;
+    border-radius: 20px;
+    border: 2px solid #8033b1ad;
+    background: #050E12;
+    background: #FFF;
+    /* border: dotted #B633F4 5px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background:none;
+    font-family: 'Roboto', sans-serif;
+    flex-wrap: wrap;
+    position: relative;
+    border-radius: 5%;
+    margin: 10px;
+}
+
+
+
+    .title{
+        /* border: solid rgb(55, 255, 0) 3px; */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 95%;
+        height: 15%;
+    }
+
+    .title p{
+        color: #ece9e9ec;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        font-size: 16px;
+        margin-top: 0.5%;
+        margin-bottom: 0.5%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        /* border: solid red 3px; */
+    }
+    .title img{
+
+    }
+
+
+    .cuerpo{
+        width: 100%;
+        height: 220px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        /* border: solid rgb(7, 37, 128) 12px; */
+    }
+
+        .image_product{
+            width: 50%;
+            /* border: solid red 3px; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+            .image_product img{
+                width: 90%;
+                margin: auto;
+                border-radius: 6%;
+            }
+
+        .cuerpo_izq{
+
+            height: 80%;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* border: solid rgb(0, 255, 110) 3px; */
+            
+        }
+            .cuerpo_izq h6{    
+                width: 100%;
+                /* border: solid red 3px; */
+            }
+            .cuerpo_izq p{    
+                width: 100%;
+                /* border: solid red 3px; */
+                color: #fff8f8;
+                font-family: Arial, Helvetica, sans-serif;
+                font-style: normal;
+                font-weight: 300;
+                line-height: normal;
+                font-size: 12px;
+            }
+
+            .verAhora{
+                display: block;
+                /* border: solid rgb(0, 51, 255) 3px; */
+            }
+
+
+             .verAhora button {
+                all: unset;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+             }
+             .verAhora button p{
+                color: #2f2dc6;
+                font-family: Roboto;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                margin: auto;
+              }
+
+
+/*  RESPONSIVE***************************************************************************** */
+
+@media only screen and (max-width:1500px) {
+}
