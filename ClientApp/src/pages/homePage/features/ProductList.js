@@ -23,11 +23,12 @@ export const ProductList = ({ products, onAddCarProduct }) => {
               <div className={styles.cuerpo} >
 
                 <div className={styles.image_product}>
-                  <img src={x.imagen} alt="" />
+                            <img src={x.imagenPromocional} alt="" />
+                            {/*<img src="https://archivos-cms.cinecolombia.com/images/6/4/2/4/44246-1-esl-CO/deb991efcca6-poster_480x670.png" alt="" />*/}
                 </div>
 
                 <div className={styles.cuerpo_izq}>
-                  <p> {x.descripcion} </p>
+                  <p> {x.sinopsis} </p>
                   
                   
                   <div className={styles.verAhora} >

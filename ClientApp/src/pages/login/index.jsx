@@ -17,8 +17,8 @@ export const Login = () => {
     const [currentTheme, setCurrentTheme] = useState('light');
 
     const lightTheme = {
-        colorPrimary: '#B339ED',//green
-        colorTextBase: '#B339ED',//green
+        colorPrimary: 'rgb(58,15,18)',//'#B339ED',//green
+        colorTextBase: 'rgb(58,15,18)',//green
         colorTextLightSolid: 'white',
         }
     const darkTheme = {

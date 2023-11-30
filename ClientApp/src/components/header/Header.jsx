@@ -17,11 +17,11 @@ const Header = () => {
                 <img src={logo} alt="" className={styles.container__nav__logo} />
             </a>
           
-              <div className={styles.container__seach__image}>
+              {/* <div className={styles.container__seach__image}>
   
                 <img src={search} className={styles.search__image} alt="" />
-              </div>
-              <div  className= {`   ${styles.sud_sud_header} ` } >
+              </div> */}
+              <div  className= {styles.sud_sud_header}  >
 
               <a className={styles.container__izq} href="/agregarPeliculas">
                   <span>Agregar Peliculas</span>
@@ -32,7 +32,7 @@ const Header = () => {
                 </a>
   
                 <a className={styles.container__izq}  href="/tareas">
-                  <span>TareasPaAle</span>
+                  <span>Tareas</span>
                 </a>
 
                 <a className={styles.container__izq} href="/">

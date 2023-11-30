@@ -1,3 +1,9 @@
+:root {
+    --mi-color: rgb(58,15,18);
+    --mi-fuente: 'Arial', sans-serif;
+  }
+  
+
 /* *{
     box-sizing: border-box;
     margin: 0;
@@ -19,7 +25,7 @@
 .container__login{
     height: 75vh;
     width: 100%;
-    color: violet;
+    color: var(--mi-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,7 +50,7 @@
     }
 
         .iniciar__sesion{
-            color: #B339ED;
+            color: var(--mi-color);
             font-family: Roboto;
             font-size: 35.547px;
             font-style: normal;
@@ -83,4 +89,5 @@
     /* border: dotted rgba(5, 5, 104, 0.364) 4px; */
     margin-top: 5vh;
     margin-bottom: 5vh;
+    height: 65vh;
 }
