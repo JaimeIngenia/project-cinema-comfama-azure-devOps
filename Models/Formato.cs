@@ -13,7 +13,6 @@ namespace CinemaComfamaVs5.Models
 
         public int IdFormato { get; set; }
         public string? NombreFormato { get; set; }
-
         [JsonIgnore]
         public virtual ICollection<Pelicula> Peliculas { get; set; }
     }

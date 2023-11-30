@@ -9,9 +9,9 @@ namespace CinemaComfamaVs5.Controllers
     [ApiController]
     public class FormatoController : ControllerBase
     {
-        private readonly DBCINEMAContext _DBContext;
+        private readonly DBCINEMA3Context _DBContext;
 
-        public FormatoController(DBCINEMAContext context)
+        public FormatoController(DBCINEMA3Context context)
         {
             _DBContext = context;
         }

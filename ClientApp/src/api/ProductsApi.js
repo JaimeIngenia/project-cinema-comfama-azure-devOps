@@ -4,7 +4,7 @@ const baseUrl = process.env.REACT_APP_API_URL + "/products/";
 const baseUrlUsers = process.env.REACT_APP_API_URL + "/users/";
 
 export function getProducts() {
-  return fetch(baseUrl).then(handleResponse).catch(handleError);
+    return fetch("api/pelicula/VerPelicula").then(handleResponse).catch(handleError);
 }
 export function getUsers() {
   return fetch(baseUrlUsers).then(handleResponse).catch(handleError);

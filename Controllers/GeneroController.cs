@@ -9,9 +9,9 @@ namespace CinemaComfamaVs5.Controllers
     [ApiController]
     public class GeneroController : ControllerBase
     {
-        private readonly DBCINEMAContext _DBContext;
+        private readonly DBCINEMA3Context _DBContext;
 
-        public GeneroController(DBCINEMAContext context)
+        public GeneroController(DBCINEMA3Context context)
         {
             _DBContext = context;
         }

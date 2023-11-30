@@ -2,6 +2,8 @@ using CinemaComfamaVs5.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,11 +13,9 @@ builder.Services.AddControllersWithViews();
 
 
 
-builder.Services.AddDbContext<DBCINEMAContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL")));
-
-
-
+builder.Services.AddDbContext<DBCINEMA3Context>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL"))
+    );
 
 
 var app = builder.Build();
