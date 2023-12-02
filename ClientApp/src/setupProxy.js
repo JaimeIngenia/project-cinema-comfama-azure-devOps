@@ -8,7 +8,8 @@ const context =  [
 
     "/api/pelicula",
     "/api/formato",
-    "/api/genero"
+    "/api/genero",
+    "/api/usuario"
 ];
 
 

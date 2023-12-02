@@ -23,17 +23,21 @@ const Header = () => {
               </div> */}
               <div  className= {styles.sud_sud_header}  >
 
+              <a className={styles.container__izq} href="/shoppingCar">
+                  <span>Carrito de Compras</span>
+                </a>
+
               <a className={styles.container__izq} href="/agregarPeliculas">
                   <span>Agregar Peliculas</span>
                 </a>
   
-                <a className={styles.container__izq} href="/registroE">
+                {/* <a className={styles.container__izq} href="/registroE">
                   <span>Registro PeliE</span>
                 </a>
   
                 <a className={styles.container__izq}  href="/tareas">
                   <span>Tareas</span>
-                </a>
+                </a> */}
 
                 <a className={styles.container__izq} href="/">
                     <span>Home Page</span>

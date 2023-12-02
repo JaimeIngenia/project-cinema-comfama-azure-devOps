@@ -8,6 +8,7 @@ import tiketsDarkRojo from '../../assets/cinema/tiketsDarkRojo.svg'
 import { UserOutlined } from '@ant-design/icons';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import {   Space } from 'antd';
+import {  Modal } from 'antd';
 
 import dayjs from 'dayjs';
 import { TimePicker } from 'antd';
@@ -91,6 +92,21 @@ export const RegistroEvento = () => {
         [name]: value,
     }));
     };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
 
     return (
 <>
