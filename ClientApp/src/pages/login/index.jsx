@@ -78,6 +78,8 @@ export const Login = (  ) => {
 
     const iniciarSesion = async () => {
 
+        setIsModalOpen(false);
+
         await axios.get(`${baseUrl}/${form.correo}/${form.password}`)
         
         .then(response=>{
@@ -162,7 +164,165 @@ export const Login = (  ) => {
       setIsModalOpen(false);
     };
 
+     //-------------------------modalregistro
 
+     const [isModalOpenRegistro, setIsModalOpenRegistro] = useState(false);
+ 
+     const showModalRegistro = () => {
+        setIsModalOpenRegistro(true);
+ 
+     };
+   
+     const handleOkRegistro = () => {
+        // guardarUsuario()
+    
+       setIsModalOpenRegistro(false);
+       navigate('/');
+       alert("bien Jaime");
+       console.log(` Jaime este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
+       numeroDocumento: ${formDataRegistro.numeroDocumento} 
+       Nombres: ${formDataRegistro.nombres} 
+       Apellidos: ${formDataRegistro.apellidos} 
+       Correo: ${formDataRegistro.correo} 
+       Contrasena: ${formDataRegistro.contrasena} 
+       `);
+
+       console.log(` Jaime este es el tipo: tipo 
+       Documento Tipo: ${ typeof idTipoDocumento3} 
+       numeroDocumento Tipo: ${typeof numeroDocumento3} 
+       Nombres Tipo: ${typeof nombres3} 
+       Apellidos Tipo: ${typeof apellidos3} 
+       Correo Tipo: ${typeof correo3} 
+       Contrasena Tipo: ${typeof contrasena3} 
+       `);
+    //    dispatch( changeAuthorized() )
+     };
+
+     const guardarUsuario = async (formValues) => {
+
+        var idTipoDocumento2 = formValues.idTipoDocumento;
+        var numeroDocumento2 = formValues.numeroDocumento;
+        var nombres2 = formValues.nombres;
+        var apellidos2 = formValues.apellidos;
+        var correo2 = formValues.correo;
+        var contrasena2 = formValues.contrasena;
+
+
+        var idTipoDocumento3 = parseInt(formValues.idTipoDocumento);
+        var numeroDocumento3 = formValues.numeroDocumento.toString();
+        var nombres3 = formValues.nombres.toString();
+        var apellidos3 = formValues.apellidos.toString();
+        var correo3 = formValues.correo.toString();
+        var contrasena3 = formValues.contrasena.toString();
+        // console.log("Tipo de IdTipoDocumento:", typeof idTipoDocumento);
+        // console.log("Tipo de NumeroDocumento:", typeof numeroDocumento);
+        // console.log("Tipo de Nombres:", typeof nombres);
+        // console.log("Tipo de Apellidos:", typeof apellidos);
+        // console.log("Tipo de Correo:", typeof correo);
+        // console.log("Tipo de Contrasena:", typeof contrasena);
+
+
+        console.log(` Jaime este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
+        numeroDocumento: ${formDataRegistro.numeroDocumento} 
+        Nombres: ${formDataRegistro.nombres} 
+        Apellidos: ${formDataRegistro.apellidos} 
+        Correo: ${formDataRegistro.correo} 
+        Contrasena: ${formDataRegistro.contrasena} 
+        `);
+
+        try {
+            const response = await fetch("api/usuario/GuardarUsuario", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({
+                    
+                    // IdTipoDocumento: formValues.idTipoDocumento,
+                    // NumeroDocumento: formValues.numeroDocumento,
+                    // Nombres: formValues.nombres,
+                    // Apellidos: formValues.apellidos,
+                    // Correo: formValues.correo,
+                    // Contrasena: formValues.contrasena,
+
+                    IdTipoDocumento: idTipoDocumento3,
+                    NumeroDocumento: numeroDocumento3,
+                    Nombres: nombres3,
+                    Apellidos: apellidos3,
+                    Correo: correo3,
+                    Contrasena: contrasena3,
+         
+                })
+            });
+    
+            if (response.ok) {
+                formRef.current.resetFields(); // Reinicia los campos del formulario
+                //alert("El usuario se ha guardado correctamente");
+                   // ULTIMO MODAL
+                    showModalRegistroSucces()
+                    // ULTIMO MODAL
+                // await mostrarTareas();
+            } else {
+                alert(response.statusText);
+            }
+        } catch (error) {
+            console.error("Error al guardar el usuaario:", error);
+        }
+    }
+   
+     const handleCancelRegistro = () => {
+        setIsModalOpenRegistro(false);
+
+     };
+
+
+    
+     const [formDataRegistro, setFormDataRegistro] = useState({
+        idTipoDocumento: '',
+        numeroDocumento: '',
+        nombres: '',
+        apellidos: '',
+        correo:'',
+        contrasena:'',
+
+    });
+
+    const handleChangeRegistro = (e) => {
+        const { name, value } = e.target;
+        setFormDataRegistro((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+        };
+
+    // const formSuccessRegistro = (datos) => {
+    //     console.log("FormularioRegistro enviado exitosamente Jaime Modal registro: ", datos);
+    // }
+
+    const formRefRegistro = createRef();
+
+    //-------------------------modalregistron succes
+
+    const [isModalOpenRegistroSucces, setIsModalOpenRegistroSucces] = useState(false);
+ 
+    const showModalRegistroSucces = () => {
+       setIsModalOpenRegistroSucces(true);
+
+    };
+  
+    const handleOkRegistroSucces = () => {
+        setIsModalOpenRegistroSucces(false);
+        setIsModalOpenRegistro(false);
+        navigate('/');
+    }
+
+    const handleCancelRegistroSucces = () => {
+        setIsModalOpenRegistroSucces(false);
+        setIsModalOpenRegistro(false);
+      };
+  
+
+ 
     // ---------------------- Redux  ---------------------
 
     // REDUX
@@ -234,6 +394,7 @@ export const Login = (  ) => {
                                         }}
                                         onFinish={formSuccess}
                                         // inFinishFailed={formFailed}
+                                        // onFinish={} 
                                     >
                                         
                                         
@@ -277,11 +438,9 @@ export const Login = (  ) => {
 
 
 
-                                        <Link to={"/registro"} >
-                                            <Item 
+                                            <Item onClick={ () =>showModalRegistro() }
                                                 label="Quiere registrarse?" >
                                              </Item>     
-                                        </Link>
                                         
 
 
@@ -321,7 +480,117 @@ export const Login = (  ) => {
 
 
         </a>
-      </Modal>                    
+      </Modal>       
+      <Modal title="Reistro!" open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
+            <Form
+                {...formItemLayout}
+                ref={formRefRegistro}
+                name="FormularioRegistro"
+                onFinish={guardarUsuario}
+                // onFinish={formSuccessRegistro}
+                                            
+            >
+            
+                <Item 
+                    label="idTipoDocumento"
+                    rules={[{
+                        required:true,
+                        message: "Por favor ingresa el idTipoDocumento "
+                    },
+                    {
+                        pattern: /^[1-9]\d*$/, 
+                        message: "Ingresa solo números enteros positivos en el idTipoDocumento"
+                    }
+                    ]}
+                    name="idTipoDocumento"
+                    >
+                    <Input placeholder="input idTipoDocumento" name="idTipoDocumento" value={formDataRegistro.idTipoDocumento} onChange={handleChangeRegistro}  />
+                </Item>
+
+                <Item 
+                    label="numeroDocumento"
+                    rules={[{
+                        required:true,
+                        message: "Por favor ingresa la numeroDocumento "
+                    },
+                    {
+                        pattern: /^[1-9]\d*$/, 
+                        message: "Ingresa solo números enteros positivos en el numeroDocumento"
+                    }
+                    ]}
+                    name="numeroDocumento"
+                    >
+                    <Input placeholder="input numeroDocumento" name="numeroDocumento" value={formDataRegistro.numeroDocumento} onChange={handleChangeRegistro}  />
+                </Item>
+
+                <Item 
+                    label="nombres" 
+                    rules={[{
+                        required:true,
+                        message: "Por favor ingresa los nombres "
+                    }]}
+                    name = "nombres"
+                    >
+                    <Input placeholder="input nombres"  name="nombres" value={formDataRegistro.nombres} onChange={handleChangeRegistro}/>
+                </Item>
+
+                
+                <Item 
+                    label="apellidos" 
+                    rules={[{
+                        required:true,
+                        message: "Por favor ingresa los apellidos "
+                    }]}
+                    name = "apellidos"
+                    >
+                    <Input placeholder="input apellidos"  name="apellidos" value={formDataRegistro.apellidos} onChange={handleChangeRegistro}/>
+                </Item>
+
+                <Item 
+                    label="correo" 
+                    rules={[{
+                        required:true,
+                        message: "Por favor ingresa los correo "
+                    }]}
+                    name = "correo"
+                    >
+                    <Input placeholder="input correo"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
+                </Item>
+
+                <Item 
+                    label="Contraseña"
+                    //name="password"
+                    rules={[{
+                        required: true,
+                        message: "Por favor Ingresa tu Contraseña"
+                    }]} 
+                    name="contrasena"
+                    >
+                        <Password
+
+                        name='contrasena'
+                        onChange={handleChangeRegistro}
+                        />
+
+                </Item>
+
+                <Item 
+                    style={{textAlign: 'center'}}
+                >
+                    <Button  type="primary" htmlType='submit'   >Submit Registro</Button>
+                    {/* <Button  type="primary" htmlType='submit' onClick={guardarPelicula}  >Submit</Button> */}
+                </Item>
+
+           
+
+            
+            
+            
+            </Form>
+      </Modal>
+
+      <Modal title="El usuario se ha agregado correctamente!" open={isModalOpenRegistroSucces} onOk={handleOkRegistroSucces} onCancel={handleCancelRegistroSucces}  >
+      </Modal>             
     </>
     );
 }

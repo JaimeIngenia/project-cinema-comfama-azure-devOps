@@ -86,6 +86,8 @@ const AgregarPeliculas = () => {
             imagen: '',
             titulo: '',
         });
+
+        
   
         const handleChange = (e) => {
         const { name, value } = e.target;
@@ -118,7 +120,7 @@ const AgregarPeliculas = () => {
         //     if (response.ok) {
         //         setFormData("");
         //         alert("La pelicula esta guardada");
-        //         //await mostrarTareas();
+                //await mostrarTareas();
         //     }
         //     else {
         //         alert(response.statusText)
@@ -145,6 +147,13 @@ const AgregarPeliculas = () => {
                 if (response.ok) {
                     formRef.current.resetFields(); // Reinicia los campos del formulario
                     alert("La película se ha guardado correctamente");
+                    console.log(` Jaime este es el pelicula: tipo 
+                    titulo Tipo: ${typeof formData.titulo} 
+                    imagen tipo: ${ typeof formData.imagen} 
+                    duracion Tipo: ${typeof formData.duracion} 
+                    valor Tipo: ${typeof formData.valor} 
+                    sinopsis Tipo: ${typeof formData.sinopsis} 
+                    `);
                     // await mostrarTareas();
                 } else {
                     alert(response.statusText);

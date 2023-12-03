@@ -103,7 +103,9 @@ const App = () => {
 
         <BrowserRouter>
 
+            {/* {stateReduxAut ? <Header  /> : null} */}
             {stateReduxAut ? <Header  /> : null}
+
 
             <Routes>
                 

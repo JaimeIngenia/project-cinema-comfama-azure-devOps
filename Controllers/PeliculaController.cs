@@ -7,6 +7,7 @@ namespace CinemaComfamaVs5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class PeliculaController : ControllerBase
     {
         private readonly DBCINEMA3Context _DBContext;
