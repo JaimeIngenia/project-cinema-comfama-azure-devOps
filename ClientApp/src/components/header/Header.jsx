@@ -23,13 +23,23 @@ const Header = () => {
               </div> */}
               <div  className= {styles.sud_sud_header}  >
 
-              <a className={styles.container__izq} href="/shoppingCar">
-                  <span>Carrito de Compras</span>
-                </a>
+              <Link  to={"/shoppingCar/"}>
+                <span>Carrito de Compras</span>              
+              </Link>
 
+              {/* <a className={styles.container__izq} href="/shoppingCar">
+                  <span>Carrito de Compras</span>
+              </a> */}
+
+              <Link  to={"/agregarPeliculas/"}>
+                <span>Agregar Peliculas</span>
+
+              </Link>
+
+{/* 
               <a className={styles.container__izq} href="/agregarPeliculas">
                   <span>Agregar Peliculas</span>
-                </a>
+                </a> */}
   
                 {/* <a className={styles.container__izq} href="/registroE">
                   <span>Registro PeliE</span>
@@ -39,13 +49,27 @@ const Header = () => {
                   <span>Tareas</span>
                 </a> */}
 
-                <a className={styles.container__izq} href="/">
-                    <span>Home Page</span>
-                </a>
+                <Link  to={"/"}>
+                  <span>Home Page</span>
+                </Link>
 
+                {/* <a className={styles.container__izq} href="/">
+                    <span>Home Page</span>
+                </a> */}
+
+              <Link  to={"/iniciarSesion"}>
+                <span>Iniciar Sesion</span>
+              </Link>
+
+              <Link  to={"/manejoPeliculas"}>
+                <span>Manejo Peliculas</span>
+              </Link>
+{/* 
                 <a className={styles.container__izq} href="/iniciarSesion">
                     <span>Iniciar Sesion</span>
-                </a>
+                </a> */}
+
+
                   
   
               </div>       

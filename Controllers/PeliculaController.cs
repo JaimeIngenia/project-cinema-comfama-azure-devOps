@@ -20,19 +20,11 @@ namespace CinemaComfamaVs5.Controllers
         [Route("GuardarPelicula")]
         public async Task<IActionResult> GuardarPelicula([FromBody] Pelicula request)
         {
-            //return StatusCode(StatusCodes.Status200OK, "Hola");
             await _DBContext.Peliculas.AddAsync(request);
             await _DBContext.SaveChangesAsync();
             return StatusCode(StatusCodes.Status200OK, "OK");
         }
 
-        //[HttpGet]
-        //[Route("VerPelicula")]
-        //public async Task<IActionResult> VerPelicula()
-        //{
-        //    List<Pelicula> lista = _DBContext.Peliculas.Include(c=>c.oFormato).Include(ce => ce.oGenero).ToList();
-        //    return StatusCode(StatusCodes.Status200OK, lista);
-        //}
         [HttpGet]
         [Route("VerPelicula")]
         public async Task<IActionResult> VerPeliculas()
@@ -55,6 +47,37 @@ namespace CinemaComfamaVs5.Controllers
             }
             return Ok(pelicula);
         }
+
+        // Controlador para editar
+        [HttpPut]
+        [Route("EditarPelicula/{id}")]
+        public async Task<IActionResult> EditarPelicula(int id, [FromBody] Pelicula peliculaActualizada)
+        {
+            // Buscar la película por ID en la base de datos
+            var peliculaExistente = await _DBContext.Peliculas.FindAsync(id);
+
+            // Verificar si la película existe
+            if (peliculaExistente == null)
+            {
+                return NotFound(); // Devolver 404 si la película no se encuentra
+            }
+
+            // Actualizar los campos de la película existente con la información proporcionada
+            peliculaExistente.Titulo = peliculaActualizada.Titulo;
+            peliculaExistente.ImagenPromocional = peliculaActualizada.ImagenPromocional;
+            peliculaExistente.Duracion = peliculaActualizada.Duracion;
+            peliculaExistente.Valor = peliculaActualizada.Valor;
+            peliculaExistente.Sinopsis = peliculaActualizada.Sinopsis;
+            peliculaExistente.IdGenero = peliculaActualizada.IdGenero;
+            peliculaExistente.IdFormato = peliculaActualizada.IdFormato;
+
+            // Guardar los cambios en la base de datos
+            await _DBContext.SaveChangesAsync();
+
+            return Ok(peliculaExistente); // Devolver la película actualizada
+        }
+
+
 
 
 

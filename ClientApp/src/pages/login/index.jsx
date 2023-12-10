@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { increment } from        "../../storeRedux/slices/counter"
 import { changeAuthorized } from "../../storeRedux/slices/authorized"
+import md5 from 'md5';
 
 
 const {Item} = Form;
@@ -80,7 +81,7 @@ export const Login = (  ) => {
 
         setIsModalOpen(false);
 
-        await axios.get(`${baseUrl}/${form.correo}/${form.password}`)
+        await axios.get(`${baseUrl}/${form.correo}/${md5(form.password)}`)
         
         .then(response=>{
         
@@ -213,7 +214,7 @@ export const Login = (  ) => {
         var nombres3 = formValues.nombres.toString();
         var apellidos3 = formValues.apellidos.toString();
         var correo3 = formValues.correo.toString();
-        var contrasena3 = formValues.contrasena.toString();
+        var contrasena3 = md5(formValues.contrasena.toString());
         // console.log("Tipo de IdTipoDocumento:", typeof idTipoDocumento);
         // console.log("Tipo de NumeroDocumento:", typeof numeroDocumento);
         // console.log("Tipo de Nombres:", typeof nombres);
@@ -238,13 +239,6 @@ export const Login = (  ) => {
                 },
                 body: JSON.stringify({
                     
-                    // IdTipoDocumento: formValues.idTipoDocumento,
-                    // NumeroDocumento: formValues.numeroDocumento,
-                    // Nombres: formValues.nombres,
-                    // Apellidos: formValues.apellidos,
-                    // Correo: formValues.correo,
-                    // Contrasena: formValues.contrasena,
-
                     IdTipoDocumento: idTipoDocumento3,
                     NumeroDocumento: numeroDocumento3,
                     Nombres: nombres3,
@@ -459,10 +453,10 @@ export const Login = (  ) => {
 
 
                                     </Form>
-                                            {/* <Button onClick={ () => dispatch( increment() )} >Counter</Button> */}
+                                            <Button onClick={ () => dispatch( increment() )} >Counter</Button>
 
-                                            {/* <Button onClick={ () => dispatch( changeAuthorized() )} >Autorized</Button> */}
-                                            <Button onClick={ () =>  showModal() } >Show Modal</Button>
+                                            <Button onClick={ () => dispatch( changeAuthorized() )} >Autorized</Button>
+                                            {/* <Button onClick={ () =>  showModal() } >Show Modal</Button> */}
 
 
                         </Col>

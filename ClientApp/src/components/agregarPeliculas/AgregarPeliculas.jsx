@@ -4,11 +4,18 @@ import { Button, Checkbox, Col, ConfigProvider, Form, Input, Radio, Row, Select,
 import { UserOutlined } from '@ant-design/icons';
 import peliculaDark from '../../assets/cinema/peliculaDark.svg'
 import peliculaLight from '../../assets/cinema/peliculaRoja.svg'
+import { useNavigate, useParams } from 'react-router-dom';
+
+// flux 
+import storeProduct__api from "../../stores/productStore__api";
+
 
 const {Item} = Form;
 const { TextArea } = Input;
 
 const AgregarPeliculas = () => {
+
+
 
     const [selectedGenero, setSelectedGenero] = useState(null);
     const [selectedFormato, setSelectedFormato] = useState(null);
@@ -81,6 +88,7 @@ const AgregarPeliculas = () => {
         }
     
         const [formData, setFormData] = useState({
+            idPelicula: null,
             valor: '',
             sinopsis: '',
             imagen: '',
@@ -199,10 +207,30 @@ const AgregarPeliculas = () => {
         }, [])
 
     // ---------------------------------------------------------------------------------------
+    
+    // -------- slug flux: --------------
 
+    let navigate = useNavigate();
+    let {idPelicula} = useParams();
+
+    // const [formData, setFormData] = useState({
+    //     valor: '',
+    //     sinopsis: '',
+    //     imagen: '',
+    //     titulo: '',
+    // });
+
+
+        useEffect( ()=>{
+            if (idPelicula) {
+                setFormData(storeProduct__api.getProductByidPelicula(idPelicula))
+            }
+        } , [ idPelicula ] )
 
     return (
+
         <div className={styles.containner__crearPeliculas} >
+            {/* <h1>Mira: {idPelicula} </h1> */}
             <div className={styles.sub_container__form} >
                     
                 <ConfigProvider 

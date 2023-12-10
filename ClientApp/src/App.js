@@ -33,6 +33,7 @@ import AgregarPeliculas from "./components/agregarPeliculas/AgregarPeliculas.jsx
 
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute.jsx";
 import { useSelector } from "react-redux";
+import ManejoPeliculas from "./components/manejoPeliculas/ManejoPeliculas.jsx";
 
   
 
@@ -103,19 +104,23 @@ const App = () => {
 
         <BrowserRouter>
 
-            {/* {stateReduxAut ? <Header  /> : null} */}
             {stateReduxAut ? <Header  /> : null}
+            {/* {true ? <Header  /> : null} */}
 
 
             <Routes>
                 
                 {
+                    // !true ?  <Route exact path="/" element={<Login  />} /> : null
                     !stateReduxAut ?  <Route exact path="/" element={<Login  />} /> : null
+                    
                 }
 
    
                 
                 <Route element={<ProtectedRoute canActivate={stateReduxAut} />} > 
+                {/* <Route element={<ProtectedRoute canActivate={true} />} >  */}
+
                     
                         <Route exact path="/" element={<HomePage />} />
                         <Route exact path="/registroE" element={<RegistroEvento />} />
@@ -123,6 +128,9 @@ const App = () => {
                         <Route exact path="/registro" element={<Registro />} />
                         <Route exact path="/shoppingCar" element={<ShoppingCar />} />
                         <Route exact path="/agregarPeliculas" element={<AgregarPeliculas />} />
+                        <Route exact path="/agregarPeliculas/:idPelicula" element={<AgregarPeliculas />} />
+                        <Route exact path="/iniciarSesion" element={<Login />} />         
+                        <Route exact path="/manejoPeliculas" element={<ManejoPeliculas />} />  
 
                 </Route>
 

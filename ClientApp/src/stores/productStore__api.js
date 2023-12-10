@@ -23,6 +23,9 @@ class productStore extends EventEmitter {
   getProductById(id) {
     return _products.find((p) => p.id === id);
   }
+  getProductByidPelicula(idPelicula) {
+    return _products.find((p) => p.idPelicula === idPelicula);
+  }
 }
 
 const store = new productStore();

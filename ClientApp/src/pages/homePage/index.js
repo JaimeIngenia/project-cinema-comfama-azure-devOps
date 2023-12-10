@@ -9,8 +9,10 @@ import * as actionProducts from "./../../actions/productActions";
 import * as actionCount from "./../../actions/countActions";
 import storeProduct__api from "../../stores/productStore__api";
 import * as actionProducts__api from "../../actions/productAction__api";
+import { useNavigate } from "react-router-dom";
 
 export const HomePage = (props) => {
+  let navigate = useNavigate();
   const [products, setProducts] = useState(storeProduct__api.getProducts());
   const [AddState, setAddState] = useState(false);
 

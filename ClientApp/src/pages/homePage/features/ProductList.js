@@ -1,8 +1,14 @@
 import styles from "../styles/ProductList.module.css";
 import stock__active from "../../../assets/stock__active.svg";
 import add from "../../../assets/add.svg";
+import Link from "antd/es/typography/Link";
+import { useNavigate } from "react-router-dom";
 
 export const ProductList = ({ products, onAddCarProduct }) => {
+  
+  let navigate = useNavigate();
+
+
   return (
     <>
       {products.map((x) => {
@@ -14,7 +20,9 @@ export const ProductList = ({ products, onAddCarProduct }) => {
 
 
               <div className={styles.title}>
-                <p>{x.titulo}</p>
+                <Link to={"/agregarPeliculas/" + products.idPelicula} >  
+                  <p>{x.titulo}</p>
+                </Link> 
                 <img src={stock__active} alt="" />
               </div>
 
