@@ -77,6 +77,28 @@ namespace CinemaComfamaVs5.Controllers
             return Ok(peliculaExistente); // Devolver la película actualizada
         }
 
+        // Controlador para eliminar
+        [HttpDelete]
+        [Route("EliminarPelicula/{id}")]
+        public async Task<IActionResult> EliminarPelicula(int id)
+        {
+            // Buscar la película por ID en la base de datos
+            var peliculaExistente = await _DBContext.Peliculas.FindAsync(id);
+
+            // Verificar si la película existe
+            if (peliculaExistente == null)
+            {
+                return NotFound(); // Devolver 404 si la película no se encuentra
+            }
+
+            // Eliminar la película de la base de datos
+            _DBContext.Peliculas.Remove(peliculaExistente);
+            await _DBContext.SaveChangesAsync();
+
+            return Ok("La película ha sido eliminada exitosamente");
+        }
+
+
 
 
 

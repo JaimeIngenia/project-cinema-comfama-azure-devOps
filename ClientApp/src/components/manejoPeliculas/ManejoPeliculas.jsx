@@ -87,7 +87,8 @@ const ManejoPeliculas = () => {
         render: (record)=>{
             return <>
                 <EditOutlined  onClick={()=>{ onUpdatePelicula(record) }}/>
-                <DeleteOutlined style={{color: "blue", marginLeft: 12 }} onClick={()=>{ onDeleteStudent(record) }} />
+                {/* <DeleteOutlined style={{color: "blue", marginLeft: 12 }} onClick={()=>{ onDeletePelicula(record) }} /> */}
+                <DeleteOutlined style={{ color: "blue", marginLeft: 12 }} onClick={() => onDeletePelicula(record)} />
             </>
         }
       },
@@ -97,16 +98,6 @@ const ManejoPeliculas = () => {
         navigate('/agregarPeliculas');
       };
 
-    const onDeleteStudent = (record) => {
-      Modal.confirm({
-        title: 'Estas seguro de eliminar?',
-        onOk: () => {
-          setPeiculasManejo((pre) => {
-            return pre.filter((student) => student.id !== record.id );
-          })
-        }
-      })
-    }
 
     const onUpdatePelicula = (record) => {
       setIsEditing(true)
@@ -154,9 +145,81 @@ const ManejoPeliculas = () => {
       setIsEditing(false);
       setEditingPelicula(null)
     }
+    //  ----------------- Eliminar Pelicula -------------------------------
     
-    
-    
+//     const eliminarPelicula = async () => {
+//   try {
+//     const response = await fetch(`api/pelicula/EliminarPelicula/${editingPelicula.idPelicula}`, {
+//       method: "DELETE",
+//       headers: {
+//         'Content-Type': 'application/json;charset=utf-8'
+//       },
+//     });
+
+//     if (response.ok) {
+//       setIsEditing(false);
+//       alert("La película se ha eliminado correctamente");
+//       // Puedes realizar acciones adicionales después de la eliminación si es necesario
+//     } else {
+//       alert(response.statusText);
+//     }
+//   } catch (error) {
+//     console.error("Error al eliminar la película:", error);
+//   }
+// };
+
+const eliminarPelicula = async (idPelicula) => {
+  try {
+    const response = await fetch(`api/pelicula/EliminarPelicula/${idPelicula}`, {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+    });
+
+    if (response.ok) {
+      alert("La película se ha eliminado correctamente");
+      // Puedes realizar acciones adicionales después de la eliminación si es necesario
+    } else {
+      alert(response.statusText);
+    }
+  } catch (error) {
+    console.error("Error al eliminar la película:", error);
+  }
+};
+
+
+// const onDeletePelicula = (record) => {
+//   Modal.confirm({
+//     title: 'Estas seguro de eliminar?',
+//     onOk: () => {
+//       setPeiculasManejo((pre) => {
+//         return pre.filter((student) => student.id !== record.id );
+//       })
+//     }
+//   })
+// }
+
+const onDeletePelicula = (record) => {
+  Modal.confirm({
+    title: '¿Estás seguro de eliminar?',
+    onOk: async () => {
+      try {
+        if (record.idPelicula) {
+          await eliminarPelicula(record.idPelicula);
+
+          // Actualiza el estado para reflejar la eliminación
+          setPeiculasManejo((pre) => pre.filter((pelicula) => pelicula.idPelicula !== record.idPelicula));
+        } else {
+          console.error("No se puede obtener el ID de la película a eliminar");
+        }
+      } catch (error) {
+        console.error("Error al eliminar la película:", error);
+      }
+    }
+  });
+};
+
 
 
   
@@ -174,18 +237,7 @@ const ManejoPeliculas = () => {
           }}
         />
         <Table columns={columns} dataSource={peliculasManejo} />
-{/* 
-        <Modal
-          title="Editar pelicula"
-          visible={isEditing}
-          onCancel={()=>{
-            setIsEditing(false)
-          }}
-          onOk={()=>{
-            setIsEditing(false)}
-          }
-          okText="Save"
-        > */}
+
         <Modal
           title="Editar película"
           visible={isEditing}
