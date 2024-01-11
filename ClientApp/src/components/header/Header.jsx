@@ -3,12 +3,13 @@ import styles from './Header.module.css'
 import logo from "../../assets/cinema/popcorn.png"
 import search from "../../assets/cinema/search.svg"
 import { Link, NavLink } from 'react-router-dom';
-
+import { useSelector } from "react-redux";
 
 
 
 const Header = () => {
 
+  const { adminStateRedux } = useSelector( state => state.admin )
 
     return (
         <>
@@ -16,15 +17,21 @@ const Header = () => {
             <a className={styles.container_links} href="/">
                 <img src={logo} alt="" className={styles.container__nav__logo} />
             </a>
-          
+
               {/* <div className={styles.container__seach__image}>
-  
+
                 <img src={search} className={styles.search__image} alt="" />
               </div> */}
               <div  className= {styles.sud_sud_header}  >
 
+              {/* <span>{adminStateRedux? <p>true</p>:<p>false</p>}</span> */}
+
+              <Link  to={"/reserva"}>
+                <span>Reserva </span>
+              </Link>
+
               <Link  to={"/shoppingCar/"}>
-                <span>Carrito de Compras</span>              
+                <span>Carrito de Compras</span>
               </Link>
 
               {/* <a className={styles.container__izq} href="/shoppingCar">
@@ -36,15 +43,15 @@ const Header = () => {
 
               </Link>
 
-{/* 
+{/*
               <a className={styles.container__izq} href="/agregarPeliculas">
                   <span>Agregar Peliculas</span>
                 </a> */}
-  
+
                 {/* <a className={styles.container__izq} href="/registroE">
                   <span>Registro PeliE</span>
                 </a>
-  
+
                 <a className={styles.container__izq}  href="/tareas">
                   <span>Tareas</span>
                 </a> */}
@@ -56,28 +63,41 @@ const Header = () => {
                 {/* <a className={styles.container__izq} href="/">
                     <span>Home Page</span>
                 </a> */}
+                {
+                  adminStateRedux
+                  ?
+                  <Link  to={"/iniciarSesion"}>
+                    <span>Iniciar Sesion</span>
+                  </Link>
+                  :
+                  null
+                  // <p></p>
+                }
 
-              <Link  to={"/iniciarSesion"}>
-                <span>Iniciar Sesion</span>
-              </Link>
-
-              <Link  to={"/manejoPeliculas"}>
-                <span>Manejo Peliculas</span>
-              </Link>
-{/* 
+                {
+                  adminStateRedux
+                  ?
+                  <Link  to={"/manejoPeliculas"}>
+                    <span>Manejo Peliculas</span>
+                  </Link>
+                  :
+                  null
+                  // <p></p>
+                }
+{/*
                 <a className={styles.container__izq} href="/iniciarSesion">
                     <span>Iniciar Sesion</span>
                 </a> */}
 
 
-                  
-  
-              </div>       
-  
-  
+
+
+              </div>
+
+
         </div>
-  
-  
+
+
       </>
     );
 }

@@ -7,15 +7,6 @@ namespace CinemaComfamaVs5.Models
 {
     public partial class DBCINEMA3Context : DbContext
     {
-        public DBCINEMA3Context()
-        {
-        }
-
-        public DBCINEMA3Context(DbContextOptions<DBCINEMA3Context> options)
-            : base(options)
-        {
-        }
-
         public virtual DbSet<Formato> Formatos { get; set; } = null!;
         public virtual DbSet<Genero> Generos { get; set; } = null!;
         public virtual DbSet<Hora> Horas { get; set; } = null!;
@@ -26,6 +17,17 @@ namespace CinemaComfamaVs5.Models
         public virtual DbSet<Sillareserva> Sillareservas { get; set; } = null!;
         public virtual DbSet<Tipodocumento> Tipodocumentos { get; set; } = null!;
         public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
+
+        public virtual DbSet<TipoRol> TiposRoles { get; set; } = null!;
+
+
+        public DBCINEMA3Context(DbContextOptions<DBCINEMA3Context> options)
+            : base(options)
+        {
+
+            this.Database.EnsureCreated();
+        }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -210,7 +212,25 @@ namespace CinemaComfamaVs5.Models
                     .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.IdTipoDocumento)
                     .HasConstraintName("FK_TipoDocumento");
+
+                entity.HasOne(d => d.IdTipoRolNavigation)
+                    .WithMany(p => p.Usuarios)
+                    .HasForeignKey(d => d.IdTipoRol)
+                    .HasConstraintName("FK_TipoRolUsuario");
             });
+
+            modelBuilder.Entity<TipoRol>(entity =>
+            {
+                entity.HasKey(e => e.IdTipoRol)
+                    .HasName("PK_TipoRol");
+
+                entity.ToTable("TIPOROL");
+
+                entity.Property(e => e.NombreRol)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
 
             OnModelCreatingPartial(modelBuilder);
         }

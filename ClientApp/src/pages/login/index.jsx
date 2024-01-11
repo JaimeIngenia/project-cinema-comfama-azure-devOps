@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { increment } from        "../../storeRedux/slices/counter"
 import { changeAuthorized } from "../../storeRedux/slices/authorized"
+import { changeAdmin} from '../../storeRedux/slices/admin'; 
 import md5 from 'md5';
 
 
@@ -17,6 +18,34 @@ const {Item} = Form;
 const {Password} = Input;
 
 export const Login = (  ) => {
+
+    //********************** Redux Admin */
+
+    const { adminStateRedux } = useSelector( state => state.admin )
+    const [stateReduxAdmin , setStateReduxAdmin] = useState(adminStateRedux)
+    
+    // ---------------------- Redux  ---------------------
+
+    // REDUX
+    // import { useSelector, useDispatch } from "react-redux";
+    // import { increment } from        "../../storeRedux/slices/counter"
+    // import { changeAuthorized } from "../../storeRedux/slices/authorized"
+
+    const { counterJaime } = useSelector( state => state.counter )
+    const { authorizedStateRedux } = useSelector( state => state.authorized )
+
+    const dispatch = useDispatch();
+
+    const [stateReduxAut2 , setStateReduxAut2] = useState(authorizedStateRedux)
+
+    useEffect(()=>{
+
+        setStateReduxAut2(authorizedStateRedux)
+        setStateReduxAdmin(adminStateRedux)
+
+    } , [authorizedStateRedux,
+        adminStateRedux
+    ])
 
     /********************************* */
     /***********     DarkMode    ****** */
@@ -76,6 +105,7 @@ export const Login = (  ) => {
     const baseUrl = "/api/usuario";
 
     const cookies = new Cookies();
+    
 
     const iniciarSesion = async () => {
 
@@ -86,7 +116,7 @@ export const Login = (  ) => {
         .then(response=>{
         
             return response.data;
-            // console.log("Jaime response.data: " + response.data);
+            console.log("Jaime response.data: " + response.data);
         
         })
         .then(response=>{
@@ -108,11 +138,13 @@ export const Login = (  ) => {
                 cookies.set('apellidos', respuesta.apellidos , { path: '/' });
                 cookies.set('contrasena', respuesta.contrasena , { path: '/' });
                 cookies.set('correo', respuesta.correo , { path: '/' });
+                cookies.set('idTipoRol', respuesta.idTipoRol , { path: '/' });
                 //alert("Bienvenido: " + respuesta.nombres + " " + respuesta.apellidos);
                 //setAutrizado(true)
                 // dispatch( changeAuthorized() )
-                console.log("Jaime este es el authorizedStateRedux: ");
-                console.log(authorizedStateRedux);
+                // console.log("Jaime este es el authorizedStateRedux: ");
+                // console.log(authorizedStateRedux);
+               
             }else{
                 alert('El usuario o la contraseña no son correctos')
                 //setAutrizado(false)
@@ -122,8 +154,20 @@ export const Login = (  ) => {
             console.log("Jaime este es el error" + error);
         })
 
+        if(cookies.get('idTipoRol')===1)
+        {
+          dispatch( changeAdmin() )
+        }
+
     };
 
+    console.log("jAIME ESTE ES EL ROOOOL");
+    console.log(parseInt(cookies.get('idTipoRol')));
+
+    // if(cookies.get('idTipoRol')===1)
+    // {
+    //   dispatch( changeAdmin() )
+    // }
 
         
 
@@ -159,6 +203,8 @@ export const Login = (  ) => {
       setIsModalOpen(false);
       navigate('/');
       dispatch( changeAuthorized() )
+
+      
     };
   
     const handleCancel = () => {
@@ -215,6 +261,7 @@ export const Login = (  ) => {
         var apellidos3 = formValues.apellidos.toString();
         var correo3 = formValues.correo.toString();
         var contrasena3 = md5(formValues.contrasena.toString());
+        var idTipoRol = 2;
         // console.log("Tipo de IdTipoDocumento:", typeof idTipoDocumento);
         // console.log("Tipo de NumeroDocumento:", typeof numeroDocumento);
         // console.log("Tipo de Nombres:", typeof nombres);
@@ -229,6 +276,7 @@ export const Login = (  ) => {
         Apellidos: ${formDataRegistro.apellidos} 
         Correo: ${formDataRegistro.correo} 
         Contrasena: ${formDataRegistro.contrasena} 
+        tipoRol: ${formDataRegistro.idTipoDocumento}
         `);
 
         try {
@@ -245,6 +293,7 @@ export const Login = (  ) => {
                     Apellidos: apellidos3,
                     Correo: correo3,
                     Contrasena: contrasena3,
+                    IdTipoRol: idTipoRol,
          
                 })
             });
@@ -317,28 +366,12 @@ export const Login = (  ) => {
   
 
  
-    // ---------------------- Redux  ---------------------
 
-    // REDUX
-    // import { useSelector, useDispatch } from "react-redux";
-    // import { increment } from        "../../storeRedux/slices/counter"
-    // import { changeAuthorized } from "../../storeRedux/slices/authorized"
 
-    const { counterJaime } = useSelector( state => state.counter )
-    const { authorizedStateRedux } = useSelector( state => state.authorized )
-
-    const dispatch = useDispatch();
-
-    const [stateReduxAut2 , setStateReduxAut2] = useState(authorizedStateRedux)
-
-    useEffect(()=>{
-
-        setStateReduxAut2(authorizedStateRedux)
-
-    } , [authorizedStateRedux])
 
     return (
 
+    
 
     <>   
         <div className={styles.container__padre} >                          

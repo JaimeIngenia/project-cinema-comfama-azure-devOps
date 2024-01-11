@@ -3,6 +3,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { counterSlice } from './slices/counter'
 import { authotizedSlice } from './slices/authorized'
+import { adminSlice } from './slices/admin/adminSlice';
 
 export const storeRedux = configureStore ( {
 
@@ -10,7 +11,7 @@ export const storeRedux = configureStore ( {
 
         counter: counterSlice.reducer,
         authorized: authotizedSlice.reducer,
-
+        admin: adminSlice.reducer,
 
     },
     

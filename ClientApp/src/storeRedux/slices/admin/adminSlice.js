@@ -1,22 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-export const authotizedSlice = createSlice({
-  name: "authorized",
+export const adminSlice = createSlice({
+  name: "admin",
   initialState: {
-    authorizedStateRedux: false,
+    adminStateRedux: false,
   },
   reducers: {
-    changeAuthorized: (state) => {
+    changeAdmin: (state) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.authorizedStateRedux = !state.authorizedStateRedux;
-      // state.authorizedStateRedux = true;
+      state.adminStateRedux = !state.adminStateRedux;
+      // state.adminStateRedux = true;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { changeAuthorized } = authotizedSlice.actions;
+export const { changeAdmin } = adminSlice.actions;

@@ -20,5 +20,9 @@ namespace CinemaComfamaVs5.Models
 
         public virtual Tipodocumento? IdTipoDocumentoNavigation { get; set; }
         public virtual ICollection<Reserva> Reservas { get; set; }
+
+        public int? IdTipoRol { get; set; }
+
+        public virtual TipoRol? IdTipoRolNavigation { get; set; }
     }
 }

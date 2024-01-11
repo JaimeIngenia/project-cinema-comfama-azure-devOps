@@ -1,4 +1,5 @@
 ﻿using CinemaComfamaVs5.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,9 @@ namespace CinemaComfamaVs5.Controllers
             return StatusCode(StatusCodes.Status200OK, lista);
         }
 
+
         //Prueba para el login
+        //[EnableCors("AllowSpecificOrigin")]
         [HttpGet("{Correo}/{Contrasena}")]
         [Route("GetIniciarSesion")]
         public ActionResult<List<Usuario>> GetIniciarSesion(string Correo, string Contrasena)

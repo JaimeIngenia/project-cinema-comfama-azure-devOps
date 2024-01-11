@@ -1,12 +1,14 @@
 import styles from "../styles/ProductList.module.css";
 import stock__active from "../../../assets/stock__active.svg";
 import add from "../../../assets/add.svg";
-import Link from "antd/es/typography/Link";
 import { useNavigate } from "react-router-dom";
+import { Link, NavLink } from 'react-router-dom';
 
 export const ProductList = ({ products, onAddCarProduct }) => {
   
   let navigate = useNavigate();
+
+  console.log(products);
 
 
   return (
@@ -21,7 +23,7 @@ export const ProductList = ({ products, onAddCarProduct }) => {
 
               <div className={styles.title}>
                 <Link to={"/agregarPeliculas/" + products.idPelicula} >  
-                  <p>{x.titulo}</p>
+                  <Link to={"/reserva/" + x.idPelicula } > <p>{x.titulo}</p>  </Link>
                 </Link> 
                 <img src={stock__active} alt="" />
               </div>
@@ -32,6 +34,7 @@ export const ProductList = ({ products, onAddCarProduct }) => {
 
                 <div className={styles.image_product}>
                             <img src={x.imagenPromocional} alt="" />
+                            {/* <Link to={"/reserva/" + x.imagenPromocional } > <img src={x.imagenPromocional} alt="" /> </Link> */}
                             {/*<img src="https://archivos-cms.cinecolombia.com/images/6/4/2/4/44246-1-esl-CO/deb991efcca6-poster_480x670.png" alt="" />*/}
                 </div>
 
@@ -45,7 +48,7 @@ export const ProductList = ({ products, onAddCarProduct }) => {
                       onClick={onAddCarProduct}
                       name={x.id}
                     >
-                      <p>Ver ahora ➤</p>
+                      <p>Reservar ➤</p>
                     </button>
 
                   </div>

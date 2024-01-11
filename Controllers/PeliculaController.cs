@@ -48,6 +48,43 @@ namespace CinemaComfamaVs5.Controllers
             return Ok(pelicula);
         }
 
+
+
+        // Controlador para filtrar por título de película
+        [HttpGet]
+        [Route("VerPeliculaPorTitulo/{titulo}")]
+        public async Task<IActionResult> VerPeliculaPorTitulo(string titulo)
+        {
+            Pelicula pelicula = _DBContext.Peliculas
+                .Include(c => c.oFormato)
+                .Include(ce => ce.oGenero)
+                .FirstOrDefault(p => p.Titulo == titulo);
+
+            if (pelicula == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(pelicula);
+        }
+
+
+
+        [HttpGet]
+        [Route("VerPeliculaPorImagenPromocional/{imagenPromocional}")]
+        public async Task<IActionResult> VerPeliculaPorImagenPromocional(string imagenPromocional)
+        {
+            Pelicula pelicula = _DBContext.Peliculas.Include(c => c.oFormato).Include(ce => ce.oGenero)
+                .FirstOrDefault(p => p.ImagenPromocional == imagenPromocional);
+
+            if (pelicula == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(pelicula);
+        }
+
         // Controlador para editar
         [HttpPut]
         [Route("EditarPelicula/{id}")]
@@ -97,6 +134,11 @@ namespace CinemaComfamaVs5.Controllers
 
             return Ok("La película ha sido eliminada exitosamente");
         }
+
+
+  
+
+
 
 
 

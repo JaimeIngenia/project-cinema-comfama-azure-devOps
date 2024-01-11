@@ -33,7 +33,10 @@ import AgregarPeliculas from "./components/agregarPeliculas/AgregarPeliculas.jsx
 
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute.jsx";
 import { useSelector } from "react-redux";
+
+
 import ManejoPeliculas from "./components/manejoPeliculas/ManejoPeliculas.jsx";
+import ReservaPage from "./pages/reservaPage/index.jsx";
 
   
 
@@ -82,6 +85,7 @@ const App = () => {
 
     const { counterJaime } = useSelector( state => state.counter )
     const { authorizedStateRedux } = useSelector( state => state.authorized )
+    const { adminStateRedux } = useSelector( state => state.admin )
     // console.log("Jaime este es el authorizedStateRedux: ");
     // console.log(authorizedStateRedux);
 
@@ -92,12 +96,15 @@ const App = () => {
         setStateReduxAut(authorizedStateRedux)
 
     } , [authorizedStateRedux])
+
+    const stateReduxAut2 = true;
     
     return (
     <>  
         {/* <h1>
             {counterJaime}
-            {authorizedStateRedux}
+            {authorizedStateRedux? <p>true</p> : <p>false</p> }
+            {adminStateRedux?<p>true</p> : <p>false</p>}
         </h1>   */}
 
 
@@ -131,6 +138,10 @@ const App = () => {
                         <Route exact path="/agregarPeliculas/:idPelicula" element={<AgregarPeliculas />} />
                         <Route exact path="/iniciarSesion" element={<Login />} />         
                         <Route exact path="/manejoPeliculas" element={<ManejoPeliculas />} />  
+                        <Route exact path="/reserva" element={<ReservaPage />} />  
+                        <Route exact path="/reserva/:idPelicula" element={<ReservaPage />} />  
+
+                        
 
                 </Route>
 
