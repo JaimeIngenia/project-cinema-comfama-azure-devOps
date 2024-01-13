@@ -1,0 +1,77 @@
+.cinema-seat-booking {
+    text-align: center;
+    margin: 20px;
+    color: #fff;
+  }
+  .select-date {
+    margin-bottom: 3rem;
+  }
+  .select-date label {
+    font-size: 20px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    margin-right: 2rem;
+    color: wheat;
+  }
+  .cinema-seat-booking h2 {
+    font-size: 20px;
+    margin-bottom: 2rem;
+  }
+  
+  .seat-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .seat-row {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .seat {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.5rem;
+    background-color: #f03e3e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .seat.selected {
+    background-color: #107933;
+  }
+  
+  .selected-seat {
+    font-size: 1.4rem;
+    margin-top: 20px;
+  }
+  
+  .payment-btn,
+  .go-back-link {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .payment-btn:hover,
+  .go-back-link:hover {
+    background-color: #0056b3;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .seat {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+  

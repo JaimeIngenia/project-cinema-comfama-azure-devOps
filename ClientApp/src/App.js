@@ -37,7 +37,8 @@ import { useSelector } from "react-redux";
 
 import ManejoPeliculas from "./components/manejoPeliculas/ManejoPeliculas.jsx";
 import ReservaPage from "./pages/reservaPage/index.jsx";
-
+import { LoginAdmin } from "./pages/loginAdmin/index.jsx";
+import InfoPage from "./pages/info/index.jsx";
   
 
 // const router = createBrowserRouter([
@@ -130,6 +131,7 @@ const App = () => {
 
                     
                         <Route exact path="/" element={<HomePage />} />
+                        <Route exact path="/loginAdmin" element={<LoginAdmin  />} />
                         <Route exact path="/registroE" element={<RegistroEvento />} />
                         <Route exact path="/tareas" element={<Tareas />} />         
                         <Route exact path="/registro" element={<Registro />} />
@@ -140,6 +142,7 @@ const App = () => {
                         <Route exact path="/manejoPeliculas" element={<ManejoPeliculas />} />  
                         <Route exact path="/reserva" element={<ReservaPage />} />  
                         <Route exact path="/reserva/:idPelicula" element={<ReservaPage />} />  
+                        <Route exact path="/info" element={<InfoPage />} />  
 
                         
 

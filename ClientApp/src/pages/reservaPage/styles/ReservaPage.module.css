@@ -13,9 +13,11 @@
 	margin: 0;
 	padding: 0;
 }
+
+  
 .container{
     width: 100%;
-    height: 75vh;
+    /* height: 75vh; */
     background: #050E12;
     /* border: dotted #B633F4 5px; */
 
@@ -37,50 +39,91 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        height: 50vh;
+        /* height: 50vh; */
     }
 
         .image_product{
-            width: 75%;
-            height: 35vh;
+            width: 25%;
+            /* height: 45vh; */
             /* border: solid red 3px; */
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             margin-left: 20px;
         }
             .image_product img{
-                width: 20%;
+                width: 40%;
                 margin-left: 0px;
                 border-radius: 6%;
             }
 
         .textoDescripcion{
             width: 50%;
-            height: 35vh;
-            /* border: solid red 3px; */
+            /* height: 45vh; */
+            /* border: solid rgb(0, 4, 255) 3px; */
             color: var(--color-letras);
             display: flex;
             flex-direction: column;
-            justify-content: end;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
+            /* margin-bottom: 20px; */
         }
+            .lienado__cinema{
+                width: 100%;
+                border-top: 1px solid transparent;
+                background-image: linear-gradient(to right, rgb(148, 149, 147) 5px, transparent 15px);
+                background-size: 20px 1px; /* Ajusta según el espaciado y el tamaño de tus puntos */
+                /* Elimina las otras propiedades de borde si las hubiera */
+                border-right: none;
+                border-bottom: none;
+                border-left: none;
+            }
 
-        .textoDescripcion p{
-            color: #ece9e9ec;
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: 700;
-            line-height: normal;
-            font-size: 16px;
-            margin-top: 0.5%;
-            margin-bottom: 0.5%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-            /* border: solid red 3px; */
-        }
+            .textoDescripcion__items{
+                width: 100%;
+                /* border: solid red 3px; */
+            }
+
+                .textoDescripcion__items p{
+                    color: #ece9e9ec;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    font-size: 16px;
+                    margin-top: 0.5%;
+                    /* margin-bottom: 0.5%; */
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    /* border: solid red 3px; */
+                }
+            .containner__horarios{
+                /* width: 100%; */
+                /* border: solid rgb(112, 221, 201) 3px; */
+                color:white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+                .caja__negra{
+                    width: 200PX;
+                    /* height: 50PX; */
+                    background: #112123;
+                    color: white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 8PX
+                }
+
+                .containner__horarios__select{
+                    width: 120px; 
+                    background-color: #050E12;
+                    /* border: solid red 3px; */
+                }
 
 
         .image_iconMovie{
@@ -104,6 +147,7 @@
         justify-content: flex-start;
         align-items: center;
         /* border: solid rgb(7, 37, 128) 12px; */
+      
         
     }
 

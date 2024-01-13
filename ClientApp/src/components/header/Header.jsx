@@ -26,22 +26,36 @@ const Header = () => {
 
               {/* <span>{adminStateRedux? <p>true</p>:<p>false</p>}</span> */}
 
-              <Link  to={"/reserva"}>
+              {/* <Link  to={"/reserva"}>
                 <span>Reserva </span>
+              </Link> */}
+
+              <Link  to={"/info/"}>
+                <span>Sillas Info</span>
               </Link>
 
               <Link  to={"/shoppingCar/"}>
                 <span>Carrito de Compras</span>
               </Link>
 
+              
+
               {/* <a className={styles.container__izq} href="/shoppingCar">
                   <span>Carrito de Compras</span>
               </a> */}
 
+              {
+                  adminStateRedux
+                  ?
               <Link  to={"/agregarPeliculas/"}>
                 <span>Agregar Peliculas</span>
 
               </Link>
+              :
+              null
+              // <p></p>
+              }
+
 
 {/*
               <a className={styles.container__izq} href="/agregarPeliculas">
@@ -66,8 +80,8 @@ const Header = () => {
                 {
                   adminStateRedux
                   ?
-                  <Link  to={"/iniciarSesion"}>
-                    <span>Iniciar Sesion</span>
+                  <Link  to={"/loginAdmin"}>
+                    <span>Registro Admin</span>
                   </Link>
                   :
                   null

@@ -17,7 +17,7 @@ import md5 from 'md5';
 const {Item} = Form;
 const {Password} = Input;
 
-export const Login = (  ) => {
+export const LoginAdmin = (  ) => {
 
     //********************** Redux Admin */
 
@@ -247,6 +247,13 @@ export const Login = (  ) => {
 
      const guardarUsuario = async (formValues) => {
 
+        var idTipoDocumento2 = formValues.idTipoDocumento;
+        var numeroDocumento2 = formValues.numeroDocumento;
+        var nombres2 = formValues.nombres;
+        var apellidos2 = formValues.apellidos;
+        var correo2 = formValues.correo;
+        var contrasena2 = formValues.contrasena;
+
 
         var idTipoDocumento3 = parseInt(formValues.idTipoDocumento);
         var numeroDocumento3 = formValues.numeroDocumento.toString();
@@ -254,8 +261,13 @@ export const Login = (  ) => {
         var apellidos3 = formValues.apellidos.toString();
         var correo3 = formValues.correo.toString();
         var contrasena3 = md5(formValues.contrasena.toString());
-        var idTipoRol = 2;
-
+        var idTipoRol = 1;
+        // console.log("Tipo de IdTipoDocumento:", typeof idTipoDocumento);
+        // console.log("Tipo de NumeroDocumento:", typeof numeroDocumento);
+        // console.log("Tipo de Nombres:", typeof nombres);
+        // console.log("Tipo de Apellidos:", typeof apellidos);
+        // console.log("Tipo de Correo:", typeof correo);
+        // console.log("Tipo de Contrasena:", typeof contrasena);
 
 
         console.log(` Jaime este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
@@ -315,7 +327,7 @@ export const Login = (  ) => {
         apellidos: '',
         correo:'',
         contrasena:'',
-        confirmarContrasena: '', // Nuevo campo
+
     });
 
     const handleChangeRegistro = (e) => {
@@ -572,7 +584,7 @@ export const Login = (  ) => {
                     <Input placeholder="input correo"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
                 </Item>
 
-                {/* <Item 
+                <Item 
                     label="Contraseña"
                     //name="password"
                     rules={[{
@@ -587,56 +599,8 @@ export const Login = (  ) => {
                         onChange={handleChangeRegistro}
                         />
 
-                </Item> */}
-
-                <Item 
-                    label="Contraseña"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Por favor ingresa tu contraseña"
-                        },
-                        {
-                            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{5,}$/,
-                            message: 'La contraseña debe tener al menos 5 caracteres y contener letras mayúsculas, minúsculas y números.',
-                        },
-                    ]}
-                    name="contrasena"
-                >
-                    <Password
-                        name='contrasena'
-                        onChange={handleChangeRegistro}
-                    />
                 </Item>
 
-
-
-             
-                <Item
-                    label="Confirmar Contraseña"
-                    rules={[
-                    {
-                        required: true,
-                        message: "Por favor confirma tu contraseña",
-                    },
-                    ({ getFieldValue }) => ({
-                        validator(_, value) {
-                        if (!value || getFieldValue('contrasena') === value) {
-                            return Promise.resolve();
-                        }
-                        return Promise.reject(new Error('Las contraseñas no coinciden'));
-                        },
-                    }),
-                    ]}
-                    name="confirmarContrasena"
-                >
-                    <Password
-                    name='confirmarContrasena'
-                    onChange={handleChangeRegistro}
-                    />
-                </Item>
-
-              
                 <Item 
                     style={{textAlign: 'center'}}
                 >
