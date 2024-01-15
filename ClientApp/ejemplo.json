@@ -1,0 +1,82 @@
+Reserva: {
+
+    Usuario : {
+        IdUsuario: number ,
+        IdTipoDocumento: number,
+        NumeroDocumento: string,
+        Nombres: string,
+        Apellidos: string,
+        Correo: string,
+        Contrasena: string,
+    
+    },
+
+    Pelicula: {
+        IdPelicula: number,
+        Titulo: string,
+        ImagenPromocional: string,
+        Duracion: number,
+        Valor: float,
+        Sinopsis: number,
+        IdGenero: number,
+        IdFormato: number,
+    },
+
+    Horarios: {
+        IdSala: number,
+        IdHora: number,
+    }
+    
+}
+
+Reserva: {
+
+    Usuario : {
+        IdUsuario: number ,
+        TipoDocumento: {
+            IdTipoDocumento: number,
+            TipoDocumento: string,
+        },
+        NumeroDocumento: string,
+        Nombres: string,
+        Apellidos: string,
+        Correo: string,
+        Contrasena: string,
+        TipoRol:{
+            IdTipoRol: number,
+            TipoRol: string,
+        }
+    },
+
+    Pelicula: {
+        IdPelicula: number,
+        Titulo: string,
+        ImagenPromocional: string,
+        Duracion: number,
+        Valor: float,
+        Sinopsis: number,
+        Genero: {
+            IdGenero: number,
+            NombreGenero: string,
+        },
+        Formato: {
+            IdFormato: number,
+            NombreFormato: string,
+        }
+    },
+
+    Horarios: {
+        IdHorario: number
+        Sala:{
+            IdSala: number,
+            NombreSala: string,
+            Estado: string,
+            NumeroSilla: number
+        },
+        IdHora: {
+            IdHora: number,
+            Hora: DataTime,
+        }
+    }
+    
+}
