@@ -144,7 +144,7 @@ const App = () => {
                         <Route exact path="/manejoPeliculas" element={<ManejoPeliculas />} />  
                         <Route exact path="/reserva" element={<ReservaPage />} />  
                         <Route exact path="/reserva/:idPelicula" element={<ReservaPage />} />  
-                        <Route exact path="/info" element={<InfoPage />} />  
+                        {/* <Route exact path="/info" element={<InfoPage />} />   */}
 
                         
 

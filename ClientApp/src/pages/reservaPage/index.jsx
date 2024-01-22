@@ -6,12 +6,14 @@ import styles from './styles/ReservaPage.module.css'
 import iconMovie from '../../assets/iconMovie.svg'
 // import { Select } from 'antd';
 // const { Option  } = Select;
-import { Button, ConfigProvider } from 'antd';
+import { Button, ConfigProvider, Flex ,Form , Input} from 'antd';
 import { Select } from 'antd';
 import Modal from 'antd/lib/modal/Modal';  // Importa el componente Modal de manera independiente
 import styled from 'styled-components';
+import InfoPage from '../info/index.jsx'
 
 const { Option } = Select;
+const {Item} = Form;
 
 const StyledTitle = styled(Button)`
   // background-color: #050E12 !important;
@@ -156,6 +158,74 @@ const ReservaPage = () => {
         const handleModalCancel = () => {
           setModalVisible(false); // Cerrar el modal cuando se hace clic en "Cancelar"
         };
+//*******************  Salas Select */
+
+const [selectedSala, setSelectedSala] = useState(null);
+
+const onSalaChange = (selectedOption) => {
+  setSelectedSala(selectedOption);
+  // alert(selectedOption)
+};
+
+const [salas, setSalas] = useState([])
+
+const mostrarSalas = async () => {
+
+  const response = await fetch("https://localhost:7240/api/Sala/VerSala").then(response => response.json())
+      .then(data => { console.log(JSON.stringify(data, null, 2)); setSalas(data); })
+
+      .catch(error => console.error('Error:', error));
+}
+
+
+//*******************  Horas Select */
+const [selectedHora, setSelectedHora] = useState(null);
+
+const onHoraChange = (selectedOption) => {
+  setSelectedHora(selectedOption);
+  setModalVisible(true); 
+  // alert(selectedOption)
+};
+
+const [horas, setHoras] = useState([])
+
+const mostrarHoras = async () => {
+
+  const response = await fetch("https://localhost:7240/api/Hora/VerHoras").then(response => response.json())
+      .then(data => { console.log(JSON.stringify(data, null, 2)); setHoras(data); })
+
+      .catch(error => console.error('Error:', error));
+}
+
+useEffect(() => {
+  mostrarSalas();    
+  mostrarHoras();
+}, [])
+
+
+//**********************************Boton reserva */
+
+const [isModalOpenReserva, setIsModalOpenReserva] = useState(false);
+const showModalReserva = () => {
+  setIsModalOpenReserva(true);
+};
+const handleOkReserva = () => {
+  setIsModalOpenReserva(false);
+};
+const handleCancelReserva = () => {
+  setIsModalOpenReserva(false);
+};
+
+// function openReservaSillas () {
+
+//   Modal.confirm({
+//     title: '¿Que sillas quiere elegir?',
+//     onOk: async () => {
+//       }
+//   })
+// }
+
+
 
 //************************************ */
 if (!pelicula) {
@@ -195,7 +265,7 @@ if (!pelicula) {
                             }
                           }}
                         >
-                          <StyledButton
+                          {/* <StyledButton
                             type="primary"
                           > 
                           {pelicula.idFormato === 1 ? <p>2D</p> : null}
@@ -203,10 +273,34 @@ if (!pelicula) {
                           {pelicula.idFormato === 3 ? <p>4D</p> : null}
                          
                           
-                          </StyledButton> 
+                          </StyledButton>  */}
 
-                          
 
+                          {/* Te hubicas¡ */}
+                          {/* <Item 
+                            label="Sala"
+                            rules={[{
+                                required:true,
+                                message: "Por favor ingresa la Sala "
+                            }]}
+                            name="sala"
+                          > */}
+                            <StyledSelect
+                                defaultValue="Sala General"
+                                style={{ width: 120 }}
+                                // placeholder="Escoge tu sala"
+                                onChange={onSalaChange}
+                                options={salas.map((item) => ({
+                                    label: item.nombreSala,
+                                    value: item.idSala,
+                                }))}
+                                name = "formato"
+                                dropdownStyle={{ background: '#050E12', color: 'white' }}
+                                getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                            />
+                          {/* </Item> */}
+                          {/* Te hubicas¡ */}
+{/* 
                           <StyledSelect
                             defaultValue="12pm"
                             style={{ width: 120 }}
@@ -218,7 +312,21 @@ if (!pelicula) {
                             <Option value="3pm">3pm</Option>
                             <Option value="6pm">6pm</Option>
                             <Option value="9pm">9pm</Option>
-                          </StyledSelect>
+                          </StyledSelect> */}
+
+                          <StyledSelect
+                                defaultValue="12 pm"
+                                style={{ width: 120 }}
+                                // placeholder="Escoge tu sala"
+                                onChange={onHoraChange}
+                                options={horas.map((item) => ({
+                                    label: item.hora1,
+                                    value: item.idHora,
+                                }))}
+                                name = "formato"
+                                dropdownStyle={{ background: '#050E12', color: 'white' }}
+                                getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                            />
 
                         </ConfigProvider> 
 
@@ -228,7 +336,8 @@ if (!pelicula) {
                           onOk={handleModalOk}
                           onCancel={handleModalCancel}
                         >
-                          <p>Seleccionaste: {selectedValue}</p>
+                          {/* <p>Seleccionaste: {selectedValue}</p> */}
+                          <p>Seleccionaste: {selectedHora}</p> { console.log(selectedHora) }
                         </Modal>
 
                       </div>
@@ -246,14 +355,21 @@ if (!pelicula) {
 
                     <div className={styles.textoDescripcion} >
 
-                      <div className={styles.textoDescripcion__items}>
+                      <div className={styles.textoDescripcion__items} >
                         <div className={styles.lienado__cinema} ></div>
                         <br />
+                        {/* <div style={{display: 'flex', flexDirection: 'row' }}> */}
+
                         <h3>Genero</h3>
-                        {pelicula.idGenero === 1 ? <p>Familiar</p> : null}
-                        {pelicula.idGenero === 2 ? <p>Accion</p> : null}
-                        {pelicula.idGenero === 3 ? <p>Comedia</p> : null}
-                        {pelicula.idGenero === 4 ? <p>Drama</p> : null}
+                          {pelicula.idGenero === 1 ? <p>Familiar</p> : null}
+                          {pelicula.idGenero === 2 ? <p>Accion</p> : null}
+                          {pelicula.idGenero === 3 ? <p>Comedia</p> : null}
+                          {pelicula.idGenero === 4 ? <p>Drama</p> : null}
+                          
+                          {pelicula.idFormato === 1 ? <p>2D</p> : null}
+                          {pelicula.idFormato === 2 ? <p>3D</p> : null}
+                          {pelicula.idFormato === 3 ? <p>4D</p> : null}
+                        {/* </div> */}
                         {/* <StyledButton
                             type="primary"
                           > 
@@ -371,13 +487,17 @@ if (!pelicula) {
 
                 <div className={styles.cuerpo}>
 
-                  <Link  to={"/info/"}>
-                      <StyledTitle>Reserva</StyledTitle>
-                  </Link>
+                  {/* <Link  to={"/info/"}> */}
+                      <StyledTitle onClick={showModalReserva}>Reserva</StyledTitle>
+                  {/* </Link> */}
          
                 </div>
-            </div>
 
+                <Modal title="Eliga una silla" open={isModalOpenReserva} onOk={handleOkReserva} onCancel={handleCancelReserva}>
+                  <InfoPage/>
+                  {/* <p>Prueba 1</p> */}
+                </Modal>
+            </div>
 
             
         // </div>

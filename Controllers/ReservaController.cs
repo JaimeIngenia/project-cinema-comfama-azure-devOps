@@ -71,6 +71,8 @@ namespace CinemaComfamaVs5.Controllers
                 .Include(r => r.IdUsuarioNavigation)
                 .Include(r => r.IdHorarioNavigation.IdPeliculaNavigation)
                 .Include(r => r.IdHorarioNavigation.IdSalaNavigation)
+                //            .ThenInclude(u => u.IdTipoDocumentoNavigation)
+                //            .ThenInclude(u => u.IdTipoRolNavigation)
                 .Include(r => r.IdHorarioNavigation.IdHoraNavigation)
                 .Select(r => new ReservaDetalleViewModel
                 {
@@ -79,11 +81,26 @@ namespace CinemaComfamaVs5.Controllers
                     {
                         IdUsuario = r.IdUsuarioNavigation.IdUsuario,
                         IdTipoDocumento = r.IdUsuarioNavigation.IdTipoDocumento ?? 0,
+                        //                TipoDocumento = new TipoDocumentoViewModel
+                        //                {
+                        //                    //IdTipoDocumento = r.IdUsuarioNavigation.IdTipoDocumentoNavigation?.IdTipoDocumento ?? 0,
+                        //                    //TipoDocumento1 = r.IdUsuarioNavigation.IdTipoDocumentoNavigation?.TipoDocumento1 ?? ""
+                        //                    IdTipoDocumento = r.IdUsuarioNavigation.IdTipoDocumentoNavigation != null ? r.IdUsuarioNavigation.IdTipoDocumentoNavigation.IdTipoDocumento : 0,
+                        //                    TipoDocumento1 = r.IdUsuarioNavigation.IdTipoDocumentoNavigation != null ? r.IdUsuarioNavigation.IdTipoDocumentoNavigation.TipoDocumento1 : "",
+
+                        //                },
                         NumeroDocumento = r.IdUsuarioNavigation.NumeroDocumento ?? "",
                         Nombres = r.IdUsuarioNavigation.Nombres ?? "",
                         Apellidos = r.IdUsuarioNavigation.Apellidos ?? "",
                         Correo = r.IdUsuarioNavigation.Correo ?? "",
                         IdTipoRol = r.IdUsuarioNavigation.IdTipoRol ?? 0
+                        //                TipoRol = new TipoRolViewModel
+                        //                {
+                        //                    //IdTipoRol = r.IdUsuarioNavigation.IdTipoRolNavigation?.IdTipoRol ?? 0,
+                        //                    //NombreRol = r.IdUsuarioNavigation.IdTipoRolNavigation?.NombreRol ?? ""
+                        //                    IdTipoRol = r.IdUsuarioNavigation.IdTipoRolNavigation != null ? r.IdUsuarioNavigation.IdTipoRolNavigation.IdTipoRol : 0,
+                        //                    NombreRol = r.IdUsuarioNavigation.IdTipoRolNavigation != null ? r.IdUsuarioNavigation.IdTipoRolNavigation.NombreRol : ""
+                        //                },
                     },
                     Horario = new HorarioDetalleViewModel
                     {
@@ -108,7 +125,7 @@ namespace CinemaComfamaVs5.Controllers
                             IdSala = r.IdHorarioNavigation.IdSalaNavigation != null ? r.IdHorarioNavigation.IdSalaNavigation.IdSala : 0,
                             NombreSala = r.IdHorarioNavigation.IdSalaNavigation != null ? r.IdHorarioNavigation.IdSalaNavigation.NombreSala : "",
                             Estado = r.IdHorarioNavigation.IdSalaNavigation != null ? r.IdHorarioNavigation.IdSalaNavigation.Estado : "",
-                            NumeroSilla = r.IdHorarioNavigation.IdSalaNavigation != null ? r.IdHorarioNavigation.IdSalaNavigation.NumeroSilla ?? 0 : 0,
+                            //NumeroSilla = r.IdHorarioNavigation.IdSalaNavigation != null ? r.IdHorarioNavigation.IdSalaNavigation.NumeroSilla ?? 0 : 0,
 
                             //NumeroSilla = r.IdHorarioNavigation.IdSalaNavigation != null ? r.IdHorarioNavigation.IdSalaNavigation.NumeroSilla : 0,
 
