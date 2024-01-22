@@ -137,7 +137,9 @@ const App = () => {
                         <Route exact path="/registro" element={<Registro />} />
                         <Route exact path="/shoppingCar" element={<ShoppingCar />} />
                         <Route exact path="/agregarPeliculas" element={<AgregarPeliculas />} />
+
                         <Route exact path="/agregarPeliculas/:idPelicula" element={<AgregarPeliculas />} />
+                        
                         <Route exact path="/iniciarSesion" element={<Login />} />         
                         <Route exact path="/manejoPeliculas" element={<ManejoPeliculas />} />  
                         <Route exact path="/reserva" element={<ReservaPage />} />  
