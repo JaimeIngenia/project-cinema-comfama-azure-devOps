@@ -4,10 +4,30 @@ import logo from "../../assets/cinema/popcorn.png"
 import search from "../../assets/cinema/search.svg"
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import Cookies from 'universal-cookie';
+import { useEffect, useState } from 'react';
+import {  useNavigate } from "react-router-dom";
 
 
 
 const Header = () => {
+
+  let navigate = useNavigate();
+
+  const cookies = new Cookies();
+  const [idUsuario, setIdUsuario] = useState(null);
+
+  useEffect(() => {
+
+    const idUsuarioCookie = cookies.get('idUsuario');
+    console.log('Id de Usuario:', idUsuarioCookie);
+    setIdUsuario(idUsuarioCookie);
+
+  }, []);
+
+
+
+
 
   const { adminStateRedux } = useSelector( state => state.admin )
 
@@ -26,17 +46,19 @@ const Header = () => {
 
               {/* <span>{adminStateRedux? <p>true</p>:<p>false</p>}</span> */}
 
-              {/* <Link  to={"/reserva"}>
-                <span>Reserva </span>
+              <Link  to={`/manejoReservasPage/${idUsuario}`}>
+                <span>Reservas </span>
+              </Link>
+              {/* <Link  to={"/cliente"}>
+                <span>Cliente</span>
+              </Link> */}
+              {/* <Link  to={"/info/"}>
+                <span>Sillas Info</span>
               </Link> */}
 
-              <Link  to={"/info/"}>
-                <span>Sillas Info</span>
-              </Link>
-
-              <Link  to={"/shoppingCar/"}>
+              {/* <Link  to={"/shoppingCar/"}>
                 <span>Carrito de Compras</span>
-              </Link>
+              </Link> */}
 
               
 

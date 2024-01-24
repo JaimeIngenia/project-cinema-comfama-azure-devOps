@@ -7,7 +7,7 @@ import iconMovie from '../../assets/iconMovie.svg'
 // import { Select } from 'antd';
 // const { Option  } = Select;
 import { Button, ConfigProvider, Flex ,Form , Input} from 'antd';
-import { Select } from 'antd';
+import { Select, theme } from 'antd';
 import Modal from 'antd/lib/modal/Modal';  // Importa el componente Modal de manera independiente
 import styled from 'styled-components';
 import InfoPage from '../info/index.jsx'
@@ -41,6 +41,19 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const StyledModal = styled(Modal)`
+  .ant-modal-content {
+    background-color: #050E12 !important;
+    color: white;
+  }
+  .ant-modal-header {
+    background-color: #050E12;
+    border-bottom: 1px solid #050E12;
+  }
+  // Añade aquí más estilos si es necesario
+`;
+
+
 const StyledSelect = styled(Select)`
   .ant-select-selector {
     background-color: #050E12 !important;
@@ -66,57 +79,14 @@ const ReservaPage = () => {
 
     let navigate = useNavigate();
     let {idPelicula} = useParams();
+    let idPeliculaInt = parseInt(idPelicula);
 
     //************************************** */
 
     const [pelicula, setPelicula] = useState(null);
     //************************************** */
 
-    // const [ pelicula, setPelicula ] = useState({
-    //     id: null,
-    //     titulo: "",
-    //     imagenPromocional: "",
-    //     sinopsis: "",
-    //     valor: "",
-    //     duracion: "",
-    //     idFormato:"",
-    //     idGenero:""
-    
-    //   })
-    //**************************************** */
 
-    // productApi.getCategoriaOracleBySlug(idPelicula).then( 
-    //   _categoria => setPelicula(_categoria)
-    // )
-//********************************* */
-    // productApi.getCategoriaOracleBySlug(idPelicula)
-    // .then(_categoria => setPelicula(_categoria))
-    // .catch(error => console.error("Error:", error));
-
-
-    // console.log(pelicula);
-//*********************************** */
-
-// const obtenerPeliculaPorId = async (idPelicula) => {
-//     try {
-//       const response = await fetch(`https://localhost:7240/api/pelicula/VerPeliculaPorId/${idPelicula}`);
-  
-//       if (response.ok) {
-//         const pelicula = await response.json();
- 
-//         console.log("Pelicula por ID:", pelicula);
-//       } else {
-//         alert(response.statusText);
-//       }
-//     } catch (error) {
-//       console.error("Error al obtener la película por ID:", error);
-//     }
-//   };
-  
-  
-//   const idPeliculaTest = 5; 
-//   obtenerPeliculaPorId(idPeliculaTest);
-  
 //*********************************** */
 
       useEffect( () => {
@@ -140,7 +110,7 @@ const ReservaPage = () => {
         
         },[  idPelicula ] )
 
-        console.log(pelicula);
+        //console.log(pelicula);
 
 //*******************  Modal del select horarios */
         const [selectedValue, setSelectedValue] = useState(null); // Nuevo estado para almacenar el valor seleccionado
@@ -153,6 +123,35 @@ const ReservaPage = () => {
       
         const handleModalOk = () => {
           setModalVisible(false); // Cerrar el modal cuando se hace clic en "Ok"
+          // alert("Compa aqui debes ejecutar la función de guardar Horario con el id de Sala, Hora y Pelicula");
+
+          const guardarHorario = async (sala, hora, idPelicula) => {
+            try {
+                const response = await fetch("https://localhost:7240/api/Horario/GuardarHorario", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                      IdPelicula: idPelicula,
+                      IdSala: sala,
+                      IdHora: hora
+                    })
+                });
+        
+                if (response.ok) {
+                    alert("El horario se ha guardado correctamente");
+                } else {
+                    alert(response.statusText);
+                }
+            } catch (error) {
+                console.error("Error al guardar el Horario:", error);
+            }
+          }
+
+          guardarHorario(selectedSala , selectedHora, idPeliculaInt)
+        
+        
         };
       
         const handleModalCancel = () => {
@@ -164,7 +163,6 @@ const [selectedSala, setSelectedSala] = useState(null);
 
 const onSalaChange = (selectedOption) => {
   setSelectedSala(selectedOption);
-  // alert(selectedOption)
 };
 
 const [salas, setSalas] = useState([])
@@ -206,8 +204,31 @@ useEffect(() => {
 //**********************************Boton reserva */
 
 const [isModalOpenReserva, setIsModalOpenReserva] = useState(false);
+
+const [ultimoHorario, setUltimoHorario] = useState(null);
+
+
+const mostrarUltimoHorario = async () => {
+
+  const response = await fetch("https://localhost:7240/api/Horario/VerUltimoHorario").then(response => response.json())
+      .then(data => { console.log(JSON.stringify(data, null, 2)); setUltimoHorario(data); })
+
+      .catch(error => console.error('Error:', error));
+}
+
+useEffect(() => {
+  mostrarUltimoHorario();
+}, [])
+
+
+
 const showModalReserva = () => {
   setIsModalOpenReserva(true);
+  // alert("Claudia por aquí es...")
+  mostrarUltimoHorario();
+
+  // console.log("Claudia este es el ultimo horario: "+{ultimoHorario})
+  
 };
 const handleOkReserva = () => {
   setIsModalOpenReserva(false);
@@ -265,26 +286,7 @@ if (!pelicula) {
                             }
                           }}
                         >
-                          {/* <StyledButton
-                            type="primary"
-                          > 
-                          {pelicula.idFormato === 1 ? <p>2D</p> : null}
-                          {pelicula.idFormato === 2 ? <p>3D</p> : null}
-                          {pelicula.idFormato === 3 ? <p>4D</p> : null}
-                         
-                          
-                          </StyledButton>  */}
-
-
-                          {/* Te hubicas¡ */}
-                          {/* <Item 
-                            label="Sala"
-                            rules={[{
-                                required:true,
-                                message: "Por favor ingresa la Sala "
-                            }]}
-                            name="sala"
-                          > */}
+                    
                             <StyledSelect
                                 defaultValue="Sala General"
                                 style={{ width: 120 }}
@@ -298,26 +300,11 @@ if (!pelicula) {
                                 dropdownStyle={{ background: '#050E12', color: 'white' }}
                                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
                             />
-                          {/* </Item> */}
-                          {/* Te hubicas¡ */}
-{/* 
-                          <StyledSelect
-                            defaultValue="12pm"
-                            style={{ width: 120 }}
-                            onChange={handleChange}
-                            dropdownStyle={{ background: '#050E12', color: 'white' }}
-                            getPopupContainer={(triggerNode) => triggerNode.parentNode}
-                          >
-                            <Option value="12pm">12pm</Option>
-                            <Option value="3pm">3pm</Option>
-                            <Option value="6pm">6pm</Option>
-                            <Option value="9pm">9pm</Option>
-                          </StyledSelect> */}
+
 
                           <StyledSelect
                                 defaultValue="12 pm"
                                 style={{ width: 120 }}
-                                // placeholder="Escoge tu sala"
                                 onChange={onHoraChange}
                                 options={horas.map((item) => ({
                                     label: item.hora1,
@@ -337,7 +324,7 @@ if (!pelicula) {
                           onCancel={handleModalCancel}
                         >
                           {/* <p>Seleccionaste: {selectedValue}</p> */}
-                          <p>Seleccionaste: {selectedHora}</p> { console.log(selectedHora) }
+                          <p>Seleccionaste: {selectedSala} y {selectedHora} </p> { console.log(selectedHora) }
                         </Modal>
 
                       </div>
@@ -493,10 +480,16 @@ if (!pelicula) {
          
                 </div>
 
-                <Modal title="Eliga una silla" open={isModalOpenReserva} onOk={handleOkReserva} onCancel={handleCancelReserva}>
-                  <InfoPage/>
-                  {/* <p>Prueba 1</p> */}
-                </Modal>
+                  <StyledModal 
+                    // title="Eliga una silla" 
+                    open={isModalOpenReserva} 
+                    onOk={handleOkReserva} 
+                    onCancel={handleCancelReserva}
+                  >
+                    <InfoPage horario={ultimoHorario}/>
+                  </StyledModal>
+
+
             </div>
 
             

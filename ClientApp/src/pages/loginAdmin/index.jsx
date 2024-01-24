@@ -379,7 +379,7 @@ export const LoginAdmin = (  ) => {
 
                 {
                     currentTheme === 'light'
-                    ?  <p className={styles.iniciar__sesion} > Iniciar sesion J </p> 
+                    ?  <p className={styles.iniciar__sesion} > Iniciar sesion </p> 
                     :   <p className={styles.iniciar__sesion__dark} > Iniciar sesion </p> 
                 }
                
