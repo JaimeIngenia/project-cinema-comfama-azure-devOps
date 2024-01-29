@@ -154,6 +154,50 @@ namespace CinemaComfamaVs5.Controllers
 
 
 
+        //[HttpGet]
+        //[Route("VerSillasReservaPorUsuarioModificada/{idUsuario}")]
+        //public async Task<IActionResult> VerSillasReservaPorUsuarioModificada(int idUsuario)
+        //{
+        //    try
+        //    {
+        //        List<SillaReservaDetalleViewModel> sillasReserva = await _DBContext.Sillareservas
+        //            .Where(s => s.IdReservaNavigation.IdUsuarioNavigation.IdUsuario == idUsuario)
+        //            .Include(s => s.IdReservaNavigation.IdUsuarioNavigation)
+        //            .Include(s => s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation)
+        //            .Include(s => s.IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation)
+        //            .Include(s => s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation)
+        //            .Select(s => new SillaReservaDetalleViewModel
+        //            {
+        //                NumeroSilla = s.NumeroSilla ?? 0,
+        //                NumeroDocumento = s.IdReservaNavigation.IdUsuarioNavigation.NumeroDocumento ?? "",
+        //                Nombres = s.IdReservaNavigation.IdUsuarioNavigation.Nombres ?? "",
+        //                Apellidos = s.IdReservaNavigation.IdUsuarioNavigation.Apellidos ?? "",
+        //                Correo = s.IdReservaNavigation.IdUsuarioNavigation.Correo ?? "",
+        //                TituloPelicula = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
+        //                    ? s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.Titulo ?? ""
+        //                    : "",
+        //                ImagenPromocionalPelicula = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
+        //                    ? s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.ImagenPromocional ?? ""
+        //                    : "",
+        //                NombreSala = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation != null
+        //                    ? s.IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation.NombreSala ?? ""
+        //                    : "",
+        //                HoraFuncion = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation != null
+        //                    ? DateTime.Today.Add(s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation.Hora1 ?? TimeSpan.Zero).ToString("HH:mm:ss")
+        //                    : ""
+        //            })
+        //            .ToListAsync();
+
+        //        return StatusCode(StatusCodes.Status200OK, sillasReserva);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //    }
+        //}
+
+
+
         [HttpGet]
         [Route("VerSillasReservaPorUsuarioModificada/{idUsuario}")]
         public async Task<IActionResult> VerSillasReservaPorUsuarioModificada(int idUsuario)
@@ -168,6 +212,7 @@ namespace CinemaComfamaVs5.Controllers
                     .Include(s => s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation)
                     .Select(s => new SillaReservaDetalleViewModel
                     {
+                        IdSillaReserva = s.IdSillaReserva,
                         NumeroSilla = s.NumeroSilla ?? 0,
                         NumeroDocumento = s.IdReservaNavigation.IdUsuarioNavigation.NumeroDocumento ?? "",
                         Nombres = s.IdReservaNavigation.IdUsuarioNavigation.Nombres ?? "",
@@ -195,6 +240,72 @@ namespace CinemaComfamaVs5.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+
+
+
+        [HttpDelete]
+        [Route("EliminarSillasReserva/{idSillaReserva}")]
+        public async Task<IActionResult> EliminarSillasReserva(int idSillaReserva)
+        {
+            try
+            {
+                // Buscar la silla de reserva por su identificador
+                var sillaReserva = await _DBContext.Sillareservas.FindAsync(idSillaReserva);
+
+                // Verificar si la silla de reserva existe
+                if (sillaReserva == null)
+                {
+                    return NotFound($"No se encontró la silla de reserva con el ID {idSillaReserva}");
+                }
+
+                // Eliminar la silla de reserva
+                _DBContext.Sillareservas.Remove(sillaReserva);
+                await _DBContext.SaveChangesAsync();
+
+                return Ok($"La silla de reserva con el ID {idSillaReserva} ha sido eliminada exitosamente");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpPut]
+        [Route("EditarSillaReserva/{idSillaReserva}")]
+        public async Task<IActionResult> EditarSillaReserva(int idSillaReserva, [FromBody] SillaReservaDetalleViewModel sillaReservaActualizada)
+        {
+            try
+            {
+                // Buscar la silla de reserva por su identificador
+                var sillaReserva = await _DBContext.Sillareservas.FindAsync(idSillaReserva);
+
+                // Verificar si la silla de reserva existe
+                if (sillaReserva == null)
+                {
+                    return NotFound($"No se encontró la silla de reserva con el ID {idSillaReserva}");
+                }
+
+                // Actualizar los campos de la silla de reserva con la información proporcionada
+                sillaReserva.NumeroSilla = sillaReservaActualizada.NumeroSilla;
+                // Actualiza los demás campos según sea necesario
+
+                // Guardar los cambios en la base de datos
+                await _DBContext.SaveChangesAsync();
+
+                return Ok($"La silla de reserva con el ID {idSillaReserva} ha sido actualizada exitosamente");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+
+
+
 
 
 

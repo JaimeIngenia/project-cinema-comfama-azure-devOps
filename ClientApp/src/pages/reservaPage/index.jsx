@@ -140,9 +140,9 @@ const ReservaPage = () => {
                 });
         
                 if (response.ok) {
-                    alert("El horario se ha guardado correctamente");
+                    // alert("El horario se ha guardado correctamente");
                 } else {
-                    alert(response.statusText);
+                    // alert(response.statusText);
                 }
             } catch (error) {
                 console.error("Error al guardar el Horario:", error);

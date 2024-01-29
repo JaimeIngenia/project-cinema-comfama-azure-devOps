@@ -2,6 +2,7 @@
 {
     public class SillaReservaDetalleViewModel
     {
+        public int IdSillaReserva { get; set; }
         public int NumeroSilla { get; set; }
         public string NumeroDocumento { get; set; }
         public string Nombres { get; set; }

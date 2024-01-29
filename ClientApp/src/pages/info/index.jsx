@@ -87,7 +87,7 @@ const InfoPage = ({horario}) => {
         });
 
         if (response.ok) {
-            alert("La Reserva se ha guardado correctamente");
+            // alert("La Reserva se ha guardado correctamente");
             console.log(` Jaime este es la reserva: tipo 
             IdUsuario Tipo: ${typeof idUsuario} 
             IdHorario tipo: ${ typeof idHorario} 
@@ -95,7 +95,7 @@ const InfoPage = ({horario}) => {
             // await mostrarTareas();
             } 
         else{
-              alert(response.statusText);
+              // alert(response.statusText);
             }
         }
         catch (error) {
@@ -138,7 +138,7 @@ const InfoPage = ({horario}) => {
    const handleOk = () => {
 
       setIsModalOpen(false);
-      alert('Esta es la umtila función jaime')
+      // alert('Esta es la umtila función jaime')
       const guardarSillaReserva = async () => {
         try {
           if (ultimaReservaId) {
@@ -158,7 +158,7 @@ const InfoPage = ({horario}) => {
             setSillaReserva(sillaReservaGuardada);
     
             // Mostrar un alert para indicar que la petición fue exitosa
-            alert('La silla de reserva se guardó correctamente');
+            // alert('La silla de reserva se guardó correctamente');
           } else {
             console.error('No se pudo obtener el Id de la última reserva.');
           }
