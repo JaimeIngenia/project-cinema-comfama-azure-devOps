@@ -3,9 +3,12 @@ import stock__active from "../../../assets/stock__active.svg";
 import add from "../../../assets/add.svg";
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from 'react-router-dom';
+import { Space, Typography } from 'antd';
+
 
 export const ProductList = ({ products, onAddCarProduct }) => {
-  
+
+  const { Text } = Typography;
   let navigate = useNavigate();
 
   console.log(products);
@@ -22,10 +25,17 @@ export const ProductList = ({ products, onAddCarProduct }) => {
 
 
               <div className={styles.title}>
-                <Link to={"/agregarPeliculas/" + products.idPelicula} >  
-                  <Link to={"/reserva/" + x.idPelicula } > <p>{x.titulo}</p>  </Link>
-                </Link> 
-                <img src={stock__active} alt="" />
+                {/* <Link to={"/agregarPeliculas/" + products.idPelicula} >   */}
+
+                  {/* <Link to={"/reserva/" + x.idPelicula } > */}
+                     <p>{x.titulo}</p>
+                     
+                     
+                       {/* </Link> */}
+
+                {/* </Link>  */}
+                {/* <img src={stock__active} alt="" /> */}
+                <p> $ {x.valor}</p>
               </div>
 
 
@@ -41,15 +51,28 @@ export const ProductList = ({ products, onAddCarProduct }) => {
                 <div className={styles.cuerpo_izq}>
                   <p> {x.sinopsis} </p>
                   
+
                   
                   <div className={styles.verAhora} >
+                    <p>{x.duracion} min</p>
+         
+              
+                    
+                    {x.idFormato === 1 ? <p>2D</p> : null}
+                    {x.idFormato === 2 ? <p>3D</p> : null}
+                    {x.idFormato === 3 ? <p>4D</p> : null}
+
                     <button
-                      // className={styles.btn__add}
-                      onClick={onAddCarProduct}
-                      name={x.id}
+                      // onClick={onAddCarProduct}
+                      // name={x.id}
                     >
+                            <Link to={"/reserva/" + x.idPelicula } >
+
                       <p>Reservar ➤</p>
+
+                            </Link>
                     </button>
+
 
                   </div>
                 </div>

@@ -2,6 +2,8 @@ import { Modal, Table ,Input} from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import style from './styles/ManejoReservasPage.module.css'
+
 
 const ManejoReservasPage = () => {
 
@@ -142,7 +144,7 @@ const ManejoReservasPage = () => {
           onOk: async () => {
             try {
               if (record.idSillaReserva) { // Asegúrate de usar el nombre correcto de la propiedad
-                alert(record.idSillaReserva)
+                // alert(record.idSillaReserva)
                 await eliminarSillaReserva(record.idSillaReserva);
                 // Actualiza el estado para reflejar la eliminación
                 setReservaOriginal((pre) => pre.filter((_jardin) => _jardin.idSillaReserva !== record.idSillaReserva));
@@ -167,10 +169,10 @@ const ManejoReservasPage = () => {
           });
       
           if (response.ok) {
-            alert("El jardín se ha eliminado correctamente");
+            alert("La reserva se ha eliminado correctamente");
             // Puedes realizar acciones adicionales después de la eliminación si es necesario
           } else {
-            alert(response.statusText);
+            // alert(response.statusText);
           }
         } catch (error) {
           console.error("Error al eliminar el jardín:", error);
@@ -203,7 +205,7 @@ const ManejoReservasPage = () => {
     }
 
     const actualizarSillaReserva = async (formValues) => {
-      debugger;
+      // debugger;
       console.log(formValues.NumeroSilla);
       console.log(formValues.numeroSilla);
       try {
@@ -231,10 +233,10 @@ const ManejoReservasPage = () => {
     
         if (response.ok) {
           setIsEditing(false);
-          alert("El jardín se ha actualizado correctamente");
+          // alert("La reserca se ha actualizado correctamente");
           // Puedes realizar acciones adicionales después de la actualización si es necesario
         } else {
-          alert(response.statusText);
+          // alert(response.statusText);
         }
       } catch (error) {
         console.error("Error al actualizar el jardin:", error);
@@ -253,7 +255,7 @@ const ManejoReservasPage = () => {
             placeholder= " Search here ..." 
             onSearch = {(value)=> {
               setSearchedText(value)
-              alert(value)
+              // alert(value)
             }}
             onChange={(e)=>{
               setSearchedText(e.target.value )

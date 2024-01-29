@@ -12,7 +12,10 @@ import { increment } from        "../../storeRedux/slices/counter"
 import { changeAuthorized } from "../../storeRedux/slices/authorized"
 import { changeAdmin} from '../../storeRedux/slices/admin'; 
 import md5 from 'md5';
-
+import imagenMapa from '../../assets/mapa__registro__evento.svg' 
+import tiketsLight from '../../assets/cinema/tiketsLight.svg'
+import tiketsDark from '../../assets/cinema/tiketsDark.svg'
+import tiketsDarkRojo from '../../assets/cinema/tiketsDarkRojo.svg'
 
 const {Item} = Form;
 const {Password} = Input;
@@ -362,12 +365,13 @@ export const Login = (  ) => {
     
 
     <>   
+    <div className={styles.contenedor__general}>
         <div className={styles.container__padre} >                          
             <div className={styles.container} >
 
                 {
                     currentTheme === 'light'
-                    ?  <p className={styles.iniciar__sesion} > Iniciar sesion J </p> 
+                    ?  <p className={styles.iniciar__sesion} > Iniciar sesion </p> 
                     :   <p className={styles.iniciar__sesion__dark} > Iniciar sesion </p> 
                 }
                
@@ -474,9 +478,9 @@ export const Login = (  ) => {
 
 
                                     </Form>
-                                            <Button onClick={ () => dispatch( increment() )} >Counter</Button>
+                                            {/* <Button onClick={ () => dispatch( increment() )} >Counter</Button>
 
-                                            <Button onClick={ () => dispatch( changeAuthorized() )} >Autorized</Button>
+                                            <Button onClick={ () => dispatch( changeAuthorized() )} >Autorized</Button> */}
                                             {/* <Button onClick={ () =>  showModal() } >Show Modal</Button> */}
 
 
@@ -488,6 +492,20 @@ export const Login = (  ) => {
                 </ConfigProvider>
             </div>
         </div> 
+
+        <div className={styles.image__mapa}>
+
+                    
+            {
+                currentTheme === 'light'
+                ? <img src={tiketsDarkRojo} alt="" />  
+                : <img src={tiketsDark} alt="" />
+            }
+
+        </div>
+
+    </div>
+
         <Modal title="Su registro ha sido exitoso!" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
 
 
@@ -563,10 +581,16 @@ export const Login = (  ) => {
 
                 <Item 
                     label="correo" 
-                    rules={[{
-                        required:true,
-                        message: "Por favor ingresa los correo "
-                    }]}
+                    rules={[
+                        {
+                          required: true,
+                          message: 'Por favor, ingresa el correo.',
+                        },
+                        {
+                          type: 'email',
+                          message: 'Por favor, ingresa un correo electrónico válido.',
+                        },
+                      ]}
                     name = "correo"
                     >
                     <Input placeholder="input correo"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
