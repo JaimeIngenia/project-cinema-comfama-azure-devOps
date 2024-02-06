@@ -21,9 +21,69 @@ namespace CinemaComfamaVs5.Controllers
         [Route("GuardarSillaReserva")]
         public async Task<IActionResult> GuardarSillaReserva([FromBody] Sillareserva request)
         {
+
             await _DBContext.Sillareservas.AddAsync(request);
             await _DBContext.SaveChangesAsync();
             return StatusCode(StatusCodes.Status200OK, "OK");
+        }
+
+        [HttpPost]
+        [Route("GuardarSillaReservaLista")]
+        public async Task<IActionResult> GuardarSillaReservaLista([FromBody] SillaReservaViewModelLista request)
+        {
+            try
+            {
+                if (request.IdReserva.HasValue && request.NumeroSillas != null && request.NumeroSillas.Any())
+                {
+                    foreach (var numeroSilla in request.NumeroSillas)
+                    {
+                        var sillareserva = new Sillareserva
+                        {
+                            IdReserva = request.IdReserva,
+                            NumeroSilla = numeroSilla
+                        };
+
+                        await _DBContext.Sillareservas.AddAsync(sillareserva);
+                        await _DBContext.SaveChangesAsync();
+                    }
+
+                    return StatusCode(StatusCodes.Status200OK, "OK");
+                }
+                else
+                {
+                    return BadRequest("IdReserva y NumeroSillas son obligatorios y deben contener datos.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error al guardar la silla de reserva: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("VerSillaReservasLista")]
+        public async Task<IActionResult> VerSillaReservasLista()
+        {
+            List<SillaReservaCompletaViewModel> lista = await _DBContext.Sillareservas
+                .Include(s => s.IdReservaNavigation.IdUsuarioNavigation)
+                .Include(s => s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation)
+                .Include(s => s.IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation)
+                .Include(s => s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation)
+                .GroupBy(s => s.IdReserva) // Agrupa por IdReserva
+                .Select(group => new SillaReservaCompletaViewModel
+                {
+                    IdReserva = group.Key ?? 0, // IdReserva es la clave del grupo
+
+                    NumeroSillas = group.Select(s => s.NumeroSilla ?? 0).ToList(), // Lista de NumeroSilla para la reserva
+                    ReservaDetalle = group.Select(s => new ReservaDetalleViewModel
+                    {
+                        IdReserva = s.IdReservaNavigation.IdReserva,
+                        // ... (Resto de las propiedades de ReservaDetalleViewModel)
+                    }).FirstOrDefault()
+                })
+                .ToListAsync();
+
+            return StatusCode(StatusCodes.Status200OK, lista);
         }
 
         // ESTE ES EL MEJOR --------------------------------------------------------------------
@@ -196,8 +256,10 @@ namespace CinemaComfamaVs5.Controllers
         //    }
         //}
 
-
-
+        private async Task<Horario> ObtenerUltimoHorario()
+        {
+            return await _DBContext.Horarios.OrderByDescending(h => h.IdHorario).FirstOrDefaultAsync();
+        }
         [HttpGet]
         [Route("VerSillasReservaPorUsuarioModificada/{idUsuario}")]
         public async Task<IActionResult> VerSillasReservaPorUsuarioModificada(int idUsuario)
@@ -218,22 +280,109 @@ namespace CinemaComfamaVs5.Controllers
                         Nombres = s.IdReservaNavigation.IdUsuarioNavigation.Nombres ?? "",
                         Apellidos = s.IdReservaNavigation.IdUsuarioNavigation.Apellidos ?? "",
                         Correo = s.IdReservaNavigation.IdUsuarioNavigation.Correo ?? "",
-                        TituloPelicula = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
-                            ? s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.Titulo ?? ""
-                            : "",
-                        ImagenPromocionalPelicula = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
-                            ? s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.ImagenPromocional ?? ""
-                            : "",
-                        NombreSala = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation != null
-                            ? s.IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation.NombreSala ?? ""
-                            : "",
-                        HoraFuncion = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation != null
-                            ? DateTime.Today.Add(s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation.Hora1 ?? TimeSpan.Zero).ToString("HH:mm:ss")
-                            : ""
+                        TituloPelicula = s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.Titulo ?? "" ,
+                        ImagenPromocionalPelicula = s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.ImagenPromocional ?? "",
+                        NombreSala = s.IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation.NombreSala ?? "",
+                        HoraFuncion = DateTime.Today.Add(s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation.Hora1 ?? TimeSpan.Zero).ToString("HH:mm:ss")
                     })
                     .ToListAsync();
 
                 return StatusCode(StatusCodes.Status200OK, sillasReserva);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+
+
+
+        //[HttpGet]
+        //[Route("VerSillasReservaPorUsuarioModificada/{idUsuario}")]
+        //public async Task<IActionResult> VerSillasReservaPorUsuarioModificada(int idUsuario)
+        //{
+        //    try
+        //    {
+        //        List<SillaReservaDetalleViewModel> sillasReserva = await _DBContext.Sillareservas
+        //            .Where(s => s.IdReservaNavigation.IdUsuarioNavigation.IdUsuario == idUsuario)
+        //            .Include(s => s.IdReservaNavigation.IdUsuarioNavigation)
+        //            .Include(s => s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation)
+        //            .Include(s => s.IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation)
+        //            .Include(s => s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation)
+        //            .Select(s => new SillaReservaDetalleViewModel
+        //            {
+        //                IdSillaReserva = s.IdSillaReserva,
+        //                NumeroSilla = s.NumeroSilla ?? 0,
+        //                NumeroDocumento = s.IdReservaNavigation.IdUsuarioNavigation.NumeroDocumento ?? "",
+        //                Nombres = s.IdReservaNavigation.IdUsuarioNavigation.Nombres ?? "",
+        //                Apellidos = s.IdReservaNavigation.IdUsuarioNavigation.Apellidos ?? "",
+        //                Correo = s.IdReservaNavigation.IdUsuarioNavigation.Correo ?? "",
+        //                TituloPelicula = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
+        //                    ? s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.Titulo ?? ""
+        //                    : "",
+        //                ImagenPromocionalPelicula = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
+        //                    ? s.IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.ImagenPromocional ?? ""
+        //                    : "",
+        //                NombreSala = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation != null
+        //                    ? s.IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation.NombreSala ?? ""
+        //                    : "",
+        //                HoraFuncion = s.IdReservaNavigation != null && s.IdReservaNavigation.IdHorarioNavigation != null && s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation != null
+        //                    ? DateTime.Today.Add(s.IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation.Hora1 ?? TimeSpan.Zero).ToString("HH:mm:ss")
+        //                    : ""
+        //            })
+        //            .ToListAsync();
+
+        //        return StatusCode(StatusCodes.Status200OK, sillasReserva);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //    }
+        //}
+
+        [HttpGet]
+        [Route("VerSillasReservaPorUsuarioModificadaLista/{idUsuario}")]
+        public async Task<IActionResult> VerSillasReservaPorUsuarioModificadaLista(int idUsuario)
+        {
+            try
+            {
+
+                var sillasReservaGrupadas = await _DBContext.Sillareservas
+              .Where(s => s.IdReservaNavigation.IdUsuarioNavigation.IdUsuario == idUsuario)
+              .GroupBy(s => s.IdReserva)
+              .Select(group => new SillaReservaDetalleGrupoViewModel
+              {
+                  IdReserva = group.Key ?? 0,
+                  NumeroSillas = group.Select(s => s.NumeroSilla ?? 0).ToList(),
+                  NumeroDocumento = group.First().IdReservaNavigation.IdUsuarioNavigation.NumeroDocumento ?? "",
+                  Nombres = group.First().IdReservaNavigation.IdUsuarioNavigation.Nombres ?? "",
+                  Apellidos = group.First().IdReservaNavigation.IdUsuarioNavigation.Apellidos ?? "",
+                  Correo = group.First().IdReservaNavigation.IdUsuarioNavigation.Correo ?? "",
+                  TituloPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
+    ? group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.Titulo ?? ""
+    : "",
+                  ImagenPromocionalPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
+    ? group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.ImagenPromocional ?? ""
+    : "",
+                  NombreSala = group.First().IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation != null
+    ? group.First().IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation.NombreSala ?? ""
+    : "",
+
+                  //TituloPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation?.Titulo ?? "",
+                  //ImagenPromocionalPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation?.ImagenPromocional ?? "",
+                  //NombreSala = group.First().IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation?.NombreSala ?? "",
+                  HoraFuncion = group.First().IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation != null &&
+                                group.First().IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation.Hora1.HasValue
+                      ? group.First().IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation.Hora1.Value.ToString("HH:mm:ss")
+                      : ""
+              })
+              .ToListAsync();
+
+
+
+                return StatusCode(StatusCodes.Status200OK, sillasReservaGrupadas);
             }
             catch (Exception ex)
             {

@@ -39,6 +39,18 @@ const InfoPage = ({horario}) => {
       setSelectedSeats([...selectedSeats, seatNumber]);
     }
   };
+  // const handleSeatClick = (seatNumber) => {
+  //   // Convierte el número del asiento a entero
+  //   const seatInt = parseInt(seatNumber, 10);
+  
+  //   if (selectedSeats.includes(seatInt)) {
+  //     // Si está seleccionado, quítalo del array
+  //     setSelectedSeats(selectedSeats.filter((seat) => seat !== seatInt));
+  //   } else {
+  //     // Si no está seleccionado, agrégalo al array
+  //     setSelectedSeats([...selectedSeats, seatInt]);
+  //   }
+  // };
 
   const renderSeats = () => {
       const seatRows = [0, 1, 2, 3, 4, 5];
@@ -54,6 +66,7 @@ const InfoPage = ({horario}) => {
             {seatCols.map((col) => {
               const seatNumber = `${row}${col}`;
               const isSelected = selectedSeats.includes(seatNumber);
+             
 
               return (
                 <div
@@ -138,27 +151,136 @@ const InfoPage = ({horario}) => {
    const handleOk = () => {
 
       setIsModalOpen(false);
-      // alert('Esta es la umtila función jaime')
+
+      // const guardarSillaReserva = async () => {
+      //   try {
+      //     if (ultimaReservaId) {
+      //       const NumeroSilla = selectedSeats.map(seat => parseInt(seat, 10));
+      //       console.log("ESTE ES EL ARRAY DE NUMEROS DE SILLA:");
+      //       console.log(NumeroSilla);
+    
+      //       if (NumeroSilla.length > 5) {
+      //         // Muestra el modal de confirmación si hay más de 5 elementos
+      //         Modal.confirm({
+      //           title: 'Confirmación',
+      //           content: 'El número de asientos seleccionados no puede ser mayor a 5. ¿Quieres continuar?',
+      //           onOk: async () => {
+      //             // Aquí puedes poner la lógica para continuar con la acción
+      //             const datosSillaReserva = {
+      //               IdReserva: parseInt(ultimaReservaId),
+      //               NumeroSilla
+      //             };
+    
+      //             const response = await axios.post('https://localhost:7240/api/SillaReserva/GuardarSillaReservaLista', datosSillaReserva);
+    
+      //             const sillaReservaGuardada = response.data;
+      //             setSillaReserva(sillaReservaGuardada);
+      //           },
+      //           onCancel: () => {
+      //             // Puedes agregar lógica adicional al cancelar
+      //           },
+      //         });
+      //       } else {
+      //         // No hay más de 5 elementos, continúa con la acción
+      //         const datosSillaReserva = {
+      //           IdReserva: parseInt(ultimaReservaId),
+      //           NumeroSilla
+      //         };
+    
+      //         const response = await axios.post('https://localhost:7240/api/SillaReserva/GuardarSillaReservaLista', datosSillaReserva);
+    
+      //         const sillaReservaGuardada = response.data;
+      //         setSillaReserva(sillaReservaGuardada);
+      //       }
+      //     } else {
+      //       console.error('No se pudo obtener el Id de la última reserva.');
+      //     }
+      //   } catch (error) {
+      //     console.error('Error al guardar la silla de reserva:', error);
+      //   }
+      // };
+
+      // const guardarSillaReserva = async () => {
+      //   try {
+      //     if (ultimaReservaId) {
+      //       // Datos adicionales que deseas enviar
+      //       const NumeroSilla = parseInt(selectedSeats); // Ejemplo, puedes obtenerlo de otro estado o fuente
+      //       // const NumeroSilla = selectedSeats.map(seat => parseInt(seat, 10));
+      //       console.log("EST EES EL SELECTEDSEATS: ");
+      //       console.log(NumeroSilla);
+      //       debugger
+      //       // Objeto de datos para la solicitud POST
+      //       const datosSillaReserva = {
+      //         IdReserva: parseInt(ultimaReservaId),
+      //         NumeroSilla
+      //       };
+        
+      //       const response = await axios.post('https://localhost:7240/api/SillaReserva/GuardarSillaReserva', datosSillaReserva);
+        
+      //       const sillaReservaGuardada = response.data;
+      //       setSillaReserva(sillaReservaGuardada);
+      //       console.log("Silla guardada exitosamente");
+    
+
+      //     } else {
+      //       console.error('No se pudo obtener el Id de la última reserva.');
+      //     }
+      //   } catch (error) {
+      //     console.error('Error al guardar la silla de reserva:', error);
+      //   }
+      // };
+//*********** este si funciona */
+      // const guardarSillaReserva = async () => {
+      //   try {
+      //     if (ultimaReservaId) {
+      //       // const NumeroSilla = parseInt(selectedSeats); // Ejemplo, puedes obtenerlo de otro estado o fuente
+      //       const NumeroSillas = selectedSeats.map(seat => parseInt(seat, 10));
+      //       console.log("EST EES EL SELECTEDSEATS: ");
+      //       console.log(NumeroSillas);
+      //       debugger
+      //       // Objeto de datos para la solicitud POST
+      //       const datosSillaReserva = {
+      //         IdReserva: parseInt(ultimaReservaId),
+      //         NumeroSillas
+      //       };
+        
+      //       const response = await axios.post('https://localhost:7240/api/SillaReserva/GuardarSillaReservaLista', datosSillaReserva);
+        
+      //       const sillaReservaGuardada = response.data;
+      //       setSillaReserva(sillaReservaGuardada);
+      //       console.log("Silla guardada exitosamente");
+    
+
+      //     } else {
+      //       console.error('No se pudo obtener el Id de la última reserva.');
+      //     }
+      //   } catch (error) {
+      //     console.error('Error al guardar la silla de reserva:', error);
+      //   }
+      // };
+
       const guardarSillaReserva = async () => {
         try {
           if (ultimaReservaId) {
-            // Datos adicionales que deseas enviar
-            const NumeroSilla = parseInt(selectedSeats); // Ejemplo, puedes obtenerlo de otro estado o fuente
-        
+            const NumeroSillas = selectedSeats.map(seat => parseInt(seat, 10));
+      
+            // Validar que no haya más de 5 elementos en el array
+            if (NumeroSillas.length > 5) {
+              alert("No puedes seleccionar más de 5 sillas.");
+              return; // Detener la ejecución si se excede el límite
+            }
+      
             // Objeto de datos para la solicitud POST
             const datosSillaReserva = {
               IdReserva: parseInt(ultimaReservaId),
-              NumeroSilla,
-              // Otros campos de datos que desees enviar
+              NumeroSillas
             };
-        
-            const response = await axios.post('https://localhost:7240/api/SillaReserva/GuardarSillaReserva', datosSillaReserva);
-        
+      
+            const response = await axios.post('https://localhost:7240/api/SillaReserva/GuardarSillaReservaLista', datosSillaReserva);
+      
             const sillaReservaGuardada = response.data;
             setSillaReserva(sillaReservaGuardada);
-    
-            // Mostrar un alert para indicar que la petición fue exitosa
-            // alert('La silla de reserva se guardó correctamente');
+            console.log("Silla guardada exitosamente");
           } else {
             console.error('No se pudo obtener el Id de la última reserva.');
           }
@@ -166,6 +288,8 @@ const InfoPage = ({horario}) => {
           console.error('Error al guardar la silla de reserva:', error);
         }
       };
+      
+    
     
       guardarSillaReserva();
       // navigate(`/manejoReservasPage/${idUsuario}`);

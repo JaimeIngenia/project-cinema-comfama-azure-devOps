@@ -13,6 +13,24 @@ const ManejoReservasPage = () => {
 
     const [searchedText, setSearchedText] = useState("")
 
+    
+    const [ultimoHorario, setUltimoHorario] = useState(null);
+
+
+    const mostrarUltimoHorario = async () => {
+
+      const response = await fetch("https://localhost:7240/api/Horario/VerUltimoHorario").then(response => response.json())
+          .then(data => { console.log(JSON.stringify(data, null, 2)); setUltimoHorario(data); })
+
+          .catch(error => console.error('Error:', error));
+    }
+
+    useEffect(() => {
+      mostrarUltimoHorario();
+    }, [])
+
+    console.log(ultimoHorario);
+
     //************************************************************
     // ***************** Reserva Modificada ************************
     //************************************************************
@@ -33,6 +51,20 @@ const ManejoReservasPage = () => {
         mostrarReservaOriginal();    
     }, [])
 
+
+    // const [reservaFiltrada, setReservaFiltrada] = useState({
+    //   idSillaReserva: reservaOriginal.idSillaReserva,
+    //   numeroSilla: reservaOriginal.numeroSilla,
+    //   numeroDocumento: reservaOriginal.numeroDocumento,
+    //   nombres: reservaOriginal.nombres,
+    //   apellidos: reservaOriginal.apellidos,
+    //   correo: reservaOriginal.correo,
+    //   idPelicula: ultimoHorario.idPelicula,
+    //   idSala: ultimoHorario.idSala,
+    //   idHora: ultimoHorario.idHora,
+    // });
+    
+    
    
 
     //************************************************************
