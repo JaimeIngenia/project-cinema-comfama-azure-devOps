@@ -486,7 +486,9 @@ if (!pelicula) {
                     onOk={handleOkReserva} 
                     onCancel={handleCancelReserva}
                   >
-                    <InfoPage horario={ultimoHorario}/>
+                    <InfoPage 
+                    // horario={ultimoHorario}
+                    />
                   </StyledModal>
 
 

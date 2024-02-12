@@ -8,12 +8,42 @@ import axios from "axios";
 
 
 
-const InfoPage = ({horario}) => {
+const InfoPage = (
+  // {horario}
+  ) => {
+
+  const [ultimoHorario, setUltimoHorario] = useState(null);
+  const [idUltimoHorario, setIdUltimoHorario] = useState(null);
+
+
+  const mostrarUltimoHorario = async () => {
+
+    const response = await fetch("https://localhost:7240/api/Horario/VerUltimoHorario").then(response => response.json())
+        .then(data => { 
+          console.log(JSON.stringify(data, null, 2)); 
+          setUltimoHorario(data);
+          const { idHorario } = data;
+          setIdUltimoHorario(idHorario);
+          console.log('Id del último horario:', idHorario);
+        })
+
+        .catch(error => console.error('Error:', error));
+  }
+
+  useEffect(() => {
+    mostrarUltimoHorario();
+  }, [])
+  
+  
+  // const idHorario = 5
 
   let navigate = useNavigate();
   // navigate('/agregarPeliculas');
 
-  const {idHorario} = horario
+  // const {idHorario} = ultimoHorario
+
+
+
   // console.log("Jaime este es el IdHorario:");
   // console.log(idHorario);
   // console.log("Jaime este es el Usuario:");
@@ -100,10 +130,11 @@ const InfoPage = ({horario}) => {
         });
 
         if (response.ok) {
-            // alert("La Reserva se ha guardado correctamente");
+            alert("La Reserva se ha guardado correctamente");
             console.log(` Jaime este es la reserva: tipo 
             IdUsuario Tipo: ${typeof idUsuario} 
             IdHorario tipo: ${ typeof idHorario} 
+            ${idUsuario},${idHorario},
             `);
             // await mostrarTareas();
             } 
@@ -144,7 +175,7 @@ const InfoPage = ({horario}) => {
 
     // Llamar a la función para obtener la última reserva
     obtenerUltimaReservaId();
-    agregarReserva(idUsuario,idHorario);
+    agregarReserva(idUsuario,idUltimoHorario);
 
    };
 

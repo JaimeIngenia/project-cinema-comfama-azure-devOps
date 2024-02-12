@@ -41,6 +41,7 @@ const ManejoReservasPage = () => {
 
     const mostrarReservaOriginal = async () => {
 
+        // const response = await fetch(`https://localhost:7240/api/SillaReserva/VerSillasReservaPorUsuarioModificada/${idUsuario}`).then(response => response.json())
         const response = await fetch(`https://localhost:7240/api/SillaReserva/VerSillasReservaPorUsuarioModificada/${idUsuario}`).then(response => response.json())
             .then(data => { console.log(JSON.stringify(data, null, 2)); setReservaOriginal(data); })
       

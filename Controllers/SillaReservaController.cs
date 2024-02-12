@@ -360,19 +360,22 @@ namespace CinemaComfamaVs5.Controllers
                   Nombres = group.First().IdReservaNavigation.IdUsuarioNavigation.Nombres ?? "",
                   Apellidos = group.First().IdReservaNavigation.IdUsuarioNavigation.Apellidos ?? "",
                   Correo = group.First().IdReservaNavigation.IdUsuarioNavigation.Correo ?? "",
-                  TituloPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
-    ? group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.Titulo ?? ""
-    : "",
-                  ImagenPromocionalPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
-    ? group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.ImagenPromocional ?? ""
-    : "",
-                  NombreSala = group.First().IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation != null
-    ? group.First().IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation.NombreSala ?? ""
-    : "",
+                  //TituloPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
+                  //  ? group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.Titulo ?? ""
+                  //  : "",
+                  //                ImagenPromocionalPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation != null
+                  //  ? group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.ImagenPromocional ?? ""
+                  //  : "",
+                  //                NombreSala = group.First().IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation != null
+                  //  ? group.First().IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation.NombreSala ?? ""
+                  //  : "",
 
                   //TituloPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation?.Titulo ?? "",
                   //ImagenPromocionalPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation?.ImagenPromocional ?? "",
                   //NombreSala = group.First().IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation?.NombreSala ?? "",
+                  TituloPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.Titulo ?? "",
+                  ImagenPromocionalPelicula = group.First().IdReservaNavigation.IdHorarioNavigation.IdPeliculaNavigation.ImagenPromocional ?? "",
+                  NombreSala = group.First().IdReservaNavigation.IdHorarioNavigation.IdSalaNavigation.NombreSala ?? "",
                   HoraFuncion = group.First().IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation != null &&
                                 group.First().IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation.Hora1.HasValue
                       ? group.First().IdReservaNavigation.IdHorarioNavigation.IdHoraNavigation.Hora1.Value.ToString("HH:mm:ss")
