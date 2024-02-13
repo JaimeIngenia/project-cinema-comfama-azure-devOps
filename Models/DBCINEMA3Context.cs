@@ -78,6 +78,11 @@ namespace CinemaComfamaVs5.Models
 
                 entity.ToTable("HORARIOS");
 
+                entity.HasMany(d => d.ReservasReales)
+                  .WithOne(rr => rr.IdHorarioNavegacion) // Corregir aquí
+                  .HasForeignKey(d => d.IdHorario)
+                  .HasConstraintName("FK_HorarioReservaReal");
+
                 entity.HasOne(d => d.IdHoraNavigation)
                     .WithMany(p => p.Horarios)
                     .HasForeignKey(d => d.IdHora)
@@ -196,6 +201,16 @@ namespace CinemaComfamaVs5.Models
                     .WithMany(u => u.ReservasReales)
                     .HasForeignKey(rr => rr.IdUsuario)
                     .HasConstraintName("FK_UsuarioReservaReal");
+
+                entity.HasOne(rr => rr.IdHorarioNavegacion)
+                      .WithMany(h => h.ReservasReales)
+                      .HasForeignKey(rr => rr.IdHorario)
+                      .HasConstraintName("FK_HorarioReservaReal");
+
+                //entity.HasOne(rr => rr.IdHorarioNavegacion)
+                //    .WithMany(u => u.ReservasReales)
+                //    .HasForeignKey(rr => rr.IdHorario)
+                //    .HasConstraintName("FK_HorarioReservaReal");
             });
 
             //modelBuilder.Entity<ReservaReal>(entity =>

@@ -93,22 +93,121 @@ namespace CinemaComfamaVs5.Controllers
 
         //    return StatusCode(StatusCodes.Status200OK, lista);
         //}
+
+
         [HttpGet]
         [Route("GetAllReservaRealProperties")]
         public async Task<IActionResult> GetAllReservaRealProperties()
         {
             List<ReservaRealViewModel> lista = await _DBContext.ReservasReales
                 .Include(rr => rr.IdUsuarioNavegacion)
+                .Include(rr => rr.IdHorarioNavegacion)
+                    .ThenInclude(h => h.IdSalaNavigation)
+                .Include(rr => rr.IdHorarioNavegacion)
+                    .ThenInclude(h => h.IdHoraNavigation) // Incluye la entidad Hora
+                .Include(rr => rr.IdHorarioNavegacion)
+                    .ThenInclude(h => h.IdPeliculaNavigation)
                 .Select(rr => new ReservaRealViewModel
                 {
                     IdUsuario = rr.IdUsuarioNavegacion.IdUsuario,
                     Nombres = rr.IdUsuarioNavegacion.Nombres,
                     Correo = rr.IdUsuarioNavegacion.Correo,
+                    IdHorario = rr.IdHorarioNavegacion.IdHorario,
+                    Titulo = rr.IdHorarioNavegacion.IdPeliculaNavigation.Titulo,
+                    ImagenPromocional = rr.IdHorarioNavegacion.IdPeliculaNavigation.ImagenPromocional,
+                    IdSala = rr.IdHorarioNavegacion.IdSala ?? 0,
+                    NombreSala = rr.IdHorarioNavegacion.IdSalaNavigation.NombreSala ?? "Sin Sala",
+                    IdHora = rr.IdHorarioNavegacion.IdHora ?? 0,
+                    Hora = rr.IdHorarioNavegacion.IdHoraNavigation.Hora1// Nueva propiedad
                 })
                 .ToListAsync();
 
             return StatusCode(StatusCodes.Status200OK, lista);
         }
+
+
+        //[HttpGet]
+        //[Route("GetAllReservaRealProperties")]
+        //public async Task<IActionResult> GetAllReservaRealProperties()
+        //{
+        //    List<ReservaRealViewModel> lista = await _DBContext.ReservasReales
+        //        .Include(rr => rr.IdUsuarioNavegacion)
+        //        .Include(rr => rr.IdHorarioNavegacion)
+        //            .ThenInclude(h => h.IdSalaNavigation)
+        //        .Include(rr => rr.IdHorarioNavegacion)
+        //            .ThenInclude(h => h.IdHoraNavigation)
+        //        .Include(rr => rr.IdHorarioNavegacion)
+        //            .ThenInclude(h => h.IdPeliculaNavigation)
+        //        .Select(rr => new ReservaRealViewModel
+        //        {
+        //            IdUsuario = rr.IdUsuarioNavegacion.IdUsuario,
+        //            Nombres = rr.IdUsuarioNavegacion.Nombres,
+        //            Correo = rr.IdUsuarioNavegacion.Correo,
+        //            IdHorario = rr.IdHorarioNavegacion.IdHorario,
+        //            Titulo = rr.IdHorarioNavegacion.IdPeliculaNavigation.Titulo,
+        //            ImagenPromocional = rr.IdHorarioNavegacion.IdPeliculaNavigation.ImagenPromocional,
+        //            IdSala = rr.IdHorarioNavegacion.IdSala ?? 0,
+        //            NombreSala = rr.IdHorarioNavegacion.IdSalaNavigation.NombreSala ?? "Sin Sala", // Manejo de valores nulos
+        //            IdHora = rr.IdHorarioNavegacion.IdHora ?? 0
+        //        })
+        //        .ToListAsync();
+
+        //    return StatusCode(StatusCodes.Status200OK, lista);
+        //}
+
+
+        //[HttpGet]
+        //[Route("GetAllReservaRealProperties")]
+        //public async Task<IActionResult> GetAllReservaRealProperties()
+        //{
+        //    List<ReservaRealViewModel> lista = await _DBContext.ReservasReales
+        //        .Include(rr => rr.IdUsuarioNavegacion)
+        //        .Include(rr => rr.IdHorarioNavegacion)
+        //            .ThenInclude(h => h.IdSalaNavigation)
+        //        .Include(rr => rr.IdHorarioNavegacion)
+        //            .ThenInclude(h => h.IdHoraNavigation)
+        //        .Include(rr => rr.IdHorarioNavegacion)
+        //            .ThenInclude(h => h.IdPeliculaNavigation)
+        //        .Select(rr => new ReservaRealViewModel
+        //        {
+
+        //            IdUsuario = rr.IdUsuarioNavegacion.IdUsuario,
+        //            Nombres = rr.IdUsuarioNavegacion.Nombres,
+        //            Correo = rr.IdUsuarioNavegacion.Correo,
+        //            IdHorario = rr.IdHorarioNavegacion.IdHorario,
+        //            Titulo = rr.IdHorarioNavegacion.IdPeliculaNavigation.Titulo,
+        //            ImagenPromocional = rr.IdHorarioNavegacion.IdPeliculaNavigation.ImagenPromocional,
+        //            //IdSala = rr.IdHorarioNavegacion.IdSala,
+        //            //IdHora = rr.IdHorarioNavegacion.IdHora
+        //            IdSala = rr.IdHorarioNavegacion.IdSala ?? 0, // Manejo de valores nulos
+        //            IdHora = rr.IdHorarioNavegacion.IdHora ?? 0 // Manejo de valores nulos
+        //        })
+        //        .ToListAsync();
+
+        //    return StatusCode(StatusCodes.Status200OK, lista);
+        //}
+
+
+
+
+
+        //[HttpGet]
+        //[Route("GetAllReservaRealProperties")]
+        //public async Task<IActionResult> GetAllReservaRealProperties()
+        //{
+        //    List<ReservaRealViewModel> lista = await _DBContext.ReservasReales
+        //        .Include(rr => rr.IdUsuarioNavegacion)
+        //        .Include(rr => rr.IdHorarioNavegacion)
+        //        .Select(rr => new ReservaRealViewModel
+        //        {
+        //            IdUsuario = rr.IdUsuarioNavegacion.IdUsuario,
+        //            Nombres = rr.IdUsuarioNavegacion.Nombres,
+        //            Correo = rr.IdUsuarioNavegacion.Correo,
+        //        })
+        //        .ToListAsync();
+
+        //    return StatusCode(StatusCodes.Status200OK, lista);
+        //}
 
 
 

@@ -9,5 +9,7 @@ namespace CinemaComfamaVs5.Models
         public int IdReservaReal {  get; set; }
         public int? IdUsuario { get; set; }
         public virtual Usuario? IdUsuarioNavegacion { get; set; }
+        public int? IdHorario { get; set; }
+        public virtual Horario? IdHorarioNavegacion { get; set; }
     }
 }
