@@ -168,6 +168,11 @@ namespace CinemaComfamaVs5.Models
 
                 entity.ToTable("SILLARESERVA");
 
+                //entity.HasMany(d => d.ReservasReales)
+                //   .WithOne(rr => rr.IdSillaReservaNavegacion) // Corregir aquí
+                //   .HasForeignKey(d => d.IdSillaReserva)
+                //   .HasConstraintName("FK_SillaReservaReal");
+
                 entity.HasOne(d => d.IdReservaNavigation)
                     .WithMany(p => p.Sillareservas)
                     .HasForeignKey(d => d.IdReserva)
@@ -193,9 +198,14 @@ namespace CinemaComfamaVs5.Models
                 entity.HasKey(e => e.IdReservaReal)
                     .HasName("PK__RESERVARE__A7B8B83270A6D52F");
 
+                entity.Property(e => e.NumeroSillasReserva)
+                    .HasColumnName("NumeroSillasReserva")
+                    .HasColumnType("int"); // O el tipo de dato específico que estés utilizando en la base de datos
+                    //.IsRequired(false);   // Esto permite valores nulos
+
+
                 entity.ToTable("RESERVAREAL");
 
-                // Other property configurations...
 
                 entity.HasOne(rr => rr.IdUsuarioNavegacion)
                     .WithMany(u => u.ReservasReales)
@@ -203,9 +213,15 @@ namespace CinemaComfamaVs5.Models
                     .HasConstraintName("FK_UsuarioReservaReal");
 
                 entity.HasOne(rr => rr.IdHorarioNavegacion)
-                      .WithMany(h => h.ReservasReales)
-                      .HasForeignKey(rr => rr.IdHorario)
-                      .HasConstraintName("FK_HorarioReservaReal");
+                   .WithMany(h => h.ReservasReales)
+                   .HasForeignKey(rr => rr.IdHorario)
+                   .HasConstraintName("FK_HorarioReservaReal");
+                //entity.HasOne(rr => rr.IdSillaReservaNavegacion)
+                //      .WithMany(h => h.ReservasReales)
+                //      .HasForeignKey(rr => rr.IdSillaReserva)
+                //      .HasConstraintName("FK_SillaReservaReal");
+
+
 
                 //entity.HasOne(rr => rr.IdHorarioNavegacion)
                 //    .WithMany(u => u.ReservasReales)

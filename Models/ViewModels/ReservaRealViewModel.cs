@@ -2,6 +2,7 @@
 {
     public class ReservaRealViewModel
     {
+        public int IdReservaReal { get; set; }
         public int IdUsuario { get; set; }
         public string Nombres { get; set; }
         public string Correo { get; set; }
@@ -13,6 +14,8 @@
         public string NombreSala { get; set; }
         public int IdHora { get; set; }
         public TimeSpan? Hora { get; set; }
+
+        public int NumeroSillasReserva { get; set; }
     }
 
 

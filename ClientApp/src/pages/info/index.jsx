@@ -9,7 +9,7 @@ import axios from "axios";
 
 
 const InfoPage = (
-  // {horario}
+  {idUltimoHorarioReal}
   ) => {
 
   const [ultimoHorario, setUltimoHorario] = useState(null);
@@ -24,6 +24,7 @@ const InfoPage = (
           setUltimoHorario(data);
           const { idHorario } = data;
           setIdUltimoHorario(idHorario);
+          debugger;
           console.log('Id del último horario:', idHorario);
         })
 
@@ -32,7 +33,7 @@ const InfoPage = (
 
   useEffect(() => {
     mostrarUltimoHorario();
-  }, [])
+  }, [ultimoHorario])
   
   
   // const idHorario = 5
@@ -54,9 +55,10 @@ const InfoPage = (
 
     const idUsuarioCookie = cookies.get('idUsuario');
     console.log('Id de Usuario:', idUsuarioCookie);
+    // debugger;
     setIdUsuario(idUsuarioCookie);
 
-  }, []);
+  }, [idUsuario]);
 
 
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -175,7 +177,7 @@ const InfoPage = (
 
     // Llamar a la función para obtener la última reserva
     obtenerUltimaReservaId();
-    agregarReserva(idUsuario,idUltimoHorario);
+    // agregarReserva(idUsuario,idUltimoHorario);
 
    };
 
@@ -183,83 +185,7 @@ const InfoPage = (
 
       setIsModalOpen(false);
 
-      // const guardarSillaReserva = async () => {
-      //   try {
-      //     if (ultimaReservaId) {
-      //       const NumeroSilla = selectedSeats.map(seat => parseInt(seat, 10));
-      //       console.log("ESTE ES EL ARRAY DE NUMEROS DE SILLA:");
-      //       console.log(NumeroSilla);
-    
-      //       if (NumeroSilla.length > 5) {
-      //         // Muestra el modal de confirmación si hay más de 5 elementos
-      //         Modal.confirm({
-      //           title: 'Confirmación',
-      //           content: 'El número de asientos seleccionados no puede ser mayor a 5. ¿Quieres continuar?',
-      //           onOk: async () => {
-      //             // Aquí puedes poner la lógica para continuar con la acción
-      //             const datosSillaReserva = {
-      //               IdReserva: parseInt(ultimaReservaId),
-      //               NumeroSilla
-      //             };
-    
-      //             const response = await axios.post('https://localhost:7240/api/SillaReserva/GuardarSillaReservaLista', datosSillaReserva);
-    
-      //             const sillaReservaGuardada = response.data;
-      //             setSillaReserva(sillaReservaGuardada);
-      //           },
-      //           onCancel: () => {
-      //             // Puedes agregar lógica adicional al cancelar
-      //           },
-      //         });
-      //       } else {
-      //         // No hay más de 5 elementos, continúa con la acción
-      //         const datosSillaReserva = {
-      //           IdReserva: parseInt(ultimaReservaId),
-      //           NumeroSilla
-      //         };
-    
-      //         const response = await axios.post('https://localhost:7240/api/SillaReserva/GuardarSillaReservaLista', datosSillaReserva);
-    
-      //         const sillaReservaGuardada = response.data;
-      //         setSillaReserva(sillaReservaGuardada);
-      //       }
-      //     } else {
-      //       console.error('No se pudo obtener el Id de la última reserva.');
-      //     }
-      //   } catch (error) {
-      //     console.error('Error al guardar la silla de reserva:', error);
-      //   }
-      // };
-
-      // const guardarSillaReserva = async () => {
-      //   try {
-      //     if (ultimaReservaId) {
-      //       // Datos adicionales que deseas enviar
-      //       const NumeroSilla = parseInt(selectedSeats); // Ejemplo, puedes obtenerlo de otro estado o fuente
-      //       // const NumeroSilla = selectedSeats.map(seat => parseInt(seat, 10));
-      //       console.log("EST EES EL SELECTEDSEATS: ");
-      //       console.log(NumeroSilla);
-      //       debugger
-      //       // Objeto de datos para la solicitud POST
-      //       const datosSillaReserva = {
-      //         IdReserva: parseInt(ultimaReservaId),
-      //         NumeroSilla
-      //       };
-        
-      //       const response = await axios.post('https://localhost:7240/api/SillaReserva/GuardarSillaReserva', datosSillaReserva);
-        
-      //       const sillaReservaGuardada = response.data;
-      //       setSillaReserva(sillaReservaGuardada);
-      //       console.log("Silla guardada exitosamente");
-    
-
-      //     } else {
-      //       console.error('No se pudo obtener el Id de la última reserva.');
-      //     }
-      //   } catch (error) {
-      //     console.error('Error al guardar la silla de reserva:', error);
-      //   }
-      // };
+  
 //*********** este si funciona */
       // const guardarSillaReserva = async () => {
       //   try {
@@ -319,12 +245,46 @@ const InfoPage = (
           console.error('Error al guardar la silla de reserva:', error);
         }
       };
+
+      const guardarReservaReal = async () => {
+        try {
+          if (idUltimoHorario) {
+            const NumeroSillasReserva = selectedSeats.map(seat => parseInt(seat, 10));
+      
+    
+            if (NumeroSillasReserva.length > 5) {
+              alert("No puedes seleccionar más de 5 sillas.");
+              return; 
+            }
+      
+            // Objeto de datos para la solicitud POST
+            const datosSillaReserva = {
+
+              IdUsuario: parseInt(idUsuario),
+              IdHorario:parseInt(idUltimoHorario),
+              NumeroSillasReserva
+            };
+            debugger;
+      
+            const response = await axios.post('https://localhost:7240/api/ReservaReal/GuardarReservaRealLista', datosSillaReserva);
+      
+            const sillaReservaGuardada = response.data;
+            setSillaReserva(sillaReservaGuardada);
+            console.log("RESERVA guardada exitosamente");
+          } else {
+            console.error('RESERVA ERROR.');
+          }
+        } catch (error) {
+          console.error('Error al guardar la reserva:', error);
+        }
+      };
       
     
     
+      guardarReservaReal();
       guardarSillaReserva();
       // navigate(`/manejoReservasPage/${idUsuario}`);
-      navigate(`/manejoReservasPage/${idUsuario}`);
+      navigate(`/manejoReservasPageReal/${idUsuario}`);
       setIsModalOpen(false);
    };
    const handleCancel = () => {

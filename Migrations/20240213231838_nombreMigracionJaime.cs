@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CinemaComfamaVs5.Migrations
 {
-    public partial class nombreMigracionJaimeV1Reserva : Migration
+    public partial class nombreMigracionJaime : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -177,20 +177,26 @@ namespace CinemaComfamaVs5.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReservasReales",
+                name: "RESERVAREAL",
                 columns: table => new
                 {
                     IdReservaReal = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdUsuario = table.Column<int>(type: "int", nullable: true),
-                    IdUsuarioNavegacionIdUsuario = table.Column<int>(type: "int", nullable: true)
+                    IdHorario = table.Column<int>(type: "int", nullable: true),
+                    NumeroSillasReserva = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReservasReales", x => x.IdReservaReal);
+                    table.PrimaryKey("PK__RESERVARE__A7B8B83270A6D52F", x => x.IdReservaReal);
                     table.ForeignKey(
-                        name: "FK_ReservasReales_USUARIOS_IdUsuarioNavegacionIdUsuario",
-                        column: x => x.IdUsuarioNavegacionIdUsuario,
+                        name: "FK_HorarioReservaReal",
+                        column: x => x.IdHorario,
+                        principalTable: "HORARIOS",
+                        principalColumn: "IdHorario");
+                    table.ForeignKey(
+                        name: "FK_UsuarioReservaReal",
+                        column: x => x.IdUsuario,
                         principalTable: "USUARIOS",
                         principalColumn: "IdUsuario");
                 });
@@ -264,6 +270,16 @@ namespace CinemaComfamaVs5.Migrations
                 column: "IdGenero");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RESERVAREAL_IdHorario",
+                table: "RESERVAREAL",
+                column: "IdHorario");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RESERVAREAL_IdUsuario",
+                table: "RESERVAREAL",
+                column: "IdUsuario");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RESERVAS_IdHorario",
                 table: "RESERVAS",
                 column: "IdHorario");
@@ -272,11 +288,6 @@ namespace CinemaComfamaVs5.Migrations
                 name: "IX_RESERVAS_IdUsuario",
                 table: "RESERVAS",
                 column: "IdUsuario");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ReservasReales_IdUsuarioNavegacionIdUsuario",
-                table: "ReservasReales",
-                column: "IdUsuarioNavegacionIdUsuario");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SILLARESERVA_IdReserva",
@@ -297,7 +308,7 @@ namespace CinemaComfamaVs5.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ReservasReales");
+                name: "RESERVAREAL");
 
             migrationBuilder.DropTable(
                 name: "SILLARESERVA");

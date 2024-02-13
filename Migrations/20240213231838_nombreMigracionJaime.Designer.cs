@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaComfamaVs5.Migrations
 {
     [DbContext(typeof(DBCINEMA3Context))]
-    [Migration("20240212120012_nombreMigracionJaimeV1Reserva")]
-    partial class nombreMigracionJaimeV1Reserva
+    [Migration("20240213231838_nombreMigracionJaime")]
+    partial class nombreMigracionJaime
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -184,17 +184,24 @@ namespace CinemaComfamaVs5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdReservaReal"), 1L, 1);
 
+                    b.Property<int?>("IdHorario")
+                        .HasColumnType("int");
+
                     b.Property<int?>("IdUsuario")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdUsuarioNavegacionIdUsuario")
-                        .HasColumnType("int");
+                    b.Property<int?>("NumeroSillasReserva")
+                        .HasColumnType("int")
+                        .HasColumnName("NumeroSillasReserva");
 
-                    b.HasKey("IdReservaReal");
+                    b.HasKey("IdReservaReal")
+                        .HasName("PK__RESERVARE__A7B8B83270A6D52F");
 
-                    b.HasIndex("IdUsuarioNavegacionIdUsuario");
+                    b.HasIndex("IdHorario");
 
-                    b.ToTable("ReservasReales");
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("RESERVAREAL", (string)null);
                 });
 
             modelBuilder.Entity("CinemaComfamaVs5.Models.Sala", b =>
@@ -392,9 +399,17 @@ namespace CinemaComfamaVs5.Migrations
 
             modelBuilder.Entity("CinemaComfamaVs5.Models.ReservaReal", b =>
                 {
+                    b.HasOne("CinemaComfamaVs5.Models.Horario", "IdHorarioNavegacion")
+                        .WithMany("ReservasReales")
+                        .HasForeignKey("IdHorario")
+                        .HasConstraintName("FK_HorarioReservaReal");
+
                     b.HasOne("CinemaComfamaVs5.Models.Usuario", "IdUsuarioNavegacion")
                         .WithMany("ReservasReales")
-                        .HasForeignKey("IdUsuarioNavegacionIdUsuario");
+                        .HasForeignKey("IdUsuario")
+                        .HasConstraintName("FK_UsuarioReservaReal");
+
+                    b.Navigation("IdHorarioNavegacion");
 
                     b.Navigation("IdUsuarioNavegacion");
                 });
@@ -444,6 +459,8 @@ namespace CinemaComfamaVs5.Migrations
             modelBuilder.Entity("CinemaComfamaVs5.Models.Horario", b =>
                 {
                     b.Navigation("Reservas");
+
+                    b.Navigation("ReservasReales");
                 });
 
             modelBuilder.Entity("CinemaComfamaVs5.Models.Pelicula", b =>

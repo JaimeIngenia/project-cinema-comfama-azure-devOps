@@ -11,5 +11,9 @@ namespace CinemaComfamaVs5.Models
         public virtual Usuario? IdUsuarioNavegacion { get; set; }
         public int? IdHorario { get; set; }
         public virtual Horario? IdHorarioNavegacion { get; set; }
+    
+        public int NumeroSillasReserva { get; set; }
+        //public int? IdSillaReserva { get; set; }
+        //public virtual Sillareserva? IdSillaReservaNavegacion { get; set; }
     }
 }

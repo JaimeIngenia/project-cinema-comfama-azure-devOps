@@ -206,36 +206,46 @@ useEffect(() => {
 const [isModalOpenReserva, setIsModalOpenReserva] = useState(false);
 
 const [ultimoHorario, setUltimoHorario] = useState(null);
-
+const [idUltimoHorario, setIdUltimoHorario] = useState(null);
 
 const mostrarUltimoHorario = async () => {
 
   const response = await fetch("https://localhost:7240/api/Horario/VerUltimoHorario").then(response => response.json())
-      .then(data => { console.log(JSON.stringify(data, null, 2)); setUltimoHorario(data); })
+      .then(data => { console.log(JSON.stringify(data, null, 2));
+         setUltimoHorario(data); 
+         console.log("Dilbani este es el ultimo horario");
+         debugger;
+         console.log(ultimoHorario);
+         const { idHorario } = data;
+          setIdUltimoHorario(idHorario);
+          // debugger;
+          console.log('Id del último horario:', idHorario);
+        })
 
       .catch(error => console.error('Error:', error));
 }
 
-useEffect(() => {
-  mostrarUltimoHorario();
-}, [])
+    useEffect(() => {
+      mostrarUltimoHorario();
+    }, [])
 
 
 
-const showModalReserva = () => {
-  setIsModalOpenReserva(true);
-  // alert("Claudia por aquí es...")
-  mostrarUltimoHorario();
+    const showModalReserva = () => {
+      setIsModalOpenReserva(true);
+      
+      // alert("Claudia por aquí es...")
+      // mostrarUltimoHorario();
 
-  // console.log("Claudia este es el ultimo horario: "+{ultimoHorario})
-  
-};
-const handleOkReserva = () => {
-  setIsModalOpenReserva(false);
-};
-const handleCancelReserva = () => {
-  setIsModalOpenReserva(false);
-};
+      // console.log("Claudia este es el ultimo horario: "+{ultimoHorario})
+      
+    };
+    const handleOkReserva = () => {
+      setIsModalOpenReserva(false);
+    };
+    const handleCancelReserva = () => {
+      setIsModalOpenReserva(false);
+    };
 
 // function openReservaSillas () {
 
@@ -487,7 +497,7 @@ if (!pelicula) {
                     onCancel={handleCancelReserva}
                   >
                     <InfoPage 
-                    // horario={ultimoHorario}
+                    idUltimoHorarioReal={idUltimoHorario}
                     />
                   </StyledModal>
 
