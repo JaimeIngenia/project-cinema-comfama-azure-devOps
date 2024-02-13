@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace CinemaComfamaVs5.Models
 {
@@ -8,8 +10,10 @@ namespace CinemaComfamaVs5.Models
         public Usuario()
         {
             Reservas = new HashSet<Reserva>();
+            ReservasReales = new HashSet<ReservaReal>();
         }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdUsuario { get; set; }
         public int? IdTipoDocumento { get; set; }
         public string? NumeroDocumento { get; set; }
@@ -23,6 +27,7 @@ namespace CinemaComfamaVs5.Models
         public virtual ICollection<Reserva> Reservas { get; set; }
 
         public int? IdTipoRol { get; set; }
+        public virtual ICollection<ReservaReal> ReservasReales { get; set; }
 
     }
 }
