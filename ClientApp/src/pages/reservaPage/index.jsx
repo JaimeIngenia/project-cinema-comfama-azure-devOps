@@ -11,6 +11,8 @@ import { Select, theme } from 'antd';
 import Modal from 'antd/lib/modal/Modal';  // Importa el componente Modal de manera independiente
 import styled from 'styled-components';
 import InfoPage from '../info/index.jsx'
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const { Option } = Select;
 const {Item} = Form;
@@ -81,6 +83,35 @@ const ReservaPage = () => {
     let {idPelicula} = useParams();
     let idPeliculaInt = parseInt(idPelicula);
 
+    //*********************  para filtros */
+
+ const [numerosSillasReserva, setNumerosSillasReserva] = useState([]);
+
+   const FiltrarSillasReservadas = async () => {
+    const salaToFilter = 1;
+    const horaToFilter = 1;
+
+    try {
+      // const response = await axios.get(`https://localhost:7240/api/ReservaReal/GetReservasBySalaYHora/${salaToFilter}/${horaToFilter}`);
+      const response = await axios.get(`https://localhost:7240/api/ReservaReal/GetReservasBySalaYHoraYPelicula/${salaToFilter}/${horaToFilter}/${idPelicula}`);
+      const reservas = response.data;
+
+      if (reservas.length > 0) {
+        const numerosSillasReserva = reservas.map(reserva => reserva.numeroSillasReserva);
+        setNumerosSillasReserva(numerosSillasReserva);
+      } else {
+        alert('El usuario o la contraseña no son correctos');
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
+
+    //*********************  para filtros */
+
+    const cookies = new Cookies();
+
     //************************************** */
 
     const [pelicula, setPelicula] = useState(null);
@@ -149,6 +180,86 @@ const ReservaPage = () => {
             }
           }
 
+          
+          //   const FiltrarSillasReservadas = async () => {
+
+          //     const salaToFilter = 1;
+          //     const horaToFilter = 1;
+          //     debugger;
+          //     await axios.get(`https://localhost:7240/api/ReservaReal/GetReservasBySalaYHora/${salaToFilter}/${horaToFilter}`)
+              
+          //     .then(response=>{
+              
+          //         return response.data;
+          //         console.log("Jaime response.data: " + response.data);
+              
+          //     })
+          //     .then(response=>{
+      
+                  
+                  
+                  
+          //         if(response.length>0){
+
+          //             var respuesta = response[0];
+          //             console.log("Jaime esta es la respuesta" + respuesta);
+          //             console.log(respuesta);
+          //             //--COOKKIES
+          //             cookies.set('idReservaReal', respuesta.idReservaReal , { path: '/' });
+          //             cookies.set('nombres', respuesta.nombres , { path: '/' });
+          //             cookies.set('correo', respuesta.correo , { path: '/' });
+          //             cookies.set('titulo', respuesta.titulo , { path: '/' });
+          //             cookies.set('imagenPromocional', respuesta.imagenPromocional , { path: '/' });
+          //             cookies.set('nombreSala', respuesta.nombreSala , { path: '/' });
+          //             cookies.set('hora', respuesta.hora , { path: '/' });
+          //             cookies.set('numeroSillasReserva', respuesta.numeroSillasReserva , { path: '/' });
+          //             alert("Bienvenido: " + respuesta.nombres + " " + respuesta.numeroSillasReserva);
+          //             //setAutrizado(true)
+          //             // dispatch( changeAuthorized() )
+          //             // console.log("Jaime este es el authorizedStateRedux: ");
+          //             // console.log(authorizedStateRedux);
+                     
+          //         }else{
+          //             alert('El usuario o la contraseña no son correctos')
+          //             //setAutrizado(false)
+          //         }
+          //     })
+          //     .catch(error=>{
+          //         console.log("Jaime este es el error" + error);
+          //     })
+      
+          //     // if(cookies.get('idTipoRol')===1)
+          //     // {
+          //     //   dispatch( changeAdmin() )
+          //     // }
+      
+          // };
+//           const FiltrarSillasReservadas = async () => {
+//             const salaToFilter = 1;
+//             const horaToFilter = 1;
+
+//             try {
+//               const response = await axios.get(`https://localhost:7240/api/ReservaReal/GetReservasBySalaYHora/${salaToFilter}/${horaToFilter}`);
+//               const reservas = response.data;
+
+//               if (reservas.length > 0) {
+//                 // Obtener solo el campo 'numeroSillasReserva' de cada reserva
+//                 const numerosSillasReserva = reservas.map(reserva => reserva.numeroSillasReserva);
+// debugger;
+//                 // Ahora 'numerosSillasReserva' es un array que contiene solo los valores de 'numeroSillasReserva'
+//                 console.log("Numeros de sillas reservadas:", numerosSillasReserva);
+
+//                 // Puedes hacer lo que necesites con el nuevo array
+//                 // Por ejemplo, podrías sumar los valores o realizar alguna operación específica.
+//               } else {
+//                 alert('El usuario o la contraseña no son correctos');
+//               }
+//             } catch (error) {
+//               console.log("Error:", error);
+//             }
+//           };
+
+          FiltrarSillasReservadas();
           guardarHorario(selectedSala , selectedHora, idPeliculaInt)
         
         
@@ -214,7 +325,7 @@ const mostrarUltimoHorario = async () => {
       .then(data => { console.log(JSON.stringify(data, null, 2));
          setUltimoHorario(data); 
          console.log("Dilbani este es el ultimo horario");
-         debugger;
+        //  debugger;
          console.log(ultimoHorario);
          const { idHorario } = data;
           setIdUltimoHorario(idHorario);
@@ -498,6 +609,7 @@ if (!pelicula) {
                   >
                     <InfoPage 
                     idUltimoHorarioReal={idUltimoHorario}
+                    numerosSillasReserva={numerosSillasReserva}
                     />
                   </StyledModal>
 

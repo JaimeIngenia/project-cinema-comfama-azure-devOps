@@ -49,7 +49,7 @@ const ManejoReservasPageReal = () => {
             .then(data => { console.log(JSON.stringify(data, null, 2)); setReservaOriginal(data); })
       
             .catch(error => console.error('Error:', error));
-debugger;
+// debugger;
             console.log(reservaOriginal);
       }
 
@@ -153,14 +153,14 @@ debugger;
       
       const onDeleteSillaReserva = (record) => {
         console.log("Record:", record);
-        debugger;
+        // debugger;
         Modal.confirm({
           title: '¿Estás seguro de eliminar?',
           onOk: async () => {
             try {
               if (record.idReservaReal) { // Asegúrate de usar el nombre correcto de la propiedad
                 // alert(record.idSillaReserva)
-                debugger;
+                // debugger;
                 await eliminarSillaReserva(record.idReservaReal);
                 // Actualiza el estado para reflejar la eliminación
                 setReservaOriginal((pre) => pre.filter((_jardin) => _jardin.idReservaReal !== record.idReservaReal));
@@ -177,7 +177,7 @@ debugger;
 
       const eliminarSillaReserva = async (IdReservaReal) => {
         try {
-          debugger;
+          // debugger;
           const response = await fetch(`https://localhost:7240/api/ReservaReal/EliminarReservaReal/${IdReservaReal}`, {
             method: "DELETE",
             headers: {
@@ -226,7 +226,8 @@ debugger;
       console.log(formValues.numeroSillasReserva);
       console.log(formValues.numeroSillasReserva);
       try {
-        const response = await fetch(`https://localhost:7240/api/SillaReserva/EditarSillaReserva/${valueInputEditingSillaReserva.idSillaReserva}`, {
+        // debugger;
+        const response = await fetch(`https://localhost:7240/api/ReservaReal/EditarReservaReal/${valueInputEditingSillaReserva.idReservaReal}`, {
           method: "PUT",
           headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -234,15 +235,14 @@ debugger;
           body: JSON.stringify({
             
 
-            NumeroSillasReserva: formValues.NumeroSillasReserva,
-            NumeroDocumento: formValues.NumeroDocumento,
-            Nombres: formValues.Nombres,
-            Apellidos: formValues.Apellidos,
-            Correo: formValues.Correo,
-            TituloPelicula: formValues.TituloPelicula,
-            ImagenPromocionalPelicula: formValues.ImagenPromocionalPelicula,
-            NombreSala: formValues.NombreSala,
-            HoraFuncion: formValues.HoraFuncion,
+            idReservaReal: formValues.idReservaReal,
+            nombres: formValues.nombres,
+            correo: formValues.correo,
+            titulo: formValues.titulo,
+            imagenPromocional: formValues.imagenPromocional,
+            nombreSala: formValues.nombreSala,
+            hora: formValues.hora,
+            numeroSillasReserva: formValues.numeroSillasReserva,
 
 
           })
@@ -250,13 +250,13 @@ debugger;
     
         if (response.ok) {
           setIsEditing(false);
-          // alert("La reserca se ha actualizado correctamente");
+          alert("La reserva se ha actualizado correctamente");
           // Puedes realizar acciones adicionales después de la actualización si es necesario
         } else {
           // alert(response.statusText);
         }
       } catch (error) {
-        console.error("Error al actualizar el jardin:", error);
+        console.error("Error al actualizar el la reserva:", error);
       }
     };
 
@@ -300,20 +300,19 @@ debugger;
                   actualizarSillaReserva({
 
 
-                    NumeroSilla: valueInputEditingSillaReserva?.numeroSilla,
-                    NumeroDocumento: valueInputEditingSillaReserva?.numeroDocumento,
-                    Nombres: valueInputEditingSillaReserva?.nombres,
-                    Apellidos: valueInputEditingSillaReserva?.apellidos,
-                    Correo: valueInputEditingSillaReserva?.correo,
-                    TituloPelicula: valueInputEditingSillaReserva?.tituloPelicula,
-                    ImagenPromocionalPelicula: valueInputEditingSillaReserva?.imagenPromocionalPelicula,
-                    NombreSala: valueInputEditingSillaReserva?.nombreSala,
-                    HoraFuncion: valueInputEditingSillaReserva?.horaFuncion,
+                    idReservaReal: valueInputEditingSillaReserva?.idReservaReal,
+                    nombres: valueInputEditingSillaReserva?.nombres,
+                    correo: valueInputEditingSillaReserva?.correo,
+                    titulo: valueInputEditingSillaReserva?.titulo,
+                    imagenPromocional: valueInputEditingSillaReserva?.imagenPromocional,
+                    nombreSala: valueInputEditingSillaReserva?.nombreSala,
+                    hora: valueInputEditingSillaReserva?.hora,
+                    numeroSillasReserva: valueInputEditingSillaReserva?.numeroSillasReserva,
 
                   });
                   setReservaOriginal(pre => {
                     return pre.map(_jardin=>{
-                      if (_jardin.idSillaReserva === valueInputEditingSillaReserva.idSillaReserva){
+                      if (_jardin.idReservaReal === valueInputEditingSillaReserva.idReservaReal){
                         return valueInputEditingSillaReserva
                       }
                       else{
@@ -327,41 +326,38 @@ debugger;
               >
 
                 <Input
-                  value={valueInputEditingSillaReserva?.numeroSilla}
-                  onChange={(e) => handleInputChange('numeroSilla', e.target.value)}
+                  value={valueInputEditingSillaReserva?.idReservaReal}
+                  onChange={(e) => handleInputChange('idReservaReal', e.target.value)}
                 />
                 <Input
-                  value={valueInputEditingSillaReserva?.numeroDocumento}
-                  onChange={(e) => handleInputChange('numeroDocumento', e.target.value)}
-                />
-                <Input 
-                  value={valueInputEditingSillaReserva?.nombres} 
-                  onChange={(e) => handleInputChange('nombres', e.target.value)}          
-                />
-                <Input 
-                  value={valueInputEditingSillaReserva?.apellidos} 
-                  onChange={(e) => handleInputChange('apellidos', e.target.value)}          
+                  value={valueInputEditingSillaReserva?.nombres}
+                  onChange={(e) => handleInputChange('nombres', e.target.value)}
                 />
                 <Input 
                   value={valueInputEditingSillaReserva?.correo} 
                   onChange={(e) => handleInputChange('correo', e.target.value)}          
                 />
                 <Input 
-                  value={valueInputEditingSillaReserva?.tituloPelicula} 
-                  onChange={(e) => handleInputChange('tituloPelicula', e.target.value)}          
+                  value={valueInputEditingSillaReserva?.titulo} 
+                  onChange={(e) => handleInputChange('titulo', e.target.value)}          
                 />
                 <Input 
-                  value={valueInputEditingSillaReserva?.imagenPromocionalPelicula} 
-                  onChange={(e) => handleInputChange('imagenPromocionalPelicula', e.target.value)}          
+                  value={valueInputEditingSillaReserva?.imagenPromocional} 
+                  onChange={(e) => handleInputChange('imagenPromocional', e.target.value)}          
                 />
                 <Input 
                   value={valueInputEditingSillaReserva?.nombreSala} 
                   onChange={(e) => handleInputChange('nombreSala', e.target.value)}          
                 />
                 <Input 
-                  value={valueInputEditingSillaReserva?.horaFuncion} 
-                  onChange={(e) => handleInputChange('horaFuncion', e.target.value)}          
+                  value={valueInputEditingSillaReserva?.hora} 
+                  onChange={(e) => handleInputChange('hora', e.target.value)}          
                 />
+                <Input 
+                  value={valueInputEditingSillaReserva?.numeroSillasReserva} 
+                  onChange={(e) => handleInputChange('numeroSillasReserva', e.target.value)}          
+                />
+ 
               
             </Modal>
         </div>

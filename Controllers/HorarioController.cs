@@ -50,5 +50,35 @@ namespace CinemaComfamaVs5.Controllers
 
             return StatusCode(StatusCodes.Status200OK, ultimoHorario);
         }
+
+
+        [HttpGet]
+        [Route("GetSillasReservaBySalaYHora/{idSala}/{hora}")]
+        public async Task<IActionResult> GetSillasReservaBySalaYHora(int idSala, TimeSpan hora)
+        {
+            try
+            {
+                // Filtra los horarios por sala y hora
+                var horariosFiltrados = await _DBContext.Horarios
+                    .Include(h => h.ReservasReales)
+                    .Where(h => h.IdSala == idSala && h.IdHoraNavigation.Hora1 == hora)
+                    .ToListAsync();
+
+                // Extrae solo el campo NumeroSillasReserva
+                var sillasReserva = horariosFiltrados
+                    .SelectMany(h => h.ReservasReales)
+                    .Select(rr => rr.NumeroSillasReserva)
+                    .ToList();
+
+                return StatusCode(StatusCodes.Status200OK, sillasReserva);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error al obtener las sillas de reserva: {ex.Message}");
+            }
+        }
+
+
+
     }
 }

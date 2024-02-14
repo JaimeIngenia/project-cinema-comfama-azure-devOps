@@ -46,15 +46,15 @@ const Header = () => {
 
               {/* <span>{adminStateRedux? <p>true</p>:<p>false</p>}</span> */}
 
-              <Link  to={`/manejoReservasPage/${idUsuario}`}>
+              <Link  to={`/manejoReservasPageReal/${idUsuario}`}>
                 <span>Reservas </span>
               </Link>
               {/* <Link  to={"/cliente"}>
                 <span>Cliente</span>
               </Link> */}
-              {/* <Link  to={"/info/"}>
+              <Link  to={"/info/"}>
                 <span>Sillas Info</span>
-              </Link> */}
+              </Link>
 
               {/* <Link  to={"/shoppingCar/"}>
                 <span>Carrito de Compras</span>

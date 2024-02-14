@@ -80,15 +80,15 @@ namespace CinemaComfamaVs5.Controllers
                 .Select(rr => new ReservaRealViewModel
                 {
                     IdReservaReal = rr.IdReservaReal,
-                    IdUsuario = rr.IdUsuarioNavegacion.IdUsuario,
+                    //IdUsuario = rr.IdUsuarioNavegacion.IdUsuario,
                     Nombres = rr.IdUsuarioNavegacion.Nombres,
                     Correo = rr.IdUsuarioNavegacion.Correo,
-                    IdHorario = rr.IdHorarioNavegacion.IdHorario,
+                    //IdHorario = rr.IdHorarioNavegacion.IdHorario,
                     Titulo = rr.IdHorarioNavegacion.IdPeliculaNavigation.Titulo,
                     ImagenPromocional = rr.IdHorarioNavegacion.IdPeliculaNavigation.ImagenPromocional,
-                    IdSala = rr.IdHorarioNavegacion.IdSala ?? 0,
+                    //IdSala = rr.IdHorarioNavegacion.IdSala ?? 0,
                     NombreSala = rr.IdHorarioNavegacion.IdSalaNavigation.NombreSala ?? "Sin Sala",
-                    IdHora = rr.IdHorarioNavegacion.IdHora ?? 0,
+                    //IdHora = rr.IdHorarioNavegacion.IdHora ?? 0,
                     Hora = rr.IdHorarioNavegacion.IdHoraNavigation.Hora1,
                     //NumeroSilla = rr.IdSillaReservaNavegacion.NumeroSilla ?? 0,
                 })
@@ -118,17 +118,11 @@ namespace CinemaComfamaVs5.Controllers
                     {
                         IdReservaReal = rr.IdReservaReal,
                         NumeroSillasReserva = rr.NumeroSillasReserva,
-
-
-                        IdUsuario = rr.IdUsuarioNavegacion.IdUsuario,
                         Nombres = rr.IdUsuarioNavegacion.Nombres,
                         Correo = rr.IdUsuarioNavegacion.Correo,
-                        IdHorario = rr.IdHorarioNavegacion.IdHorario,
                         Titulo = rr.IdHorarioNavegacion.IdPeliculaNavigation.Titulo,
                         ImagenPromocional = rr.IdHorarioNavegacion.IdPeliculaNavigation.ImagenPromocional,
-                        IdSala = rr.IdHorarioNavegacion.IdSala ?? 0,
                         NombreSala = rr.IdHorarioNavegacion.IdSalaNavigation.NombreSala ?? "Sin Sala",
-                        IdHora = rr.IdHorarioNavegacion.IdHora ?? 0,
                         Hora = rr.IdHorarioNavegacion.IdHoraNavigation.Hora1,
                     })
                     .ToListAsync();
@@ -184,6 +178,7 @@ namespace CinemaComfamaVs5.Controllers
 
                 // Actualizar los campos de la reserva real con la información proporcionada
                 reservaReal.NumeroSillasReserva = reservaRealActualizada.NumeroSillasReserva;
+        
                 // Actualiza los demás campos según sea necesario
 
                 // Guardar los cambios en la base de datos
@@ -196,6 +191,82 @@ namespace CinemaComfamaVs5.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error al actualizar la reserva real: {ex.Message}");
             }
         }
+
+
+        [HttpGet]
+        [Route("GetReservasBySalaYHora/{idSala}/{idHora}")]
+        public async Task<IActionResult> GetReservasBySalaYHora(int idSala, int idHora)
+        {
+            try
+            {
+                // Obtener las reservas reales que cumplen con la sala y la hora especificadas
+                List<ReservaRealViewModel> lista = await _DBContext.ReservasReales
+                    .Include(rr => rr.IdUsuarioNavegacion)
+                    .Include(rr => rr.IdHorarioNavegacion)
+                        .ThenInclude(h => h.IdSalaNavigation)
+                    .Include(rr => rr.IdHorarioNavegacion)
+                        .ThenInclude(h => h.IdHoraNavigation)
+                    .Where(rr => rr.IdHorarioNavegacion.IdSala == idSala && rr.IdHorarioNavegacion.IdHora == idHora)
+                    .Select(rr => new ReservaRealViewModel
+                    {
+                        IdReservaReal = rr.IdReservaReal,
+                        NumeroSillasReserva = rr.NumeroSillasReserva,
+                        Nombres = rr.IdUsuarioNavegacion.Nombres,
+                        Correo = rr.IdUsuarioNavegacion.Correo,
+                        Titulo = rr.IdHorarioNavegacion.IdPeliculaNavigation.Titulo,
+                        ImagenPromocional = rr.IdHorarioNavegacion.IdPeliculaNavigation.ImagenPromocional,
+                        NombreSala = rr.IdHorarioNavegacion.IdSalaNavigation.NombreSala ?? "Sin Sala",
+                        Hora = rr.IdHorarioNavegacion.IdHoraNavigation.Hora1,
+                    })
+                    .ToListAsync();
+
+                return StatusCode(StatusCodes.Status200OK, lista);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error al obtener las reservas por sala y hora: {ex.Message}");
+            }
+        }
+
+
+        [HttpGet]
+        [Route("GetReservasBySalaYHoraYPelicula/{idSala}/{idHora}/{idPelicula}")]
+        public async Task<IActionResult> GetReservasBySalaYHoraYPelicula(int idSala, int idHora, int idPelicula)
+        {
+            try
+            {
+                // Obtener las reservas reales que cumplen con la sala, la hora y el idPelicula especificados
+                List<ReservaRealViewModel> lista = await _DBContext.ReservasReales
+                    .Include(rr => rr.IdUsuarioNavegacion)
+                    .Include(rr => rr.IdHorarioNavegacion)
+                        .ThenInclude(h => h.IdSalaNavigation)
+                    .Include(rr => rr.IdHorarioNavegacion)
+                        .ThenInclude(h => h.IdHoraNavigation)
+                    .Where(rr => rr.IdHorarioNavegacion.IdSala == idSala
+                              && rr.IdHorarioNavegacion.IdHora == idHora
+                              && rr.IdHorarioNavegacion.IdPelicula == idPelicula) // Añadir condición para idPelicula
+                    .Select(rr => new ReservaRealViewModel
+                    {
+                        IdReservaReal = rr.IdReservaReal,
+                        NumeroSillasReserva = rr.NumeroSillasReserva,
+                        Nombres = rr.IdUsuarioNavegacion.Nombres,
+                        Correo = rr.IdUsuarioNavegacion.Correo,
+                        Titulo = rr.IdHorarioNavegacion.IdPeliculaNavigation.Titulo,
+                        ImagenPromocional = rr.IdHorarioNavegacion.IdPeliculaNavigation.ImagenPromocional,
+                        NombreSala = rr.IdHorarioNavegacion.IdSalaNavigation.NombreSala ?? "Sin Sala",
+                        Hora = rr.IdHorarioNavegacion.IdHoraNavigation.Hora1,
+                    })
+                    .ToListAsync();
+
+                return StatusCode(StatusCodes.Status200OK, lista);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error al obtener las reservas por sala, hora y película: {ex.Message}");
+            }
+        }
+
+
 
 
 
