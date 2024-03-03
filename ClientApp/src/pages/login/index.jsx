@@ -164,7 +164,7 @@ export const Login = (  ) => {
 
     };
 
-    console.log("jAIME ESTE ES EL ROOOOL");
+    console.log("ESTE ES EL ROOOOL");
     console.log(parseInt(cookies.get('idTipoRol')));
 
     // if(cookies.get('idTipoRol')===1)
@@ -228,8 +228,8 @@ export const Login = (  ) => {
     
        setIsModalOpenRegistro(false);
        navigate('/');
-       alert("bien Jaime");
-       console.log(` Jaime este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
+       alert("bien");
+       console.log(`este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
        numeroDocumento: ${formDataRegistro.numeroDocumento} 
        Nombres: ${formDataRegistro.nombres} 
        Apellidos: ${formDataRegistro.apellidos} 
@@ -237,7 +237,7 @@ export const Login = (  ) => {
        Contrasena: ${formDataRegistro.contrasena} 
        `);
 
-       console.log(` Jaime este es el tipo: tipo 
+       console.log(`este es el tipo: tipo 
        Documento Tipo: ${ typeof idTipoDocumento3} 
        numeroDocumento Tipo: ${typeof numeroDocumento3} 
        Nombres Tipo: ${typeof nombres3} 
@@ -261,7 +261,7 @@ export const Login = (  ) => {
 
 
 
-        console.log(` Jaime este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
+        console.log(`este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
         numeroDocumento: ${formDataRegistro.numeroDocumento} 
         Nombres: ${formDataRegistro.nombres} 
         Apellidos: ${formDataRegistro.apellidos} 
@@ -296,6 +296,9 @@ export const Login = (  ) => {
                     showModalRegistroSucces()
                     // ULTIMO MODAL
                 // await mostrarTareas();
+                formRef.current.resetFields(); // Reinicia los campos del formulario
+                showModalRegistroSucces();
+                handleOkRegistro();
             } else {
                 alert(response.statusText);
             }
@@ -514,7 +517,13 @@ export const Login = (  ) => {
 
         </a>
       </Modal>       
-      <Modal title="Reistro!" open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
+      <Modal 
+            title="Registrate Aqui!" 
+            open={isModalOpenRegistro} 
+            okButtonProps={{ hidden: true }}
+            // onOk={handleOkRegistro} 
+            onCancel={handleCancelRegistro}
+            >
             <Form
                 {...formItemLayout}
                 ref={formRefRegistro}
@@ -525,7 +534,7 @@ export const Login = (  ) => {
             >
             
                 <Item 
-                    label="idTipoDocumento"
+                    label="Documento"
                     rules={[{
                         required:true,
                         message: "Por favor ingresa el idTipoDocumento "
@@ -537,11 +546,11 @@ export const Login = (  ) => {
                     ]}
                     name="idTipoDocumento"
                     >
-                    <Input placeholder="input idTipoDocumento" name="idTipoDocumento" value={formDataRegistro.idTipoDocumento} onChange={handleChangeRegistro}  />
+                    <Input placeholder="Cedula" name="idTipoDocumento" value={formDataRegistro.idTipoDocumento} onChange={handleChangeRegistro}  />
                 </Item>
 
                 <Item 
-                    label="numeroDocumento"
+                    label="NumeroDocumento"
                     rules={[{
                         required:true,
                         message: "Por favor ingresa la numeroDocumento "
@@ -553,34 +562,34 @@ export const Login = (  ) => {
                     ]}
                     name="numeroDocumento"
                     >
-                    <Input placeholder="input numeroDocumento" name="numeroDocumento" value={formDataRegistro.numeroDocumento} onChange={handleChangeRegistro}  />
+                    <Input placeholder="1088363552" name="numeroDocumento" value={formDataRegistro.numeroDocumento} onChange={handleChangeRegistro}  />
                 </Item>
 
                 <Item 
-                    label="nombres" 
+                    label="Nombre" 
                     rules={[{
                         required:true,
                         message: "Por favor ingresa los nombres "
                     }]}
                     name = "nombres"
                     >
-                    <Input placeholder="input nombres"  name="nombres" value={formDataRegistro.nombres} onChange={handleChangeRegistro}/>
+                    <Input placeholder="Soila Sola"  name="nombres" value={formDataRegistro.nombres} onChange={handleChangeRegistro}/>
                 </Item>
 
                 
                 <Item 
-                    label="apellidos" 
+                    label="Apellidos" 
                     rules={[{
                         required:true,
                         message: "Por favor ingresa los apellidos "
                     }]}
                     name = "apellidos"
                     >
-                    <Input placeholder="input apellidos"  name="apellidos" value={formDataRegistro.apellidos} onChange={handleChangeRegistro}/>
+                    <Input placeholder="Perez Garcia"  name="apellidos" value={formDataRegistro.apellidos} onChange={handleChangeRegistro}/>
                 </Item>
 
                 <Item 
-                    label="correo" 
+                    label="Correo" 
                     rules={[
                         {
                           required: true,
@@ -593,25 +602,8 @@ export const Login = (  ) => {
                       ]}
                     name = "correo"
                     >
-                    <Input placeholder="input correo"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
+                    <Input placeholder="soilaperez@gmail.com"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
                 </Item>
-
-                {/* <Item 
-                    label="Contraseña"
-                    //name="password"
-                    rules={[{
-                        required: true,
-                        message: "Por favor Ingresa tu Contraseña"
-                    }]} 
-                    name="contrasena"
-                    >
-                        <Password
-
-                        name='contrasena'
-                        onChange={handleChangeRegistro}
-                        />
-
-                </Item> */}
 
                 <Item 
                     label="Contraseña"
@@ -667,11 +659,6 @@ export const Login = (  ) => {
                     <Button  type="primary" htmlType='submit'   >Submit Registro</Button>
                     {/* <Button  type="primary" htmlType='submit' onClick={guardarPelicula}  >Submit</Button> */}
                 </Item>
-
-           
-
-            
-            
             
             </Form>
       </Modal>

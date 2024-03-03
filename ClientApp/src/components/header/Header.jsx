@@ -46,15 +46,20 @@ const Header = () => {
 
               {/* <span>{adminStateRedux? <p>true</p>:<p>false</p>}</span> */}
 
-              <Link  to={`/manejoReservasPageReal/${idUsuario}`}>
-                <span>Reservas </span>
+
+              <Link to={"/"} style={{ color: 'black', textDecoration: 'none' }}>
+                    <span>Home</span>
+              </Link>
+
+              <Link  to={`/manejoReservasPageReal/${idUsuario}`}style={{ color: 'black', textDecoration: 'none' }}>
+                <span>Reservas Activas</span>
               </Link>
               {/* <Link  to={"/cliente"}>
                 <span>Cliente</span>
               </Link> */}
-              <Link  to={"/info/"}>
-                <span>Sillas Info</span>
-              </Link>
+              {/* <Link  to={"/info/"}style={{ color: 'black', textDecoration: 'none' }}>
+                <span>Informacion Silla</span>
+              </Link> */}
 
               {/* <Link  to={"/shoppingCar/"}>
                 <span>Carrito de Compras</span>
@@ -69,7 +74,7 @@ const Header = () => {
               {
                   adminStateRedux
                   ?
-              <Link  to={"/agregarPeliculas/"}>
+              <Link  to={"/agregarPeliculas/"}style={{ color: 'black', textDecoration: 'none' }}>
                 <span>Agregar Peliculas</span>
 
               </Link>
@@ -92,9 +97,8 @@ const Header = () => {
                   <span>Tareas</span>
                 </a> */}
 
-                <Link  to={"/"}>
-                  <span>Home Page</span>
-                </Link>
+
+                 
 
                 {/* <a className={styles.container__izq} href="/">
                     <span>Home Page</span>
@@ -102,7 +106,7 @@ const Header = () => {
                 {
                   adminStateRedux
                   ?
-                  <Link  to={"/loginAdmin"}>
+                  <Link  to={"/loginAdmin"}style={{ color: 'black', textDecoration: 'none' }}>
                     <span>Registro Admin</span>
                   </Link>
                   :
@@ -113,7 +117,7 @@ const Header = () => {
                 {
                   adminStateRedux
                   ?
-                  <Link  to={"/manejoPeliculas"}>
+                  <Link  to={"/manejoPeliculas"}style={{ color: 'black', textDecoration: 'none' }}>
                     <span>Manejo Peliculas</span>
                   </Link>
                   :

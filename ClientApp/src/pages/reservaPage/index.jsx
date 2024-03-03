@@ -101,7 +101,7 @@ const ReservaPage = () => {
         const numerosSillasReserva = reservas.map(reserva => reserva.numeroSillasReserva);
         setNumerosSillasReserva(numerosSillasReserva);
       } else {
-        alert('El usuario o la contraseña no son correctos');
+        alert('Primera reserva del usuario!');
       }
     } catch (error) {
       console.log("Error:", error);
