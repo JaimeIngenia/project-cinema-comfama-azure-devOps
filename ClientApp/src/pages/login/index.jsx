@@ -224,7 +224,7 @@ export const Login = (  ) => {
      };
    
      const handleOkRegistro = () => {
-        // guardarUsuario()
+        // guardarUsuario()//prueba
     
        setIsModalOpenRegistro(false);
        navigate('/');
