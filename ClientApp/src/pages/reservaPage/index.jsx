@@ -85,11 +85,12 @@ const ReservaPage = () => {
 
     //*********************  para filtros */
 
+    // const guardarHorario = async (sala, hora, idPelicula) => {
  const [numerosSillasReserva, setNumerosSillasReserva] = useState([]);
 
-   const FiltrarSillasReservadas = async () => {
-    const salaToFilter = 1;
-    const horaToFilter = 1;
+   const FiltrarSillasReservadas = async(salaToFilter,horaToFilter,idPelicula) => {
+    // const salaToFilter = 1;
+    // const horaToFilter = 1;
 
     try {
       // const response = await axios.get(`https://localhost:7240/api/ReservaReal/GetReservasBySalaYHora/${salaToFilter}/${horaToFilter}`);
@@ -259,7 +260,7 @@ const ReservaPage = () => {
 //             }
 //           };
 
-          FiltrarSillasReservadas();
+          FiltrarSillasReservadas(selectedSala,selectedHora,idPeliculaInt);
           guardarHorario(selectedSala , selectedHora, idPeliculaInt)
         
         
