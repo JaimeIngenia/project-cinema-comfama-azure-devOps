@@ -35,6 +35,7 @@
         background: rgb(16, 16, 16);
         font-family: 'Roboto', sans-serif;
         flex-wrap: wrap;
+        /* border: solid 3px red; */
     }
     .principalPhoto{
         width: 100%;

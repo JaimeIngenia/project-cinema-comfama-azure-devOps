@@ -15,15 +15,34 @@ namespace CinemaComfamaVs5.Controllers
         {
             _DBContext = context;
         }
-
         [HttpPost]
         [Route("GuardarPelicula")]
         public async Task<IActionResult> GuardarPelicula([FromBody] Pelicula request)
         {
-            await _DBContext.Peliculas.AddAsync(request);
-            await _DBContext.SaveChangesAsync();
-            return StatusCode(StatusCodes.Status200OK, "OK");
+            try
+            {
+                await _DBContext.Peliculas.AddAsync(request);
+                await _DBContext.SaveChangesAsync();
+                return StatusCode(StatusCodes.Status200OK, "OK");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al guardar la película: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error interno del servidor");
+            }
         }
+
+
+
+
+        //[HttpPost]
+        //[Route("GuardarPelicula")]
+        //public async Task<IActionResult> GuardarPelicula([FromBody] Pelicula request)
+        //{
+        //    await _DBContext.Peliculas.AddAsync(request);
+        //    await _DBContext.SaveChangesAsync();
+        //    return StatusCode(StatusCodes.Status200OK, "OK");
+        //}
 
         [HttpGet]
         [Route("VerPelicula")]

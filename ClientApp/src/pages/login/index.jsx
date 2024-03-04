@@ -16,11 +16,14 @@ import imagenMapa from '../../assets/mapa__registro__evento.svg'
 import tiketsLight from '../../assets/cinema/tiketsLight.svg'
 import tiketsDark from '../../assets/cinema/tiketsDark.svg'
 import tiketsDarkRojo from '../../assets/cinema/tiketsDarkRojo.svg'
+import {  Select } from 'antd';
 
 const {Item} = Form;
 const {Password} = Input;
 
 export const Login = (  ) => {
+
+    
 
     //********************** Redux Admin */
 
@@ -547,7 +550,9 @@ export const Login = (  ) => {
                     name="idTipoDocumento"
                     >
                     <Input placeholder="Cedula" name="idTipoDocumento" value={formDataRegistro.idTipoDocumento} onChange={handleChangeRegistro}  />
+                  
                 </Item>
+
 
                 <Item 
                     label="NumeroDocumento"

@@ -23,13 +23,7 @@ export const LoginAdmin = (  ) => {
 
     const { adminStateRedux } = useSelector( state => state.admin )
     const [stateReduxAdmin , setStateReduxAdmin] = useState(adminStateRedux)
-    
-    // ---------------------- Redux  ---------------------
-
-    // REDUX
-    // import { useSelector, useDispatch } from "react-redux";
-    // import { increment } from        "../../storeRedux/slices/counter"
-    // import { changeAuthorized } from "../../storeRedux/slices/authorized"
+   
 
     const { counterJaime } = useSelector( state => state.counter )
     const { authorizedStateRedux } = useSelector( state => state.authorized )
@@ -116,7 +110,7 @@ export const LoginAdmin = (  ) => {
         .then(response=>{
         
             return response.data;
-            console.log("Jaime response.data: " + response.data);
+            console.log("response.data: " + response.data);
         
         })
         .then(response=>{
@@ -128,7 +122,7 @@ export const LoginAdmin = (  ) => {
                 showModal();
                 //showModal();
                 var respuesta = response[0];
-                console.log("Jaime esta es la respuesta" + respuesta);
+                console.log("esta es la respuesta" + respuesta);
                 console.log(respuesta);
                 //--COOKKIES
                 cookies.set('idUsuario', respuesta.idUsuario , { path: '/' });
@@ -139,19 +133,14 @@ export const LoginAdmin = (  ) => {
                 cookies.set('contrasena', respuesta.contrasena , { path: '/' });
                 cookies.set('correo', respuesta.correo , { path: '/' });
                 cookies.set('idTipoRol', respuesta.idTipoRol , { path: '/' });
-                //alert("Bienvenido: " + respuesta.nombres + " " + respuesta.apellidos);
-                //setAutrizado(true)
-                // dispatch( changeAuthorized() )
-                // console.log("Jaime este es el authorizedStateRedux: ");
-                // console.log(authorizedStateRedux);
-               
+                          
             }else{
                 alert('El usuario o la contraseña no son correctos')
                 //setAutrizado(false)
             }
         })
         .catch(error=>{
-            console.log("Jaime este es el error" + error);
+            console.log("este es el error" + error);
         })
 
         if(cookies.get('idTipoRol')===1)
@@ -161,21 +150,8 @@ export const LoginAdmin = (  ) => {
 
     };
 
-    console.log("jAIME ESTE ES EL ROOOOL");
+    console.log("ESTE ES EL ROOOOL");
     console.log(parseInt(cookies.get('idTipoRol')));
-
-    // if(cookies.get('idTipoRol')===1)
-    // {
-    //   dispatch( changeAdmin() )
-    // }
-
-        
-
-// ...
-
-
-
-
 
     const [form, setForm]=useState({
         correo:'',
@@ -225,8 +201,8 @@ export const LoginAdmin = (  ) => {
     
        setIsModalOpenRegistro(false);
        navigate('/');
-       alert("bien Jaime");
-       console.log(` Jaime este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
+       alert("bien ");
+       console.log(` este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
        numeroDocumento: ${formDataRegistro.numeroDocumento} 
        Nombres: ${formDataRegistro.nombres} 
        Apellidos: ${formDataRegistro.apellidos} 
@@ -262,15 +238,10 @@ export const LoginAdmin = (  ) => {
         var correo3 = formValues.correo.toString();
         var contrasena3 = md5(formValues.contrasena.toString());
         var idTipoRol = 1;
-        // console.log("Tipo de IdTipoDocumento:", typeof idTipoDocumento);
-        // console.log("Tipo de NumeroDocumento:", typeof numeroDocumento);
-        // console.log("Tipo de Nombres:", typeof nombres);
-        // console.log("Tipo de Apellidos:", typeof apellidos);
-        // console.log("Tipo de Correo:", typeof correo);
-        // console.log("Tipo de Contrasena:", typeof contrasena);
+      
 
 
-        console.log(` Jaime este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
+        console.log(` este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
         numeroDocumento: ${formDataRegistro.numeroDocumento} 
         Nombres: ${formDataRegistro.nombres} 
         Apellidos: ${formDataRegistro.apellidos} 
@@ -338,9 +309,6 @@ export const LoginAdmin = (  ) => {
         }));
         };
 
-    // const formSuccessRegistro = (datos) => {
-    //     console.log("FormularioRegistro enviado exitosamente Jaime Modal registro: ", datos);
-    // }
 
     const formRefRegistro = createRef();
 
@@ -365,13 +333,7 @@ export const LoginAdmin = (  ) => {
       };
   
 
- 
-
-
-
     return (
-
-    
 
     <>   
         <div className={styles.container__padre} >                          
@@ -460,11 +422,6 @@ export const LoginAdmin = (  ) => {
                                         </Item>
 
 
-
-
-
-
-
                                             <Item onClick={ () =>showModalRegistro() }
                                                 label="Quiere registrarse?" >
                                              </Item>     
@@ -508,12 +465,13 @@ export const LoginAdmin = (  ) => {
 
         </a>
       </Modal>       
-      <Modal title="Reistro!" open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
+      <Modal title="Reistro!" okButtonProps={{ hidden: true }} open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
             <Form
                 {...formItemLayout}
                 ref={formRefRegistro}
                 name="FormularioRegistro"
                 onFinish={guardarUsuario}
+                 
                 // onFinish={formSuccessRegistro}
                                             
             >
@@ -607,10 +565,6 @@ export const LoginAdmin = (  ) => {
                     <Button  type="primary" htmlType='submit'   >Submit Registro</Button>
                     {/* <Button  type="primary" htmlType='submit' onClick={guardarPelicula}  >Submit</Button> */}
                 </Item>
-
-           
-
-            
             
             
             </Form>

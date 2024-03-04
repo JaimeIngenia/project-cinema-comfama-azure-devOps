@@ -38,14 +38,7 @@ const Header = () => {
                 <img src={logo} alt="" className={styles.container__nav__logo} />
             </a>
 
-              {/* <div className={styles.container__seach__image}>
-
-                <img src={search} className={styles.search__image} alt="" />
-              </div> */}
               <div  className= {styles.sud_sud_header}  >
-
-              {/* <span>{adminStateRedux? <p>true</p>:<p>false</p>}</span> */}
-
 
               <Link to={"/"} style={{ color: 'black', textDecoration: 'none' }}>
                     <span>Home</span>
@@ -54,23 +47,7 @@ const Header = () => {
               <Link  to={`/manejoReservasPageReal/${idUsuario}`}style={{ color: 'black', textDecoration: 'none' }}>
                 <span>Reservas Activas</span>
               </Link>
-              {/* <Link  to={"/cliente"}>
-                <span>Cliente</span>
-              </Link> */}
-              {/* <Link  to={"/info/"}style={{ color: 'black', textDecoration: 'none' }}>
-                <span>Informacion Silla</span>
-              </Link> */}
-
-              {/* <Link  to={"/shoppingCar/"}>
-                <span>Carrito de Compras</span>
-              </Link> */}
-
-              
-
-              {/* <a className={styles.container__izq} href="/shoppingCar">
-                  <span>Carrito de Compras</span>
-              </a> */}
-
+        
               {
                   adminStateRedux
                   ?
@@ -80,29 +57,18 @@ const Header = () => {
               </Link>
               :
               null
-              // <p></p>
               }
+              
+              {
+                  adminStateRedux
+                  ?
+                  <Link  to={"/manejoPeliculas"}style={{ color: 'black', textDecoration: 'none' }}>
+                    <span>Manejo Peliculas</span>
+                  </Link>
+                  :
+                  null
+                }
 
-
-{/*
-              <a className={styles.container__izq} href="/agregarPeliculas">
-                  <span>Agregar Peliculas</span>
-                </a> */}
-
-                {/* <a className={styles.container__izq} href="/registroE">
-                  <span>Registro PeliE</span>
-                </a>
-
-                <a className={styles.container__izq}  href="/tareas">
-                  <span>Tareas</span>
-                </a> */}
-
-
-                 
-
-                {/* <a className={styles.container__izq} href="/">
-                    <span>Home Page</span>
-                </a> */}
                 {
                   adminStateRedux
                   ?
@@ -111,33 +77,11 @@ const Header = () => {
                   </Link>
                   :
                   null
-                  // <p></p>
                 }
 
-                {
-                  adminStateRedux
-                  ?
-                  <Link  to={"/manejoPeliculas"}style={{ color: 'black', textDecoration: 'none' }}>
-                    <span>Manejo Peliculas</span>
-                  </Link>
-                  :
-                  null
-                  // <p></p>
-                }
-{/*
-                <a className={styles.container__izq} href="/iniciarSesion">
-                    <span>Iniciar Sesion</span>
-                </a> */}
-
-
-
-
+                
               </div>
-
-
         </div>
-
-
       </>
     );
 }
