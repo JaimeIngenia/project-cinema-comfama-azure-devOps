@@ -210,7 +210,7 @@ export const LoginAdmin = (  ) => {
        Contrasena: ${formDataRegistro.contrasena} 
        `);
 
-       console.log(` Jaime este es el tipo: tipo 
+       console.log(`este es el tipo: tipo 
        Documento Tipo: ${ typeof idTipoDocumento3} 
        numeroDocumento Tipo: ${typeof numeroDocumento3} 
        Nombres Tipo: ${typeof nombres3} 
@@ -465,7 +465,7 @@ export const LoginAdmin = (  ) => {
 
         </a>
       </Modal>       
-      <Modal title="Reistro!" okButtonProps={{ hidden: true }} open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
+      <Modal title="Registrate aqui!" okButtonProps={{ hidden: true }} open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
             <Form
                 {...formItemLayout}
                 ref={formRefRegistro}
@@ -477,7 +477,7 @@ export const LoginAdmin = (  ) => {
             >
             
                 <Item 
-                    label="idTipoDocumento"
+                    label="Documento"
                     rules={[{
                         required:true,
                         message: "Por favor ingresa el idTipoDocumento "
@@ -487,13 +487,13 @@ export const LoginAdmin = (  ) => {
                         message: "Ingresa solo números enteros positivos en el idTipoDocumento"
                     }
                     ]}
-                    name="idTipoDocumento"
+                    name="Documento"
                     >
-                    <Input placeholder="input idTipoDocumento" name="idTipoDocumento" value={formDataRegistro.idTipoDocumento} onChange={handleChangeRegistro}  />
+                    <Input placeholder="Cedula" name="idTipoDocumento" value={formDataRegistro.idTipoDocumento} onChange={handleChangeRegistro}  />
                 </Item>
 
                 <Item 
-                    label="numeroDocumento"
+                    label="NumeroDocumento"
                     rules={[{
                         required:true,
                         message: "Por favor ingresa la numeroDocumento "
@@ -505,41 +505,41 @@ export const LoginAdmin = (  ) => {
                     ]}
                     name="numeroDocumento"
                     >
-                    <Input placeholder="input numeroDocumento" name="numeroDocumento" value={formDataRegistro.numeroDocumento} onChange={handleChangeRegistro}  />
+                    <Input placeholder="1203654789" name="numeroDocumento" value={formDataRegistro.numeroDocumento} onChange={handleChangeRegistro}  />
                 </Item>
 
                 <Item 
-                    label="nombres" 
+                    label="Nombres" 
                     rules={[{
                         required:true,
                         message: "Por favor ingresa los nombres "
                     }]}
                     name = "nombres"
                     >
-                    <Input placeholder="input nombres"  name="nombres" value={formDataRegistro.nombres} onChange={handleChangeRegistro}/>
+                    <Input placeholder="Rosa Melania"  name="nombres" value={formDataRegistro.nombres} onChange={handleChangeRegistro}/>
                 </Item>
 
                 
                 <Item 
-                    label="apellidos" 
+                    label="Apellidos" 
                     rules={[{
                         required:true,
                         message: "Por favor ingresa los apellidos "
                     }]}
                     name = "apellidos"
                     >
-                    <Input placeholder="input apellidos"  name="apellidos" value={formDataRegistro.apellidos} onChange={handleChangeRegistro}/>
+                    <Input placeholder="Espinoza Rosales"  name="apellidos" value={formDataRegistro.apellidos} onChange={handleChangeRegistro}/>
                 </Item>
 
                 <Item 
-                    label="correo" 
+                    label="Correo" 
                     rules={[{
                         required:true,
                         message: "Por favor ingresa los correo "
                     }]}
                     name = "correo"
                     >
-                    <Input placeholder="input correo"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
+                    <Input placeholder="rosarosales@gmail.com"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
                 </Item>
 
                 <Item 
