@@ -23,13 +23,7 @@ export const LoginAdmin = (  ) => {
 
     const { adminStateRedux } = useSelector( state => state.admin )
     const [stateReduxAdmin , setStateReduxAdmin] = useState(adminStateRedux)
-    
-    // ---------------------- Redux  ---------------------
-
-    // REDUX
-    // import { useSelector, useDispatch } from "react-redux";
-    // import { increment } from        "../../storeRedux/slices/counter"
-    // import { changeAuthorized } from "../../storeRedux/slices/authorized"
+   
 
     const { counterJaime } = useSelector( state => state.counter )
     const { authorizedStateRedux } = useSelector( state => state.authorized )
@@ -116,7 +110,7 @@ export const LoginAdmin = (  ) => {
         .then(response=>{
         
             return response.data;
-            console.log("Jaime response.data: " + response.data);
+            console.log("response.data: " + response.data);
         
         })
         .then(response=>{
@@ -128,7 +122,7 @@ export const LoginAdmin = (  ) => {
                 showModal();
                 //showModal();
                 var respuesta = response[0];
-                console.log("Jaime esta es la respuesta" + respuesta);
+                console.log("esta es la respuesta" + respuesta);
                 console.log(respuesta);
                 //--COOKKIES
                 cookies.set('idUsuario', respuesta.idUsuario , { path: '/' });
@@ -139,19 +133,14 @@ export const LoginAdmin = (  ) => {
                 cookies.set('contrasena', respuesta.contrasena , { path: '/' });
                 cookies.set('correo', respuesta.correo , { path: '/' });
                 cookies.set('idTipoRol', respuesta.idTipoRol , { path: '/' });
-                //alert("Bienvenido: " + respuesta.nombres + " " + respuesta.apellidos);
-                //setAutrizado(true)
-                // dispatch( changeAuthorized() )
-                // console.log("Jaime este es el authorizedStateRedux: ");
-                // console.log(authorizedStateRedux);
-               
+                          
             }else{
                 alert('El usuario o la contraseña no son correctos')
                 //setAutrizado(false)
             }
         })
         .catch(error=>{
-            console.log("Jaime este es el error" + error);
+            console.log("este es el error" + error);
         })
 
         if(cookies.get('idTipoRol')===1)
@@ -161,21 +150,8 @@ export const LoginAdmin = (  ) => {
 
     };
 
-    console.log("jAIME ESTE ES EL ROOOOL");
+    console.log("ESTE ES EL ROOOOL");
     console.log(parseInt(cookies.get('idTipoRol')));
-
-    // if(cookies.get('idTipoRol')===1)
-    // {
-    //   dispatch( changeAdmin() )
-    // }
-
-        
-
-// ...
-
-
-
-
 
     const [form, setForm]=useState({
         correo:'',
@@ -225,8 +201,8 @@ export const LoginAdmin = (  ) => {
     
        setIsModalOpenRegistro(false);
        navigate('/');
-       alert("bien Jaime");
-       console.log(` Jaime este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
+       alert("bien ");
+       console.log(` este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
        numeroDocumento: ${formDataRegistro.numeroDocumento} 
        Nombres: ${formDataRegistro.nombres} 
        Apellidos: ${formDataRegistro.apellidos} 
@@ -234,7 +210,7 @@ export const LoginAdmin = (  ) => {
        Contrasena: ${formDataRegistro.contrasena} 
        `);
 
-       console.log(` Jaime este es el tipo: tipo 
+       console.log(`este es el tipo: tipo 
        Documento Tipo: ${ typeof idTipoDocumento3} 
        numeroDocumento Tipo: ${typeof numeroDocumento3} 
        Nombres Tipo: ${typeof nombres3} 
@@ -262,15 +238,10 @@ export const LoginAdmin = (  ) => {
         var correo3 = formValues.correo.toString();
         var contrasena3 = md5(formValues.contrasena.toString());
         var idTipoRol = 1;
-        // console.log("Tipo de IdTipoDocumento:", typeof idTipoDocumento);
-        // console.log("Tipo de NumeroDocumento:", typeof numeroDocumento);
-        // console.log("Tipo de Nombres:", typeof nombres);
-        // console.log("Tipo de Apellidos:", typeof apellidos);
-        // console.log("Tipo de Correo:", typeof correo);
-        // console.log("Tipo de Contrasena:", typeof contrasena);
+      
 
 
-        console.log(` Jaime este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
+        console.log(` este es el registro: tipoDocumento: ${formDataRegistro.idTipoDocumento} 
         numeroDocumento: ${formDataRegistro.numeroDocumento} 
         Nombres: ${formDataRegistro.nombres} 
         Apellidos: ${formDataRegistro.apellidos} 
@@ -338,9 +309,6 @@ export const LoginAdmin = (  ) => {
         }));
         };
 
-    // const formSuccessRegistro = (datos) => {
-    //     console.log("FormularioRegistro enviado exitosamente Jaime Modal registro: ", datos);
-    // }
 
     const formRefRegistro = createRef();
 
@@ -365,13 +333,7 @@ export const LoginAdmin = (  ) => {
       };
   
 
- 
-
-
-
     return (
-
-    
 
     <>   
         <div className={styles.container__padre} >                          
@@ -379,7 +341,7 @@ export const LoginAdmin = (  ) => {
 
                 {
                     currentTheme === 'light'
-                    ?  <p className={styles.iniciar__sesion} > Iniciar sesion J </p> 
+                    ?  <p className={styles.iniciar__sesion} > Iniciar sesion </p> 
                     :   <p className={styles.iniciar__sesion__dark} > Iniciar sesion </p> 
                 }
                
@@ -460,11 +422,6 @@ export const LoginAdmin = (  ) => {
                                         </Item>
 
 
-
-
-
-
-
                                             <Item onClick={ () =>showModalRegistro() }
                                                 label="Quiere registrarse?" >
                                              </Item>     
@@ -508,18 +465,19 @@ export const LoginAdmin = (  ) => {
 
         </a>
       </Modal>       
-      <Modal title="Reistro!" open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
+      <Modal title="Registrate aqui!" okButtonProps={{ hidden: true }} open={isModalOpenRegistro} onOk={handleOkRegistro} onCancel={handleCancelRegistro}>
             <Form
                 {...formItemLayout}
                 ref={formRefRegistro}
                 name="FormularioRegistro"
                 onFinish={guardarUsuario}
+                 
                 // onFinish={formSuccessRegistro}
                                             
             >
             
                 <Item 
-                    label="idTipoDocumento"
+                    label="Documento"
                     rules={[{
                         required:true,
                         message: "Por favor ingresa el idTipoDocumento "
@@ -529,13 +487,13 @@ export const LoginAdmin = (  ) => {
                         message: "Ingresa solo números enteros positivos en el idTipoDocumento"
                     }
                     ]}
-                    name="idTipoDocumento"
+                    name="Documento"
                     >
-                    <Input placeholder="input idTipoDocumento" name="idTipoDocumento" value={formDataRegistro.idTipoDocumento} onChange={handleChangeRegistro}  />
+                    <Input placeholder="Cedula" name="idTipoDocumento" value={formDataRegistro.idTipoDocumento} onChange={handleChangeRegistro}  />
                 </Item>
 
                 <Item 
-                    label="numeroDocumento"
+                    label="NumeroDocumento"
                     rules={[{
                         required:true,
                         message: "Por favor ingresa la numeroDocumento "
@@ -547,41 +505,41 @@ export const LoginAdmin = (  ) => {
                     ]}
                     name="numeroDocumento"
                     >
-                    <Input placeholder="input numeroDocumento" name="numeroDocumento" value={formDataRegistro.numeroDocumento} onChange={handleChangeRegistro}  />
+                    <Input placeholder="1203654789" name="numeroDocumento" value={formDataRegistro.numeroDocumento} onChange={handleChangeRegistro}  />
                 </Item>
 
                 <Item 
-                    label="nombres" 
+                    label="Nombres" 
                     rules={[{
                         required:true,
                         message: "Por favor ingresa los nombres "
                     }]}
                     name = "nombres"
                     >
-                    <Input placeholder="input nombres"  name="nombres" value={formDataRegistro.nombres} onChange={handleChangeRegistro}/>
+                    <Input placeholder="Rosa Melania"  name="nombres" value={formDataRegistro.nombres} onChange={handleChangeRegistro}/>
                 </Item>
 
                 
                 <Item 
-                    label="apellidos" 
+                    label="Apellidos" 
                     rules={[{
                         required:true,
                         message: "Por favor ingresa los apellidos "
                     }]}
                     name = "apellidos"
                     >
-                    <Input placeholder="input apellidos"  name="apellidos" value={formDataRegistro.apellidos} onChange={handleChangeRegistro}/>
+                    <Input placeholder="Espinoza Rosales"  name="apellidos" value={formDataRegistro.apellidos} onChange={handleChangeRegistro}/>
                 </Item>
 
                 <Item 
-                    label="correo" 
+                    label="Correo" 
                     rules={[{
                         required:true,
                         message: "Por favor ingresa los correo "
                     }]}
                     name = "correo"
                     >
-                    <Input placeholder="input correo"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
+                    <Input placeholder="rosarosales@gmail.com"  name="correo" value={formDataRegistro.correo} onChange={handleChangeRegistro}/>
                 </Item>
 
                 <Item 
@@ -607,10 +565,6 @@ export const LoginAdmin = (  ) => {
                     <Button  type="primary" htmlType='submit'   >Submit Registro</Button>
                     {/* <Button  type="primary" htmlType='submit' onClick={guardarPelicula}  >Submit</Button> */}
                 </Item>
-
-           
-
-            
             
             
             </Form>

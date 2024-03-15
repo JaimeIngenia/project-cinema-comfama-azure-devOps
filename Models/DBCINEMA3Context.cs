@@ -19,6 +19,7 @@ namespace CinemaComfamaVs5.Models
         public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
 
         public virtual DbSet<TipoRol> TiposRoles { get; set; } = null!;
+        public virtual DbSet<ReservaReal> ReservasReales { get; set; } = null!;
 
 
         public DBCINEMA3Context(DbContextOptions<DBCINEMA3Context> options)
@@ -76,6 +77,11 @@ namespace CinemaComfamaVs5.Models
                     .HasName("PK__HORARIOS__1539229B8F5E278C");
 
                 entity.ToTable("HORARIOS");
+
+                entity.HasMany(d => d.ReservasReales)
+                  .WithOne(rr => rr.IdHorarioNavegacion) // Corregir aquí
+                  .HasForeignKey(d => d.IdHorario)
+                  .HasConstraintName("FK_HorarioReservaReal");
 
                 entity.HasOne(d => d.IdHoraNavigation)
                     .WithMany(p => p.Horarios)
@@ -162,6 +168,11 @@ namespace CinemaComfamaVs5.Models
 
                 entity.ToTable("SILLARESERVA");
 
+                //entity.HasMany(d => d.ReservasReales)
+                //   .WithOne(rr => rr.IdSillaReservaNavegacion) // Corregir aquí
+                //   .HasForeignKey(d => d.IdSillaReserva)
+                //   .HasConstraintName("FK_SillaReservaReal");
+
                 entity.HasOne(d => d.IdReservaNavigation)
                     .WithMany(p => p.Sillareservas)
                     .HasForeignKey(d => d.IdReserva)
@@ -180,6 +191,72 @@ namespace CinemaComfamaVs5.Models
                     .IsUnicode(false)
                     .HasColumnName("TipoDocumento");
             });
+      
+
+            modelBuilder.Entity<ReservaReal>(entity =>
+            {
+                entity.HasKey(e => e.IdReservaReal)
+                    .HasName("PK__RESERVARE__A7B8B83270A6D52F");
+
+                entity.Property(e => e.NumeroSillasReserva)
+                    .HasColumnName("NumeroSillasReserva")
+                    .HasColumnType("int"); // O el tipo de dato específico que estés utilizando en la base de datos
+                    //.IsRequired(false);   // Esto permite valores nulos
+
+
+                entity.ToTable("RESERVAREAL");
+
+
+                entity.HasOne(rr => rr.IdUsuarioNavegacion)
+                    .WithMany(u => u.ReservasReales)
+                    .HasForeignKey(rr => rr.IdUsuario)
+                    .HasConstraintName("FK_UsuarioReservaReal");
+
+                entity.HasOne(rr => rr.IdHorarioNavegacion)
+                   .WithMany(h => h.ReservasReales)
+                   .HasForeignKey(rr => rr.IdHorario)
+                   .HasConstraintName("FK_HorarioReservaReal");
+                //entity.HasOne(rr => rr.IdSillaReservaNavegacion)
+                //      .WithMany(h => h.ReservasReales)
+                //      .HasForeignKey(rr => rr.IdSillaReserva)
+                //      .HasConstraintName("FK_SillaReservaReal");
+
+
+
+                //entity.HasOne(rr => rr.IdHorarioNavegacion)
+                //    .WithMany(u => u.ReservasReales)
+                //    .HasForeignKey(rr => rr.IdHorario)
+                //    .HasConstraintName("FK_HorarioReservaReal");
+            });
+
+            //modelBuilder.Entity<ReservaReal>(entity =>
+            //{
+            //    entity.HasKey(e => e.IdReservaReal)
+            //        .HasName("PK__ReservaReal__123456789");
+
+            //    entity.ToTable("RESERVAREAL");
+
+            //    entity.HasOne(d => d.IdUsuarioNavegacion)
+            //        .WithMany(p => p.ReservasReales)
+            //        .HasForeignKey(d => d.IdUsuario)
+            //        .HasConstraintName("FK_UsuarioReservaReal");
+            //});
+
+            //modelBuilder.Entity<Usuario>(entity =>
+            //{
+            //    entity.HasKey(e => e.IdUsuario)
+            //        .HasName("PK__USUARIO__C61F1C65A2030A3F");
+
+            //    entity.ToTable("USUARIO");
+
+            //    // Other property configurations...
+
+            //    entity.HasMany(u => u.ReservasReales)
+            //        .WithOne(rr => rr.IdUsuarioNavegacion)
+            //        .HasForeignKey(rr => rr.IdUsuario)
+            //        .HasConstraintName("FK_UsuarioReservaReal");
+            //});
+
 
             modelBuilder.Entity<Usuario>(entity =>
             {
@@ -187,6 +264,11 @@ namespace CinemaComfamaVs5.Models
                     .HasName("PK__USUARIOS__5B65BF97E27CBFF4");
 
                 entity.ToTable("USUARIOS");
+
+                entity.HasMany(u => u.ReservasReales)
+                    .WithOne(rr => rr.IdUsuarioNavegacion)
+                    .HasForeignKey(rr => rr.IdUsuario)
+                    .HasConstraintName("FK_UsuarioReservaReal");
 
                 entity.Property(e => e.Apellidos)
                     .HasMaxLength(250)

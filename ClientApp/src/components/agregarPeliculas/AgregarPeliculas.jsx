@@ -136,7 +136,7 @@ const AgregarPeliculas = () => {
         // }
         const guardarPelicula = async (formValues) => {
             try {
-                const response = await fetch("api/pelicula/GuardarPelicula", {
+                const response = await fetch("https://localhost:7240/api/pelicula/GuardarPelicula", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'

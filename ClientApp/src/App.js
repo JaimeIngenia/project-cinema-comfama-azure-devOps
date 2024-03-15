@@ -39,7 +39,9 @@ import ManejoPeliculas from "./components/manejoPeliculas/ManejoPeliculas.jsx";
 import ReservaPage from "./pages/reservaPage/index.jsx";
 import { LoginAdmin } from "./pages/loginAdmin/index.jsx";
 import InfoPage from "./pages/info/index.jsx";
-  
+import { ClientPage } from "./pages/clientPage/index.jsx";
+import ManejoReservasPage from "./pages/manejoReservasPage/index.jsx";
+import ManejoReservasPageReal from "./pages/manejoReservasPageReal/index.jsx";
 
 // const router = createBrowserRouter([
 
@@ -137,11 +139,17 @@ const App = () => {
                         <Route exact path="/registro" element={<Registro />} />
                         <Route exact path="/shoppingCar" element={<ShoppingCar />} />
                         <Route exact path="/agregarPeliculas" element={<AgregarPeliculas />} />
+
                         <Route exact path="/agregarPeliculas/:idPelicula" element={<AgregarPeliculas />} />
+                        
                         <Route exact path="/iniciarSesion" element={<Login />} />         
                         <Route exact path="/manejoPeliculas" element={<ManejoPeliculas />} />  
                         <Route exact path="/reserva" element={<ReservaPage />} />  
                         <Route exact path="/reserva/:idPelicula" element={<ReservaPage />} />  
+                        <Route exact path="manejoReservasPage" element={<ManejoReservasPage />} />  
+                        <Route exact path="manejoReservasPage/:idUsuario" element={<ManejoReservasPage />} />  
+                        <Route exact path="manejoReservasPageReal/:idUsuario" element={<ManejoReservasPageReal />} />  
+                        {/* <Route exact path="/cliente" element={<ClientPage />} />   */}
                         <Route exact path="/info" element={<InfoPage />} />  
 
                         

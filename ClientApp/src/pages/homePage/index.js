@@ -62,8 +62,8 @@ export const HomePage = (props) => {
         {/* <img src={principalPhoto} className={styles.principalPhoto} alt="" /> */}
         <div className={styles.principalPhoto2} >
 
-          <h1>Save any kind of movies</h1>
-          <h3>Class</h3>
+          <h1>Cartelera de todas las peliculas</h1>
+          <h3>¡Tendencia..!</h3>
 
         </div>
 

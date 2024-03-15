@@ -1,14 +1,35 @@
-:root {
-    --mi-color: rgb(58,15,18);
-    --mi-fuente: 'Arial', sans-serif;
-  }
-  
-
-/* *{
+*{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-} */
+}
+.contenedor__general{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* border: dotted rgba(34, 19, 171, 0.364) 14px; */
+    width: 100%;
+    height: 100vh;
+
+} 
+
+
+.container__padre{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    width: 60%;
+    /* border: dotted rgba(5, 5, 104, 0.364) 4px; */
+}
+
+.image__mapa img{
+    width: 40%;
+}
+
 
 .container{
     /* height: 75vh;
@@ -25,7 +46,7 @@
 .container__login{
     height: 75vh;
     width: 100%;
-    color: var(--mi-color);
+    color: violet;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,7 +71,8 @@
     }
 
         .iniciar__sesion{
-            color: var(--mi-color);
+            color: rgb(58,15,18);
+            /* color: #B339ED; */
             font-family: Roboto;
             font-size: 35.547px;
             font-style: normal;
@@ -62,6 +84,7 @@
             /* border: dotted red 4px; */
             width: 90%;
         }
+
         .iniciar__sesion__dark{
             color: #353434;
             font-family: Roboto;
@@ -76,18 +99,49 @@
             width: 90%;
         }
 
+
 .sub_container{
     width: 90%;
     /* border: dotted red 4px; */
 }
 
-.container__padre{
+.prueba__columnas{
     display: flex;
     flex-direction: column;
+    /* border: dotted red 4px; */
+    width: 100%;
+}
+
+.image__mapa{
+    /* border: dotted red 4px; */
+    width: 50%;
+    display: flex;
     justify-content: center;
-    align-items: center;
-    /* border: dotted rgba(5, 5, 104, 0.364) 4px; */
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    height: 65vh;
+align-items: center;
+}
+
+
+
+@media only screen and (max-width:570px) {
+    .contenedor__general{
+        /* display: flex; */
+        flex-direction: column;
+        /* justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh; */
+        /* border: dotted rgba(34, 19, 171, 0.364) 14px; */
+    
+    } 
+
+    .container__padre{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+        width: 100%;
+        /* border: dotted rgba(5, 5, 104, 0.364) 4px; */
+    }
 }

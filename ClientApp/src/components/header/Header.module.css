@@ -82,12 +82,14 @@ align-items: center;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-evenly;
         margin-right: 10px;
         /* border: solid 3px blue; */
         /* width: 20%; */
-        width: 50%;
+        width: 70%;
+        font-size: large;
     }
+
 
     .container__izq {
         /* border: solid 3px rgb(255, 157, 0); */
@@ -129,6 +131,17 @@ align-items: center;
         font-size: 10px;
     }
 
+    .sud_sud_header{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-right: 10px;
+        width: 70%;
+        font-size: medium;
+        /* border: solid 3px blue; */
+        /* width: 20%; */
+    }
 
 
     }
@@ -147,7 +160,17 @@ align-items: center;
         /* width: 25%; */
     }
 
-
+    .sud_sud_header{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-right: 10px;
+        width: 70%;
+        font-size: medium;
+        /* border: solid 3px blue; */
+        /* width: 20%; */
+    }
 
     }
 
@@ -171,6 +194,18 @@ align-items: center;
     .container__image__cultura img{
         width: 80%;}
 
+        .sud_sud_header{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+            margin-right: 10px;
+            width: 70%;
+            font-size: small;
+            /* border: solid 3px blue; */
+            /* width: 20%; */
+        }
+
     }
 
 
@@ -188,5 +223,33 @@ align-items: center;
         /* width: 27%; */
 
     }
+    .sud_sud_header{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 10px;
+        width: 80%;
+        font-size: small;
+        /* border: solid 3px blue; */
+        /* width: 20%; */
+    }
 
     }
+/* RESPONSIVE  */
+
+@media only screen and (max-width:660px) {
+
+    
+    .sud_sud_header{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 10px;
+        width: 80%;
+        font-size: small;
+        /* border: solid 3px blue; */
+        /* width: 20%; */
+    }
+}
