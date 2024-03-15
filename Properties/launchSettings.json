@@ -19,9 +19,9 @@
     },
     "Swagger": {
       "commandName": "Project",
-      "commandLineArgs": "Swagger",
-      "launchUrl": "localhost://7005",
-      "applicationUrl": "localhost://7005/swagger/index"
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7240"
     }
   },
   "iisSettings": {
