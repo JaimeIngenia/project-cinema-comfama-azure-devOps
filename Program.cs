@@ -1,10 +1,19 @@
 using CinemaComfamaVs5.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1",new OpenApiInfo { Title="Cinema Comfama" ,
+        Description="Esta api....Tiene esta descripción"
+
+    });
+});
 
 builder.Services.AddDbContext<DBCINEMA3Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL"))
@@ -21,6 +30,12 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+if ( app.Environment.IsDevelopment() )
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseCors();
 
